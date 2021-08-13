@@ -1,0 +1,3 @@
+[submodule "Fejioa/vendor/spdlog"]
+	path = Fejioa/vendor/spdlog
+	url = https://github.com/gabime/spdlog
