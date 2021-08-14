@@ -18,6 +18,9 @@ project "Fejioa"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
+	pchheader "fjpch.h"
+	pchsource "Fejioa/src/fjpch.cpp"
+
 	files
 	{
 		"%{prj.name}/src/**.h",

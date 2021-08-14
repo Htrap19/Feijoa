@@ -1,3 +1,4 @@
+#include "fjpch.h"
 #include "Application.h"
 
 #include "Fejioa/Events/ApplicationEvent.h"

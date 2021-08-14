@@ -19,15 +19,22 @@
     <ClInclude Include="src\Fejioa\EntryPoint.h">
       <Filter>Fejioa</Filter>
     </ClInclude>
+    <ClInclude Include="src\Fejioa\Events\ApplicationEvent.h">
+      <Filter>Fejioa\Events</Filter>
+    </ClInclude>
     <ClInclude Include="src\Fejioa\Events\Event.h">
+      <Filter>Fejioa\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Fejioa\Events\KeyEvent.h">
+      <Filter>Fejioa\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Fejioa\Events\MouseEvent.h">
       <Filter>Fejioa\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Fejioa\Log.h">
       <Filter>Fejioa</Filter>
     </ClInclude>
-    <ClInclude Include="src\Fejioa\Events\ApplicationEvent.h" />
-    <ClInclude Include="src\Fejioa\Events\KeyEvent.h" />
-    <ClInclude Include="src\Fejioa\Events\MouseEvent.h" />
+    <ClInclude Include="src\fjpch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Fejioa\Application.cpp">
@@ -36,5 +43,6 @@
     <ClCompile Include="src\Fejioa\Log.cpp">
       <Filter>Fejioa</Filter>
     </ClCompile>
+    <ClCompile Include="src\fjpch.cpp" />
   </ItemGroup>
 </Project>
