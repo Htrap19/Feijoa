@@ -4,6 +4,9 @@
     <Filter Include="Fejioa">
       <UniqueIdentifier>{33B987B2-1F5B-B288-0816-C6DCF45639D9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fejioa\Events">
+      <UniqueIdentifier>{B7AD1024-236E-8C5A-ECA8-D5D75828D136}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Fejioa.h" />
@@ -16,9 +19,15 @@
     <ClInclude Include="src\Fejioa\EntryPoint.h">
       <Filter>Fejioa</Filter>
     </ClInclude>
+    <ClInclude Include="src\Fejioa\Events\Event.h">
+      <Filter>Fejioa\Events</Filter>
+    </ClInclude>
     <ClInclude Include="src\Fejioa\Log.h">
       <Filter>Fejioa</Filter>
     </ClInclude>
+    <ClInclude Include="src\Fejioa\Events\ApplicationEvent.h" />
+    <ClInclude Include="src\Fejioa\Events\KeyEvent.h" />
+    <ClInclude Include="src\Fejioa\Events\MouseEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Fejioa\Application.cpp">

@@ -1,6 +1,7 @@
 #include "Application.h"
 
-#include <iostream>
+#include "Fejioa/Events/ApplicationEvent.h"
+#include "Fejioa/Log.h"
 
 namespace Fejioa
 {
@@ -14,6 +15,16 @@ namespace Fejioa
 
 	void Fejioa::Application::Run()
 	{
+		WindowResizeEvent e(1280, 720);
+		if (e.IsInCategory(EventCategoryApplication))
+		{
+			FJ_TRACE(e);
+		}
+		if (e.IsInCategory(EventCategoryInput))
+		{
+			FJ_TRACE(e);
+		}
+
 		while (true);
 	}
 }
