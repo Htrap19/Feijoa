@@ -35,6 +35,8 @@
       <Filter>Fejioa</Filter>
     </ClInclude>
     <ClInclude Include="src\fjpch.h" />
+    <ClInclude Include="src\Fejioa\Window.h" />
+    <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Fejioa\Application.cpp">
@@ -44,5 +46,6 @@
       <Filter>Fejioa</Filter>
     </ClCompile>
     <ClCompile Include="src\fjpch.cpp" />
+    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
   </ItemGroup>
 </Project>

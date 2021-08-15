@@ -1,3 +1,6 @@
 [submodule "Fejioa/vendor/spdlog"]
 	path = Fejioa/vendor/spdlog
 	url = https://github.com/gabime/spdlog
+[submodule "Fejioa/vendor/GLFW"]
+	path = Fejioa/vendor/GLFW
+	url = https://github.com/Developmentprogramming/glfw

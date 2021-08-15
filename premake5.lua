@@ -9,6 +9,11 @@ workspace "Fejioa"
 	}
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+-- Include directories relative to root folder (solution directory)
+IncludeDir = {}
+IncludeDir["GLFW"] = "Fejioa/vendor/GLFW/include"
+
+include "Fejioa/vendor/GLFW"
 
 project "Fejioa"
 	location "Fejioa"
@@ -30,7 +35,14 @@ project "Fejioa"
 	includedirs
 	{
 		"%{prj.name}/src",
-		"%{prj.name}/vendor/spdlog/include"
+		"%{prj.name}/vendor/spdlog/include",
+		"%{IncludeDir.GLFW}"
+	}
+
+	links
+	{
+		"GLFW",
+		"opengl32.lib"
 	}
 
 	filter "system:windows"

@@ -9,7 +9,7 @@ namespace Fejioa
 	class FEJIOA_API KeyEvent : public Event
 	{
 	public:
-		inline int GetKeyCode() const { m_KeyCode; }
+		inline int GetKeyCode() const { return m_KeyCode; }
 
 		EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
 	protected:

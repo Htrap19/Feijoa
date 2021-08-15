@@ -58,6 +58,7 @@ namespace Fejioa
 	public:
 		inline int GetMouseButton() const { return m_Button; }
 
+		EVENT_CLASS_CATEGORY(EventCategoryMouseButton | EventCategoryInput)
 	protected:
 		MouseButtonEvent(int button)
 			: m_Button(button)
