@@ -7,6 +7,12 @@
     <Filter Include="Fejioa\Events">
       <UniqueIdentifier>{B7AD1024-236E-8C5A-ECA8-D5D75828D136}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows">
+      <UniqueIdentifier>{64FBD71A-50F4-F66C-7926-DCF1657ED678}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Fejioa.h" />
@@ -31,21 +37,39 @@
     <ClInclude Include="src\Fejioa\Events\MouseEvent.h">
       <Filter>Fejioa\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Fejioa\Layer.h">
+      <Filter>Fejioa</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Fejioa\LayerStack.h">
+      <Filter>Fejioa</Filter>
+    </ClInclude>
     <ClInclude Include="src\Fejioa\Log.h">
       <Filter>Fejioa</Filter>
     </ClInclude>
+    <ClInclude Include="src\Fejioa\Window.h">
+      <Filter>Fejioa</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
     <ClInclude Include="src\fjpch.h" />
-    <ClInclude Include="src\Fejioa\Window.h" />
-    <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Fejioa\Application.cpp">
       <Filter>Fejioa</Filter>
     </ClCompile>
+    <ClCompile Include="src\Fejioa\Layer.cpp">
+      <Filter>Fejioa</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Fejioa\LayerStack.cpp">
+      <Filter>Fejioa</Filter>
+    </ClCompile>
     <ClCompile Include="src\Fejioa\Log.cpp">
       <Filter>Fejioa</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
+      <Filter>Platform\Windows</Filter>
+    </ClCompile>
     <ClCompile Include="src\fjpch.cpp" />
-    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
   </ItemGroup>
 </Project>
