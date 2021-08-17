@@ -142,6 +142,14 @@ namespace Fejioa
 				MouseMovedEvent event((float)xPos, (float)yPos);
 				data.EventCallback(event);
 			});
+
+		glfwSetCharCallback(m_Window, [](GLFWwindow* window, unsigned int key)
+			{
+				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+				KeyTypedEvent event(key);
+				data.EventCallback(event);
+			});
 	}
 
 	void WindowsWindow::Shutdown()
