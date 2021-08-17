@@ -2,8 +2,10 @@
 #include "WindowsWindow.h"
 
 #include "Fejioa/Events/ApplicationEvent.h"
-#include "Fejioa/Events/KeyEvent.h"
 #include "Fejioa/Events/MouseEvent.h"
+#include "Fejioa/Events/KeyEvent.h"
+
+#include "glad/glad.h"
 
 namespace Fejioa
 {
@@ -47,6 +49,8 @@ namespace Fejioa
 
 		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, props.Title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(m_Window);
+		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		FJ_CORE_ASSERT(status, "Failed to initialize Glad!");
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 

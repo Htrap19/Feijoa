@@ -12,8 +12,10 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
 IncludeDir["GLFW"] = "Fejioa/vendor/GLFW/include"
+IncludeDir["Glad"] = "Fejioa/vendor/Glad/include"
 
 include "Fejioa/vendor/GLFW"
+include "Fejioa/vendor/Glad"
 
 project "Fejioa"
 	location "Fejioa"
@@ -36,12 +38,14 @@ project "Fejioa"
 	{
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}"
 	}
 
 	links
 	{
 		"GLFW",
+		"Glad",
 		"opengl32.lib"
 	}
 
@@ -53,7 +57,8 @@ project "Fejioa"
 		defines
 		{
 			"FJ_PLATFORM_WINDOWS",
-			"FJ_BUILD_DLL"
+			"FJ_BUILD_DLL",
+			"GLFW_INCLUDE_NONE"
 		}
 
 		postbuildcommands
