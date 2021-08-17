@@ -25,6 +25,7 @@ public:
 	SandboxApp()
 	{
 		PushLayer(new ExampleLayer());
+		PushOverlay(new Fejioa::ImGuiLayer());
 	}
 
 	~SandboxApp()
