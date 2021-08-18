@@ -29,6 +29,6 @@ namespace Fejioa
 		bool OnWindowResizedEvent(WindowResizeEvent& e);
 
 	private:
-		float m_Time;
+		float m_Time = 0.0f;
 	};
 }
