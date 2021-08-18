@@ -10,6 +10,10 @@
 	#error Fejioa only supports Windows!
 #endif
 
+#ifdef FJ_DEBUG
+	#define FJ_ENABLE_ASSERTS
+#endif
+
 #ifdef FJ_ENABLE_ASSERTS
 	#define FJ_ASSERT(x, ...) { if (!(x)) { FJ_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
 	#define FJ_CORE_ASSERT(x, ...) { if(!(x)) { FJ_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
