@@ -15,6 +15,7 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "Fejioa/vendor/GLFW/include"
 IncludeDir["Glad"] = "Fejioa/vendor/Glad/include"
 IncludeDir["ImGui"] = "Fejioa/vendor/imgui"
+IncludeDir["glm"] = "Fejioa/vendor/glm"
 
 include "Fejioa/vendor/GLFW"
 include "Fejioa/vendor/Glad"
@@ -35,7 +36,9 @@ project "Fejioa"
 	files
 	{
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
+		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor/glm/**.hpp",
+		"%{prj.name}/vendor/glm/**.inl"
 	}
 
 	includedirs
@@ -44,7 +47,8 @@ project "Fejioa"
 		"%{prj.name}/vendor/spdlog/include",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
-		"%{IncludeDir.ImGui}"
+		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.glm}"
 	}
 
 	links
@@ -104,7 +108,8 @@ project "Sandbox"
 	includedirs
 	{
 		"Fejioa/vendor/spdlog/include",
-		"Fejioa/src"
+		"Fejioa/src",
+		"%{IncludeDir.glm}"
 	}
 
 	links
