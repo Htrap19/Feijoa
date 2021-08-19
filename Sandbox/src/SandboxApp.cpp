@@ -1,5 +1,7 @@
 #include <Fejioa.h>
 
+#include "imgui/imgui.h"
+
 class ExampleLayer : public Fejioa::Layer
 {
 public:
@@ -8,13 +10,20 @@ public:
 	{
 	}
 
-	void OnUpdate() override
+	virtual void OnUpdate() override
 	{
 		if (Fejioa::Input::IsKeyPressed(FJ_KEY_TAB))
 			FJ_TRACE("Tab key is pressed (Poll)!");
 	}
 
-	void OnEvent(Fejioa::Event& e)
+	virtual void OnImGuiRender() override
+	{
+		ImGui::Begin("Test");
+		ImGui::Text("Hello World");
+		ImGui::End();
+	}
+
+	virtual void OnEvent(Fejioa::Event& e) override
 	{
 		if (e.GetEventType() == Fejioa::EventType::KeyPressed)
 		{
@@ -33,7 +42,6 @@ public:
 	SandboxApp()
 	{
 		PushLayer(new ExampleLayer());
-		PushOverlay(new Fejioa::ImGuiLayer());
 	}
 
 	~SandboxApp()

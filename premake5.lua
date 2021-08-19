@@ -109,6 +109,7 @@ project "Sandbox"
 	{
 		"Fejioa/vendor/spdlog/include",
 		"Fejioa/src",
+		"Fejioa/vendor/",
 		"%{IncludeDir.glm}"
 	}
 
