@@ -10,12 +10,20 @@ public:
 
 	void OnUpdate() override
 	{
-		FJ_INFO("ExampleLayer::Update");
+		if (Fejioa::Input::IsKeyPressed(FJ_KEY_TAB))
+			FJ_TRACE("Tab key is pressed (Poll)!");
 	}
 
 	void OnEvent(Fejioa::Event& e)
 	{
-		FJ_TRACE("{0}", e);
+		if (e.GetEventType() == Fejioa::EventType::KeyPressed)
+		{
+			Fejioa::KeyPressedEvent& event = (Fejioa::KeyPressedEvent&)e;
+			if (event.GetKeyCode() == FJ_KEY_TAB)
+				FJ_TRACE("Tab key is pressed (Event)!");
+
+			FJ_TRACE("{0}", (char)event.GetKeyCode());
+		}
 	}
 };
 

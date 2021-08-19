@@ -4,6 +4,7 @@
 #include "Fejioa/Events/ApplicationEvent.h"
 #include "Fejioa/Log.h"
 
+#include "Input.h"
 #include <glad/glad.h>
 
 namespace Fejioa
