@@ -18,6 +18,11 @@ namespace Fejioa
 		glfwMakeContextCurrent(m_WindowHandle);
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		FJ_CORE_ASSERT(status, "Failed to initialize Glad!");
+
+		FJ_CORE_INFO("OpenGL Info: ");
+		FJ_CORE_INFO("  Vendor: {0}", glGetString(GL_VENDOR));
+		FJ_CORE_INFO("  Renderer: {0}", glGetString(GL_RENDERER));
+		FJ_CORE_INFO("  Version: {0}", glGetString(GL_VERSION));
 	}
 
 	void OpenGLContext::SwapBuffers()
