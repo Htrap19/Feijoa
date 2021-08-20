@@ -140,7 +140,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="OpenGLContext.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Fejioa.h" />
     <ClInclude Include="src\Fejioa\Application.h" />
     <ClInclude Include="src\Fejioa\Core.h" />
@@ -578,7 +578,7 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="OpenGLContext.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Fejioa\Application.cpp" />
     <ClCompile Include="src\Fejioa\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Fejioa\ImGui\ImGuiLayer.cpp" />

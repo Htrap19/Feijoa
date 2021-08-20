@@ -1345,7 +1345,7 @@
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
     <ClInclude Include="src\Fejioa\Renderer\GraphicsContext.h" />
-    <ClInclude Include="OpenGLContext.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Fejioa\Application.cpp">
@@ -1375,6 +1375,6 @@
     <ClCompile Include="src\fjpch.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="OpenGLContext.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
   </ItemGroup>
 </Project>

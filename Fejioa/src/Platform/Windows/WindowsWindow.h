@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Fejioa/Window.h"
+#include "Fejioa/Renderer/GraphicsContext.h"
 
 #include <GLFW/glfw3.h>
 
@@ -30,6 +31,7 @@ namespace Fejioa
 
 	private:
 		GLFWwindow* m_Window;
+		GraphicsContext* m_Context;
 
 		struct WindowData
 		{
