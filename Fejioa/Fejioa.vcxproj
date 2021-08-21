@@ -140,7 +140,6 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Fejioa.h" />
     <ClInclude Include="src\Fejioa\Application.h" />
     <ClInclude Include="src\Fejioa\Core.h" />
@@ -157,7 +156,9 @@
     <ClInclude Include="src\Fejioa\Log.h" />
     <ClInclude Include="src\Fejioa\MouseButtonCodes.h" />
     <ClInclude Include="src\Fejioa\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\Fejioa\Renderer\Shader.h" />
     <ClInclude Include="src\Fejioa\Window.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\fjpch.h" />
@@ -578,13 +579,14 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Fejioa\Application.cpp" />
     <ClCompile Include="src\Fejioa\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Fejioa\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Fejioa\Layer.cpp" />
     <ClCompile Include="src\Fejioa\LayerStack.cpp" />
     <ClCompile Include="src\Fejioa\Log.cpp" />
+    <ClCompile Include="src\Fejioa\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\fjpch.cpp">
