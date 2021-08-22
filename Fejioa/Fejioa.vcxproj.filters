@@ -1357,6 +1357,9 @@
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
     <ClInclude Include="src\Fejioa\Renderer\Shader.h" />
+    <ClInclude Include="src\Fejioa\Renderer\Buffer.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
+    <ClInclude Include="src\Fejioa\Renderer\Renderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Fejioa\Application.cpp">
@@ -1390,5 +1393,8 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\Fejioa\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Fejioa\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
+    <ClCompile Include="src\Fejioa\Renderer\Renderer.cpp" />
   </ItemGroup>
 </Project>

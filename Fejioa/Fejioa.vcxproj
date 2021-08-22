@@ -155,9 +155,12 @@
     <ClInclude Include="src\Fejioa\LayerStack.h" />
     <ClInclude Include="src\Fejioa\Log.h" />
     <ClInclude Include="src\Fejioa\MouseButtonCodes.h" />
+    <ClInclude Include="src\Fejioa\Renderer\Buffer.h" />
     <ClInclude Include="src\Fejioa\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\Fejioa\Renderer\Renderer.h" />
     <ClInclude Include="src\Fejioa\Renderer\Shader.h" />
     <ClInclude Include="src\Fejioa\Window.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
@@ -585,7 +588,10 @@
     <ClCompile Include="src\Fejioa\Layer.cpp" />
     <ClCompile Include="src\Fejioa\LayerStack.cpp" />
     <ClCompile Include="src\Fejioa\Log.cpp" />
+    <ClCompile Include="src\Fejioa\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Fejioa\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Fejioa\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
