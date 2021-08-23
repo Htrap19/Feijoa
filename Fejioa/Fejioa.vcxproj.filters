@@ -1360,6 +1360,8 @@
     <ClInclude Include="src\Fejioa\Renderer\Buffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Fejioa\Renderer\Renderer.h" />
+    <ClInclude Include="src\Fejioa\Renderer\VertexArray.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Fejioa\Application.cpp">
@@ -1396,5 +1398,7 @@
     <ClCompile Include="src\Fejioa\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Fejioa\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Fejioa\Renderer\VertexArray.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
   </ItemGroup>
 </Project>

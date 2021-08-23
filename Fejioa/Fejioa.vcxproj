@@ -159,9 +159,11 @@
     <ClInclude Include="src\Fejioa\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Fejioa\Renderer\Renderer.h" />
     <ClInclude Include="src\Fejioa\Renderer\Shader.h" />
+    <ClInclude Include="src\Fejioa\Renderer\VertexArray.h" />
     <ClInclude Include="src\Fejioa\Window.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\fjpch.h" />
@@ -591,8 +593,10 @@
     <ClCompile Include="src\Fejioa\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Fejioa\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Fejioa\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Fejioa\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\fjpch.cpp">
