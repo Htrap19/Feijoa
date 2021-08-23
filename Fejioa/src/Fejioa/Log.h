@@ -25,11 +25,11 @@ namespace Fejioa
 #define FJ_CORE_WARN(...)        ::Fejioa::Log::GetCoreLogger()->warn(__VA_ARGS__)
 #define FJ_CORE_INFO(...)        ::Fejioa::Log::GetCoreLogger()->info(__VA_ARGS__)
 #define FJ_CORE_TRACE(...)       ::Fejioa::Log::GetCoreLogger()->trace(__VA_ARGS__)
-#define FJ_CORE_FATAL(...)       ::Fejioa::Log::GetCoreLogger()->fatal(__VA_ARGS__)
+#define FJ_CORE_FATAL(...)       ::Fejioa::Log::GetCoreLogger()->critical(__VA_ARGS__)
 
 // Client log macros
 #define FJ_ERROR(...)            ::Fejioa::Log::GetClientLogger()->error(__VA_ARGS__)
 #define FJ_WARN(...)             ::Fejioa::Log::GetClientLogger()->warn(__VA_ARGS__)
 #define FJ_INFO(...)             ::Fejioa::Log::GetClientLogger()->info(__VA_ARGS__)
 #define FJ_TRACE(...)            ::Fejioa::Log::GetClientLogger()->trace(__VA_ARGS__)
-#define FJ_FATAL(...)            ::Fejioa::Log::GetClientLogger()->fatal(__VA_ARGS__)
+#define FJ_FATAL(...)            ::Fejioa::Log::GetClientLogger()->critical(__VA_ARGS__)

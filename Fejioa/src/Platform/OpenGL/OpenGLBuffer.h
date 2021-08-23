@@ -13,8 +13,12 @@ namespace Fejioa
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
 
+		inline void SetLayout(const BufferLayout& layout) override { m_Layout = layout; }
+		inline const BufferLayout& GetLayout() const override { return m_Layout; }
+
 	private:
 		unsigned int m_RendererID;
+		BufferLayout m_Layout;
 	};
 
 	class OpenGLIndexBuffer : public IndexBuffer
