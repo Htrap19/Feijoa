@@ -5,7 +5,7 @@
 #include "Fejioa/Log.h"
 
 #include "Input.h"
-#include <glad/glad.h>
+#include "Renderer/Renderer.h"
 
 namespace Fejioa
 {
@@ -31,6 +31,7 @@ namespace Fejioa
 			 0.5f, -0.5f, 0.0f,		0.2f, 0.3f, 0.8f, 1.0f,
 			 0.0f,  0.5f, 0.0f,		0.8f, 0.8f, 0.2f, 1.0f
 		};
+
 		std::shared_ptr<VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
 		vertexBuffer->SetLayout({
@@ -154,16 +155,18 @@ namespace Fejioa
 	{
 		while (m_Running)
 		{
-			glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT);
+			RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
+			RenderCommand::Clear();
+
+			Renderer::BeginScene();
 
 			m_BlueShader->Bind();
-			m_SquareVA->Bind();
-			glDrawElements(GL_TRIANGLES, m_SquareVA->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			Renderer::Submit(m_SquareVA);
 
 			m_Shader->Bind();
-			m_VertexArray->Bind();
-			glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			Renderer::Submit(m_VertexArray);
+
+			Renderer::EndScene();
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();

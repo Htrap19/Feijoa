@@ -11,8 +11,8 @@ namespace Fejioa
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::None: FJ_CORE_ASSERT(false, "Renderer::None is currently not supported!"); return nullptr;
-		case RendererAPI::OpenGL: return new OpenGLVertexArray();
+		case RendererAPI::API::None: FJ_CORE_ASSERT(false, "Renderer::None is currently not supported!"); return nullptr;
+		case RendererAPI::API::OpenGL: return new OpenGLVertexArray();
 
 		default:
 			break;
