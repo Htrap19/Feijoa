@@ -9,8 +9,4 @@ namespace Fejioa
 	{
 	}
 
-	Layer::~Layer()
-	{
-	}
-
 }
