@@ -1,7 +1,10 @@
 #include <Fejioa.h>
 
+#include "Platform/OpenGL/OpenGLShader.h"
+
 #include "imgui/imgui.h"
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 class ExampleLayer : public Fejioa::Layer
 {
@@ -86,9 +89,9 @@ public:
 				color = v_Color;
 			}
 		)";
-		m_Shader.reset(new Fejioa::Shader(vertexSource, fragmentSource));
+		m_Shader.reset(Fejioa::Shader::Create(vertexSource, fragmentSource));
 
-		std::string blueShaderVertexSource = R"(
+		std::string flatColorShaderVertexSrc = R"(
 			#version 330 core
 
 			layout (location = 0) in vec3 a_Position;
@@ -102,18 +105,20 @@ public:
 			}
 		)";
 
-		std::string blueShaderFragmentSource = R"(
+		std::string flatColorShaderFragmentSrc = R"(
 			#version 330 core
 
 			layout (location = 0) out vec4 color;
+
+			uniform vec3 u_Color;
 			
 			void main()
 			{
-				color = vec4(0.2, 0.3, 0.8, 1.0);
+				color = vec4(u_Color, 1.0);
 			}
 		)";
 
-		m_BlueShader.reset(new Fejioa::Shader(blueShaderVertexSource, blueShaderFragmentSource));
+		m_FlatColorShader.reset(Fejioa::Shader::Create(flatColorShaderVertexSrc, flatColorShaderFragmentSrc));
 	}
 
 	virtual void OnUpdate(Fejioa::Timestep ts) override
@@ -143,13 +148,16 @@ public:
 
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
+		std::dynamic_pointer_cast<Fejioa::OpenGLShader>(m_FlatColorShader)->Bind();
+		std::dynamic_pointer_cast<Fejioa::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat3("u_Color", m_SquareColor);
+
 		for (int y = 0; y < 20; y++)
 		{
 			for (int x = 0; x < 20; x++)
 			{
 				glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
 				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
-				Fejioa::Renderer::Submit(m_BlueShader, m_SquareVA, transform);
+				Fejioa::Renderer::Submit(m_FlatColorShader, m_SquareVA, transform);
 			}
 		}
 
@@ -158,6 +166,9 @@ public:
 
 	virtual void OnImGuiRender() override
 	{
+		ImGui::Begin("Settings");
+		ImGui::ColorEdit3("Square Color", glm::value_ptr(m_SquareColor));
+		ImGui::End();
 	}
 
 	virtual void OnEvent(Fejioa::Event& e) override
@@ -168,7 +179,7 @@ public:
 		std::shared_ptr<Fejioa::Shader> m_Shader;
 		std::shared_ptr<Fejioa::VertexArray> m_VertexArray;
 
-		std::shared_ptr<Fejioa::Shader> m_BlueShader;
+		std::shared_ptr<Fejioa::Shader> m_FlatColorShader;
 		std::shared_ptr<Fejioa::VertexArray> m_SquareVA;
 
 		Fejioa::OrthographicCamera m_Camera;
@@ -177,6 +188,8 @@ public:
 
 		float m_CameraRotation = 0.0f;
 		float m_CameraRatationSpeed = 180.0f;
+
+		glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
 };
 
 class SandboxApp : public Fejioa::Application
