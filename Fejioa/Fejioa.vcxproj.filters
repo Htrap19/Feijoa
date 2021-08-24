@@ -1365,6 +1365,7 @@
     <ClInclude Include="src\Fejioa\Renderer\RendererAPI.h" />
     <ClInclude Include="src\Fejioa\Renderer\RenderCommand.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
+    <ClInclude Include="src\Fejioa\Renderer\OrthographicCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Fejioa\Application.cpp">
@@ -1406,5 +1407,6 @@
     <ClCompile Include="src\Fejioa\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\Fejioa\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
+    <ClCompile Include="src\Fejioa\Renderer\OrthographicCamera.cpp" />
   </ItemGroup>
 </Project>

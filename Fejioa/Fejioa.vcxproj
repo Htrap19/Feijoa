@@ -157,6 +157,7 @@
     <ClInclude Include="src\Fejioa\MouseButtonCodes.h" />
     <ClInclude Include="src\Fejioa\Renderer\Buffer.h" />
     <ClInclude Include="src\Fejioa\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\Fejioa\Renderer\OrthographicCamera.h" />
     <ClInclude Include="src\Fejioa\Renderer\RenderCommand.h" />
     <ClInclude Include="src\Fejioa\Renderer\Renderer.h" />
     <ClInclude Include="src\Fejioa\Renderer\RendererAPI.h" />
@@ -594,6 +595,7 @@
     <ClCompile Include="src\Fejioa\LayerStack.cpp" />
     <ClCompile Include="src\Fejioa\Log.cpp" />
     <ClCompile Include="src\Fejioa\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Fejioa\Renderer\OrthographicCamera.cpp" />
     <ClCompile Include="src\Fejioa\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\Fejioa\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Fejioa\Renderer\RendererAPI.cpp" />
