@@ -143,6 +143,7 @@
     <ClInclude Include="src\Fejioa.h" />
     <ClInclude Include="src\Fejioa\Application.h" />
     <ClInclude Include="src\Fejioa\Core.h" />
+    <ClInclude Include="src\Fejioa\Core\Timestep.h" />
     <ClInclude Include="src\Fejioa\EntryPoint.h" />
     <ClInclude Include="src\Fejioa\Events\ApplicationEvent.h" />
     <ClInclude Include="src\Fejioa\Events\Event.h" />

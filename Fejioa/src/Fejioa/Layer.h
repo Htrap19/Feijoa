@@ -1,11 +1,12 @@
 #pragma once
 
 #include "Fejioa/Core.h"
+#include "Fejioa/Core/Timestep.h"
 #include "Fejioa/Events/Event.h"
 
 namespace Fejioa
 {
-	class FEJIOA_API Layer
+	class Layer
 	{
 	public:
 		Layer(const std::string& name = "Layer");
@@ -13,7 +14,7 @@ namespace Fejioa
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(Timestep ts) {}
 		virtual void OnImGuiRender() {}
 		virtual void OnEvent(Event& e) {}
 

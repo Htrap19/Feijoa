@@ -1366,6 +1366,7 @@
     <ClInclude Include="src\Fejioa\Renderer\RenderCommand.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
     <ClInclude Include="src\Fejioa\Renderer\OrthographicCamera.h" />
+    <ClInclude Include="src\Fejioa\Core\Timestep.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Fejioa\Application.cpp">
