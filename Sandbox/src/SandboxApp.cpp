@@ -157,6 +157,7 @@ public:
 		m_TextureShader.reset(Fejioa::Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
 
 		m_Texture = Fejioa::Texture2D::Create("assets/textures/Checkerboard.png");
+		m_FejioaLogoTexture = Fejioa::Texture2D::Create("assets/textures/FejioaLogo.png");
 
 		std::dynamic_pointer_cast<Fejioa::OpenGLShader>(m_TextureShader)->Bind();
 		std::dynamic_pointer_cast<Fejioa::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
@@ -205,6 +206,9 @@ public:
 		m_Texture->Bind();
 		Fejioa::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
+		m_FejioaLogoTexture->Bind();
+		Fejioa::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
 		Fejioa::Renderer::EndScene();
 	}
 
@@ -226,7 +230,7 @@ public:
 		Fejioa::Ref<Fejioa::Shader> m_FlatColorShader, m_TextureShader;
 		Fejioa::Ref<Fejioa::VertexArray> m_SquareVA;
 
-		Fejioa::Ref<Fejioa::Texture2D> m_Texture;
+		Fejioa::Ref<Fejioa::Texture2D> m_Texture, m_FejioaLogoTexture;
 
 		Fejioa::OrthographicCamera m_Camera;
 		glm::vec3 m_CameraPosition;
