@@ -21,7 +21,7 @@ public:
 			 0.0f,  0.5f, 0.0f,		0.8f, 0.8f, 0.2f, 1.0f
 		};
 
-		std::shared_ptr<Fejioa::VertexBuffer> vertexBuffer;
+		Fejioa::Ref<Fejioa::VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(Fejioa::VertexBuffer::Create(vertices, sizeof(vertices)));
 		vertexBuffer->SetLayout({
 			{ Fejioa::ShaderDataType::Float3, "a_Position" },
@@ -30,28 +30,29 @@ public:
 		m_VertexArray->AddVertexBuffer(vertexBuffer);
 
 		unsigned int indices[] = { 0, 1, 2 };
-		std::shared_ptr<Fejioa::IndexBuffer> indexBuffer;
+		Fejioa::Ref<Fejioa::IndexBuffer> indexBuffer;
 		indexBuffer.reset(Fejioa::IndexBuffer::Create(indices, sizeof(indices) / sizeof(indices[0])));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
 		m_SquareVA.reset(Fejioa::VertexArray::Create());
-		float squarevertices[3 * 4] =
+		float squarevertices[5 * 4] =
 		{
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.5f,  0.5f, 0.0f,
-			-0.5f,  0.5f, 0.0f,
+			-0.5f, -0.5f, 0.0f,		0.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f,		1.0f, 0.0f,
+			 0.5f,  0.5f, 0.0f,		1.0f, 1.0f,
+			-0.5f,  0.5f, 0.0f,		0.0f, 1.0f
 		};
 
-		std::shared_ptr<Fejioa::VertexBuffer> squareVB;
+		Fejioa::Ref<Fejioa::VertexBuffer> squareVB;
 		squareVB.reset(Fejioa::VertexBuffer::Create(squarevertices, sizeof(squarevertices)));
 		squareVB->SetLayout({
-			{ Fejioa::ShaderDataType::Float3, "a_Position" }
+			{ Fejioa::ShaderDataType::Float3, "a_Position" },
+			{ Fejioa::ShaderDataType::Float2, "a_TexCoord" }
 			});
 		m_SquareVA->AddVertexBuffer(squareVB);
 
 		unsigned int squareIndices[] = { 0, 1, 2, 2, 3, 0 };
-		std::shared_ptr<Fejioa::IndexBuffer> squereIB;
+		Fejioa::Ref<Fejioa::IndexBuffer> squereIB;
 		squereIB.reset(Fejioa::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(squareIndices[0])));
 		m_SquareVA->SetIndexBuffer(squereIB);
 
@@ -119,6 +120,46 @@ public:
 		)";
 
 		m_FlatColorShader.reset(Fejioa::Shader::Create(flatColorShaderVertexSrc, flatColorShaderFragmentSrc));
+
+		std::string textureShaderVertexSrc = R"(
+			#version 330 core
+
+			layout (location = 0) in vec3 a_Position;
+			layout (location = 1) in vec2 a_TexCoord;
+
+			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
+
+			out vec2 v_TexCoord;
+
+			void main()
+			{
+				v_TexCoord = a_TexCoord;
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
+			}
+		)";
+
+		std::string textureShaderFragmentSrc = R"(
+			#version 330 core
+
+			layout (location = 0) out vec4 color;
+
+			in vec2 v_TexCoord;
+
+			uniform sampler2D u_Texture;
+			
+			void main()
+			{
+				color = texture(u_Texture, v_TexCoord);
+			}
+		)";
+
+		m_TextureShader.reset(Fejioa::Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
+
+		m_Texture = Fejioa::Texture2D::Create("assets/textures/Checkerboard.png");
+
+		std::dynamic_pointer_cast<Fejioa::OpenGLShader>(m_TextureShader)->Bind();
+		std::dynamic_pointer_cast<Fejioa::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
 	}
 
 	virtual void OnUpdate(Fejioa::Timestep ts) override
@@ -161,6 +202,9 @@ public:
 			}
 		}
 
+		m_Texture->Bind();
+		Fejioa::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
 		Fejioa::Renderer::EndScene();
 	}
 
@@ -176,11 +220,13 @@ public:
 	}
 
 	private:
-		std::shared_ptr<Fejioa::Shader> m_Shader;
-		std::shared_ptr<Fejioa::VertexArray> m_VertexArray;
+		Fejioa::Ref<Fejioa::Shader> m_Shader;
+		Fejioa::Ref<Fejioa::VertexArray> m_VertexArray;
 
-		std::shared_ptr<Fejioa::Shader> m_FlatColorShader;
-		std::shared_ptr<Fejioa::VertexArray> m_SquareVA;
+		Fejioa::Ref<Fejioa::Shader> m_FlatColorShader, m_TextureShader;
+		Fejioa::Ref<Fejioa::VertexArray> m_SquareVA;
+
+		Fejioa::Ref<Fejioa::Texture2D> m_Texture;
 
 		Fejioa::OrthographicCamera m_Camera;
 		glm::vec3 m_CameraPosition;

@@ -16,6 +16,7 @@ IncludeDir["GLFW"] = "Fejioa/vendor/GLFW/include"
 IncludeDir["Glad"] = "Fejioa/vendor/Glad/include"
 IncludeDir["ImGui"] = "Fejioa/vendor/imgui"
 IncludeDir["glm"] = "Fejioa/vendor/glm"
+IncludeDir["stb_image"] = "Fejioa/vendor/stb_image"
 
 group "Dependencies"
 	include "Fejioa/vendor/GLFW"
@@ -42,7 +43,9 @@ project "Fejioa"
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
 		"%{prj.name}/vendor/glm/**.hpp",
-		"%{prj.name}/vendor/glm/**.inl"
+		"%{prj.name}/vendor/glm/**.inl",
+		"%{prj.name}/vendor/stb_image/**.h",
+		"%{prj.name}/vendor/stb_image/**.cpp"
 	}
 
 	includedirs
@@ -52,7 +55,8 @@ project "Fejioa"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.stb_image}"
 	}
 
 	defines

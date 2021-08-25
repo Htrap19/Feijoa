@@ -20,6 +20,7 @@
 
 #include "Fejioa/Renderer/Buffer.h"
 #include "Fejioa/Renderer/Shader.h"
+#include "Fejioa/Renderer/Texture.h"
 #include "Fejioa/Renderer/VertexArray.h"
 
 #include "Fejioa/Renderer/OrthographicCamera.h"
