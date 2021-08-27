@@ -90,7 +90,7 @@ public:
 				color = v_Color;
 			}
 		)";
-		m_Shader.reset(Fejioa::Shader::Create(vertexSource, fragmentSource));
+		m_Shader = Fejioa::Shader::Create("VertexPosColor", vertexSource, fragmentSource);
 
 		std::string flatColorShaderVertexSrc = R"(
 			#version 330 core
@@ -119,15 +119,15 @@ public:
 			}
 		)";
 
-		m_FlatColorShader.reset(Fejioa::Shader::Create(flatColorShaderVertexSrc, flatColorShaderFragmentSrc));
+		m_FlatColorShader = Fejioa::Shader::Create("FlatColor", flatColorShaderVertexSrc, flatColorShaderFragmentSrc);
 
-		m_TextureShader.reset(Fejioa::Shader::Create("assets/shaders/Texture.glsl"));
+		auto textureShader = m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
 
 		m_Texture = Fejioa::Texture2D::Create("assets/textures/Checkerboard.png");
 		m_FejioaLogoTexture = Fejioa::Texture2D::Create("assets/textures/FejioaLogo.png");
 
-		std::dynamic_pointer_cast<Fejioa::OpenGLShader>(m_TextureShader)->Bind();
-		std::dynamic_pointer_cast<Fejioa::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
+		std::dynamic_pointer_cast<Fejioa::OpenGLShader>(textureShader)->Bind();
+		std::dynamic_pointer_cast<Fejioa::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
 	}
 
 	virtual void OnUpdate(Fejioa::Timestep ts) override
@@ -170,11 +170,13 @@ public:
 			}
 		}
 
+		auto textureShader = m_ShaderLibrary.Get("Texture");
+
 		m_Texture->Bind();
-		Fejioa::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		Fejioa::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 		m_FejioaLogoTexture->Bind();
-		Fejioa::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		Fejioa::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 		Fejioa::Renderer::EndScene();
 	}
@@ -191,10 +193,11 @@ public:
 	}
 
 	private:
+		Fejioa::ShaderLibrary m_ShaderLibrary;
 		Fejioa::Ref<Fejioa::Shader> m_Shader;
 		Fejioa::Ref<Fejioa::VertexArray> m_VertexArray;
 
-		Fejioa::Ref<Fejioa::Shader> m_FlatColorShader, m_TextureShader;
+		Fejioa::Ref<Fejioa::Shader> m_FlatColorShader;
 		Fejioa::Ref<Fejioa::VertexArray> m_SquareVA;
 
 		Fejioa::Ref<Fejioa::Texture2D> m_Texture, m_FejioaLogoTexture;
