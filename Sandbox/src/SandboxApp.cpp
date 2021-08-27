@@ -10,7 +10,7 @@ class ExampleLayer : public Fejioa::Layer
 {
 public:
 	ExampleLayer()
-		: Layer("Example"), m_CameraController(1280.0f / 720.0f, true)
+		: Layer("Example"), m_CameraController(1280.0f / 720.0f)
 	{
 		m_VertexArray.reset(Fejioa::VertexArray::Create());
 
