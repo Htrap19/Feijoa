@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Fejioa/Core.h"
+#include "Fejioa/Core/Core.h"
 #include "Fejioa/Core/Timestep.h"
 #include "Fejioa/Events/Event.h"
 

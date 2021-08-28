@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Fejioa/Window.h"
+#include "Fejioa/Core/Window.h"
 #include "Fejioa/Renderer/GraphicsContext.h"
 
 #include <GLFW/glfw3.h>

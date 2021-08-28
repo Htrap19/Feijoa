@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Fejioa/Input.h"
+#include "Fejioa/Core/Input.h"
 
 namespace Fejioa
 {

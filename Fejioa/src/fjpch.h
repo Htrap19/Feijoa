@@ -13,7 +13,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
-#include "Fejioa/Log.h"
+#include "Fejioa/Core/Log.h"
 
 #ifdef FJ_PLATFORM_WINDOWS
 	#include <Windows.h>

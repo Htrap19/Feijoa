@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Fejioa/Core.h"
+#include "Fejioa/Core/Core.h"
 
 #include <string>
 #include <functional>

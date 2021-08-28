@@ -2,10 +2,10 @@
 #include "Application.h"
 
 #include "Fejioa/Events/ApplicationEvent.h"
-#include "Fejioa/Log.h"
+#include "Fejioa/Core/Log.h"
 
-#include "Core/Timestep.h"
-#include "Renderer/Renderer.h"
+#include "Timestep.h"
+#include "Fejioa/Renderer/Renderer.h"
 
 #include <GLFW/glfw3.h>
 

@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "Fejioa/Core.h"
+#include "Fejioa/Core/Core.h"
 
 namespace Fejioa
 {

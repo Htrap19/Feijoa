@@ -2,9 +2,9 @@
 
 #include "Core.h"
 #include "Window.h"
-#include "Events/ApplicationEvent.h"
+#include "Fejioa/Events/ApplicationEvent.h"
 #include "LayerStack.h"
-#include "ImGui/ImGuiLayer.h"
+#include "Fejioa/ImGui/ImGuiLayer.h"
 
 namespace Fejioa
 {

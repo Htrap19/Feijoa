@@ -1,8 +1,8 @@
 #include "fjpch.h"
 #include "OrthographicCameraController.h"
 
-#include "Fejioa/Input.h"
-#include "Fejioa/KeyCodes.h"
+#include "Fejioa/Core/Input.h"
+#include "Fejioa/Core/KeyCodes.h"
 
 namespace Fejioa
 {

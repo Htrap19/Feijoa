@@ -57,17 +57,38 @@
     <ClInclude Include="src\Fejioa.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\Fejioa\Application.h">
-      <Filter>src\Fejioa</Filter>
+    <ClInclude Include="src\Fejioa\Core\Application.h">
+      <Filter>src\Fejioa\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Fejioa\Core.h">
-      <Filter>src\Fejioa</Filter>
+    <ClInclude Include="src\Fejioa\Core\Core.h">
+      <Filter>src\Fejioa\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Fejioa\Core\EntryPoint.h">
+      <Filter>src\Fejioa\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Fejioa\Core\Input.h">
+      <Filter>src\Fejioa\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Fejioa\Core\KeyCodes.h">
+      <Filter>src\Fejioa\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Fejioa\Core\Layer.h">
+      <Filter>src\Fejioa\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Fejioa\Core\LayerStack.h">
+      <Filter>src\Fejioa\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Fejioa\Core\Log.h">
+      <Filter>src\Fejioa\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Fejioa\Core\MouseButtonCodes.h">
+      <Filter>src\Fejioa\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Fejioa\Core\Timestep.h">
       <Filter>src\Fejioa\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Fejioa\EntryPoint.h">
-      <Filter>src\Fejioa</Filter>
+    <ClInclude Include="src\Fejioa\Core\Window.h">
+      <Filter>src\Fejioa\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Fejioa\Events\ApplicationEvent.h">
       <Filter>src\Fejioa\Events</Filter>
@@ -84,24 +105,6 @@
     <ClInclude Include="src\Fejioa\ImGui\ImGuiLayer.h">
       <Filter>src\Fejioa\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="src\Fejioa\Input.h">
-      <Filter>src\Fejioa</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Fejioa\KeyCodes.h">
-      <Filter>src\Fejioa</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Fejioa\Layer.h">
-      <Filter>src\Fejioa</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Fejioa\LayerStack.h">
-      <Filter>src\Fejioa</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Fejioa\Log.h">
-      <Filter>src\Fejioa</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Fejioa\MouseButtonCodes.h">
-      <Filter>src\Fejioa</Filter>
-    </ClInclude>
     <ClInclude Include="src\Fejioa\Renderer\Buffer.h">
       <Filter>src\Fejioa\Renderer</Filter>
     </ClInclude>
@@ -109,6 +112,9 @@
       <Filter>src\Fejioa\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Fejioa\Renderer\OrthographicCamera.h">
+      <Filter>src\Fejioa\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Fejioa\Renderer\OrthographicCameraController.h">
       <Filter>src\Fejioa\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Fejioa\Renderer\RenderCommand.h">
@@ -128,9 +134,6 @@
     </ClInclude>
     <ClInclude Include="src\Fejioa\Renderer\VertexArray.h">
       <Filter>src\Fejioa\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Fejioa\Window.h">
-      <Filter>src\Fejioa</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h">
       <Filter>src\Platform\OpenGL</Filter>
@@ -1407,11 +1410,19 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Fejioa\OrthographicCameraController.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Fejioa\Application.cpp">
-      <Filter>src\Fejioa</Filter>
+    <ClCompile Include="src\Fejioa\Core\Application.cpp">
+      <Filter>src\Fejioa\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Fejioa\Core\Layer.cpp">
+      <Filter>src\Fejioa\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Fejioa\Core\LayerStack.cpp">
+      <Filter>src\Fejioa\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Fejioa\Core\Log.cpp">
+      <Filter>src\Fejioa\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Fejioa\ImGui\ImGuiBuild.cpp">
       <Filter>src\Fejioa\ImGui</Filter>
@@ -1419,19 +1430,13 @@
     <ClCompile Include="src\Fejioa\ImGui\ImGuiLayer.cpp">
       <Filter>src\Fejioa\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="src\Fejioa\Layer.cpp">
-      <Filter>src\Fejioa</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Fejioa\LayerStack.cpp">
-      <Filter>src\Fejioa</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Fejioa\Log.cpp">
-      <Filter>src\Fejioa</Filter>
-    </ClCompile>
     <ClCompile Include="src\Fejioa\Renderer\Buffer.cpp">
       <Filter>src\Fejioa\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Fejioa\Renderer\OrthographicCamera.cpp">
+      <Filter>src\Fejioa\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Fejioa\Renderer\OrthographicCameraController.cpp">
       <Filter>src\Fejioa\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Fejioa\Renderer\RenderCommand.cpp">
@@ -1482,6 +1487,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Fejioa\OrthographicCameraController.cpp" />
   </ItemGroup>
 </Project>

@@ -1,7 +1,7 @@
 #include "fjpch.h"
 #include "WindowsInput.h"
 
-#include "Fejioa/Application.h"
+#include "Fejioa/Core/Application.h"
 #include <GLFW/glfw3.h>
 
 namespace Fejioa

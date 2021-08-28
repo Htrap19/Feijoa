@@ -2,16 +2,16 @@
 
 // For use by Fejioa applications
 
-#include "Fejioa/Application.h"
-#include "Fejioa/Layer.h"
-#include "Fejioa/Log.h"
+#include "Fejioa/Core/Application.h"
+#include "Fejioa/Core/Layer.h"
+#include "Fejioa/Core/Log.h"
 
 #include "Fejioa/Core/Timestep.h"
 
-#include "Fejioa/Input.h"
-#include "Fejioa/KeyCodes.h"
-#include "Fejioa/MouseButtonCodes.h"
-#include "Fejioa/OrthographicCameraController.h"
+#include "Fejioa/Core/Input.h"
+#include "Fejioa/Core/KeyCodes.h"
+#include "Fejioa/Core/MouseButtonCodes.h"
+#include "Fejioa/Renderer/OrthographicCameraController.h"
 
 #include "Fejioa/ImGui/ImGuiLayer.h"
 
@@ -28,5 +28,5 @@
 // --------------------------------------
 
 // -- Entry Point -----------------------
-#include "Fejioa/EntryPoint.h"
+#include "Fejioa/Core/EntryPoint.h"
 // --------------------------------------
