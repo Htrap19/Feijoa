@@ -1,4 +1,5 @@
 #include <Fejioa.h>
+#include <Fejioa/Core/EntryPoint.h>
 
 #include "Platform/OpenGL/OpenGLShader.h"
 
@@ -6,13 +7,15 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "Sandbox2D.h"
+
 class ExampleLayer : public Fejioa::Layer
 {
 public:
 	ExampleLayer()
 		: Layer("Example"), m_CameraController(1280.0f / 720.0f)
 	{
-		m_VertexArray.reset(Fejioa::VertexArray::Create());
+		m_VertexArray = Fejioa::VertexArray::Create();
 
 		float vertices[3 * 7] = {
 			-0.5f, -0.5f, 0.0f,		0.8f, 0.2f, 0.8f, 1.0f,
@@ -21,7 +24,7 @@ public:
 		};
 
 		Fejioa::Ref<Fejioa::VertexBuffer> vertexBuffer;
-		vertexBuffer.reset(Fejioa::VertexBuffer::Create(vertices, sizeof(vertices)));
+		vertexBuffer = Fejioa::VertexBuffer::Create(vertices, sizeof(vertices));
 		vertexBuffer->SetLayout({
 			{ Fejioa::ShaderDataType::Float3, "a_Position" },
 			{ Fejioa::ShaderDataType::Float4, "a_Color" },
@@ -30,10 +33,10 @@ public:
 
 		unsigned int indices[] = { 0, 1, 2 };
 		Fejioa::Ref<Fejioa::IndexBuffer> indexBuffer;
-		indexBuffer.reset(Fejioa::IndexBuffer::Create(indices, sizeof(indices) / sizeof(indices[0])));
+		indexBuffer = Fejioa::IndexBuffer::Create(indices, sizeof(indices) / sizeof(indices[0]));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
-		m_SquareVA.reset(Fejioa::VertexArray::Create());
+		m_SquareVA = Fejioa::VertexArray::Create();
 		float squarevertices[5 * 4] =
 		{
 			-0.5f, -0.5f, 0.0f,		0.0f, 0.0f,
@@ -43,7 +46,7 @@ public:
 		};
 
 		Fejioa::Ref<Fejioa::VertexBuffer> squareVB;
-		squareVB.reset(Fejioa::VertexBuffer::Create(squarevertices, sizeof(squarevertices)));
+		squareVB = Fejioa::VertexBuffer::Create(squarevertices, sizeof(squarevertices));
 		squareVB->SetLayout({
 			{ Fejioa::ShaderDataType::Float3, "a_Position" },
 			{ Fejioa::ShaderDataType::Float2, "a_TexCoord" }
@@ -52,7 +55,7 @@ public:
 
 		unsigned int squareIndices[] = { 0, 1, 2, 2, 3, 0 };
 		Fejioa::Ref<Fejioa::IndexBuffer> squereIB;
-		squereIB.reset(Fejioa::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(squareIndices[0])));
+		squereIB = Fejioa::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(squareIndices[0]));
 		m_SquareVA->SetIndexBuffer(squereIB);
 
 		std::string vertexSource = R"(
@@ -91,34 +94,7 @@ public:
 		)";
 		m_Shader = Fejioa::Shader::Create("VertexPosColor", vertexSource, fragmentSource);
 
-		std::string flatColorShaderVertexSrc = R"(
-			#version 330 core
-
-			layout (location = 0) in vec3 a_Position;
-
-			uniform mat4 u_ViewProjection;
-			uniform mat4 u_Transform;
-
-			void main()
-			{
-				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
-			}
-		)";
-
-		std::string flatColorShaderFragmentSrc = R"(
-			#version 330 core
-
-			layout (location = 0) out vec4 color;
-
-			uniform vec3 u_Color;
-			
-			void main()
-			{
-				color = vec4(u_Color, 1.0);
-			}
-		)";
-
-		m_FlatColorShader = Fejioa::Shader::Create("FlatColor", flatColorShaderVertexSrc, flatColorShaderFragmentSrc);
+		m_FlatColorShader = Fejioa::Shader::Create("assets/shaders/FlatColor.glsl");
 
 		auto textureShader = m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
 
@@ -196,7 +172,8 @@ class SandboxApp : public Fejioa::Application
 public:
 	SandboxApp()
 	{
-		PushLayer(new ExampleLayer());
+		//PushLayer(new ExampleLayer());
+		PushLayer(new Sandbox2D);
 	}
 
 	~SandboxApp()

@@ -25,8 +25,5 @@
 #include "Fejioa/Renderer/VertexArray.h"
 
 #include "Fejioa/Renderer/OrthographicCamera.h"
-// --------------------------------------
 
-// -- Entry Point -----------------------
-#include "Fejioa/Core/EntryPoint.h"
 // --------------------------------------
