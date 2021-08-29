@@ -2,6 +2,7 @@
 #include "Renderer.h"
 
 #include "Platform/OpenGL/OpenGLShader.h"
+#include "Fejioa/Renderer/Renderer2D.h"
 
 namespace Fejioa
 {
@@ -10,6 +11,7 @@ namespace Fejioa
 	void Renderer::Init()
 	{
 		RenderCommand::Init();
+		Renderer2D::Init();
 	}
 
 	void Renderer::OnWindowResize(unsigned int width, unsigned int height)

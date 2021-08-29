@@ -17,6 +17,7 @@
 
 // -- Renderer --------------------------
 #include "Fejioa/Renderer/Renderer.h"
+#include "Fejioa/Renderer/Renderer2D.h"
 #include "Fejioa/Renderer/RenderCommand.h"
 
 #include "Fejioa/Renderer/Buffer.h"
