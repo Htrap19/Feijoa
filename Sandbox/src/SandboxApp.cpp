@@ -31,7 +31,7 @@ public:
 			});
 		m_VertexArray->AddVertexBuffer(vertexBuffer);
 
-		unsigned int indices[] = { 0, 1, 2 };
+		uint32_t indices[] = { 0, 1, 2 };
 		Fejioa::Ref<Fejioa::IndexBuffer> indexBuffer;
 		indexBuffer = Fejioa::IndexBuffer::Create(indices, sizeof(indices) / sizeof(indices[0]));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
@@ -53,7 +53,7 @@ public:
 			});
 		m_SquareVA->AddVertexBuffer(squareVB);
 
-		unsigned int squareIndices[] = { 0, 1, 2, 2, 3, 0 };
+		uint32_t squareIndices[] = { 0, 1, 2, 2, 3, 0 };
 		Fejioa::Ref<Fejioa::IndexBuffer> squereIB;
 		squereIB = Fejioa::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(squareIndices[0]));
 		m_SquareVA->SetIndexBuffer(squereIB);

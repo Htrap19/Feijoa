@@ -76,7 +76,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>fjpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;FJ_PLATFORM_WINDOWS;FJ_BUILD_DLL;GLFW_INCLUDE_NONE;FJ_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;FJ_BUILD_DLL;GLFW_INCLUDE_NONE;FJ_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
@@ -96,7 +96,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>fjpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;FJ_PLATFORM_WINDOWS;FJ_BUILD_DLL;GLFW_INCLUDE_NONE;FJ_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;FJ_BUILD_DLL;GLFW_INCLUDE_NONE;FJ_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -120,7 +120,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>fjpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;FJ_PLATFORM_WINDOWS;FJ_BUILD_DLL;GLFW_INCLUDE_NONE;FJ_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;FJ_BUILD_DLL;GLFW_INCLUDE_NONE;FJ_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -602,6 +602,7 @@
     <ClCompile Include="src\Fejioa\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Fejioa\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Fejioa\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Fejioa\Renderer\GraphicsContext.cpp" />
     <ClCompile Include="src\Fejioa\Renderer\OrthographicCamera.cpp" />
     <ClCompile Include="src\Fejioa\Renderer\OrthographicCameraController.cpp" />
     <ClCompile Include="src\Fejioa\Renderer\RenderCommand.cpp" />

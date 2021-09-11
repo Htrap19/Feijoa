@@ -12,7 +12,7 @@ namespace Fejioa
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None: FJ_CORE_ASSERT(false, "Renderer::None is currently not supported!"); return nullptr;
-		case RendererAPI::API::OpenGL: return std::make_shared<OpenGLVertexArray>();
+		case RendererAPI::API::OpenGL: return CreateRef<OpenGLVertexArray>();
 
 		default:
 			break;

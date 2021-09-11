@@ -5,7 +5,7 @@
 
 namespace Fejioa
 {
-	class FEJIOA_API LayerStack
+	class LayerStack
 	{
 	public:
 		LayerStack();

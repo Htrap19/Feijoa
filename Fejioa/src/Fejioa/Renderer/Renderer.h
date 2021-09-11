@@ -1,8 +1,8 @@
 #pragma once
 
-#include "RenderCommand.h"
-#include "OrthographicCamera.h"
-#include "Shader.h"
+#include "Fejioa/Renderer/RenderCommand.h"
+#include "Fejioa/Renderer/OrthographicCamera.h"
+#include "Fejioa/Renderer/Shader.h"
 
 namespace Fejioa
 {
@@ -10,11 +10,12 @@ namespace Fejioa
 	{
 	public:
 		static void Init();
+		static void Shutdown();
 		static void OnWindowResize(unsigned int width, unsigned int height);
 		static void BeginScene(OrthographicCamera& camera);
 		static void EndScene();
 
-		static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray, const glm::mat4& transform);
+		static void Submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& transform);
 
 		static inline RendererAPI::API GetAPI() { return RendererAPI::GetApi(); }
 

@@ -41,8 +41,7 @@ namespace Fejioa
 		s_Data->QuadVertexArray->AddVertexBuffer(squareVB);
 
 		unsigned int squareIndices[] = { 0, 1, 2, 2, 3, 0 };
-		Fejioa::Ref<Fejioa::IndexBuffer> squereIB;
-		squereIB = Fejioa::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(squareIndices[0]));
+		Fejioa::Ref<Fejioa::IndexBuffer> squereIB = Fejioa::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(squareIndices[0]));
 		s_Data->QuadVertexArray->SetIndexBuffer(squereIB);
 
 		s_Data->WhiteTexture = Texture2D::Create(1, 1);

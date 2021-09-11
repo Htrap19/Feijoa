@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Core.h"
-#include "Window.h"
+#include "Fejioa/Core/Core.h"
+#include "Fejioa/Core/Window.h"
 #include "Fejioa/Events/ApplicationEvent.h"
-#include "LayerStack.h"
+#include "Fejioa/Core/LayerStack.h"
 #include "Fejioa/ImGui/ImGuiLayer.h"
 
 namespace Fejioa
@@ -12,7 +12,7 @@ namespace Fejioa
 	{
 	public:
 		Application();
-		virtual ~Application() = default;
+		virtual ~Application();
 
 		void Run();
 		

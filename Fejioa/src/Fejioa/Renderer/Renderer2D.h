@@ -1,8 +1,7 @@
 #pragma once
 
-#include "OrthographicCamera.h"
-
-#include "Texture.h"
+#include "Fejioa/Renderer/OrthographicCamera.h"
+#include "Fejioa/Renderer/Texture.h"
 
 namespace Fejioa
 {

@@ -1,7 +1,7 @@
 #include "fjpch.h"
 #include "Buffer.h"
 
-#include "Renderer.h"
+#include "Fejioa/Renderer/Renderer.h"
 
 #include "Platform/OpenGL/OpenGLBuffer.h"
 
@@ -12,8 +12,8 @@ namespace Fejioa
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::API::None:		FJ_CORE_ASSERT(false, "Renderer::None is currently not supported!"); return nullptr;
-		case RendererAPI::API::OpenGL:	return std::make_shared<OpenGLVertexBuffer>(vertices, size);
+		case RendererAPI::API::None: FJ_CORE_ASSERT(false, "Renderer::None is currently not supported!"); return nullptr;
+		case RendererAPI::API::OpenGL: return CreateRef<OpenGLVertexBuffer>(vertices, size);
 
 		default:
 			break;
@@ -27,8 +27,8 @@ namespace Fejioa
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::API::None:		FJ_CORE_ASSERT(false, "Renderer::None is currently not supported!"); return nullptr;
-		case RendererAPI::API::OpenGL:	return std::make_shared<OpenGLIndexBuffer>(indices, count * sizeof(unsigned int));
+		case RendererAPI::API::None: FJ_CORE_ASSERT(false, "Renderer::None is currently not supported!"); return nullptr;
+		case RendererAPI::API::OpenGL: return CreateRef<OpenGLIndexBuffer>(indices, count * sizeof(unsigned int));
 
 		default:
 			break;

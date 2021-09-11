@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Event.h"
+#include "Fejioa/Events/Event.h"
 
 #include <sstream>
 
 namespace Fejioa
 {
-	class FEJIOA_API MouseMovedEvent : public Event
+	class MouseMovedEvent : public Event
 	{
 	public:
 		MouseMovedEvent(float x, float y)
@@ -30,7 +30,7 @@ namespace Fejioa
 		float m_MouseX, m_MouseY;
 	};
 
-	class FEJIOA_API MouseScrolledEvent : public Event
+	class MouseScrolledEvent : public Event
 	{
 	public:
 		MouseScrolledEvent(float xOffset, float yOffset)
@@ -53,7 +53,7 @@ namespace Fejioa
 		float m_OffsetX, m_OffsetY;
 	};
 
-	class FEJIOA_API MouseButtonEvent : public Event
+	class MouseButtonEvent : public Event
 	{
 	public:
 		inline int GetMouseButton() const { return m_Button; }
@@ -67,7 +67,7 @@ namespace Fejioa
 		int m_Button;
 	};
 
-	class FEJIOA_API MouseButtonPressedEvent : public MouseButtonEvent
+	class MouseButtonPressedEvent : public MouseButtonEvent
 	{
 	public:
 		MouseButtonPressedEvent(int button)
@@ -84,7 +84,7 @@ namespace Fejioa
 		EVENT_CLASS_TYPE(MouseButtonPressed)
 	};
 
-	class FEJIOA_API MouseButtonReleasedEvent : public MouseButtonEvent
+	class MouseButtonReleasedEvent : public MouseButtonEvent
 	{
 	public:
 		MouseButtonReleasedEvent(int button)

@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Event.h"
+#include "Fejioa/Events/Event.h"
 
 #include <sstream>
 
 namespace Fejioa
 {
-	class FEJIOA_API KeyEvent : public Event
+	class KeyEvent : public Event
 	{
 	public:
 		inline int GetKeyCode() const { return m_KeyCode; }
@@ -20,7 +20,7 @@ namespace Fejioa
 		int m_KeyCode;
 	};
 
-	class FEJIOA_API KeyPressedEvent : public KeyEvent
+	class KeyPressedEvent : public KeyEvent
 	{
 	public:
 		KeyPressedEvent(int keyCode, int repeatCount)
@@ -41,7 +41,7 @@ namespace Fejioa
 		int m_RepeatCount;
 	};
 
-	class FEJIOA_API KeyReleasedEvent : public KeyEvent
+	class KeyReleasedEvent : public KeyEvent
 	{
 	public:
 		KeyReleasedEvent(int keyCode)
@@ -58,7 +58,7 @@ namespace Fejioa
 		EVENT_CLASS_TYPE(KeyReleased)
 	};
 
-	class FEJIOA_API KeyTypedEvent : public KeyEvent
+	class KeyTypedEvent : public KeyEvent
 	{
 	public:
 		KeyTypedEvent(int keyCode)

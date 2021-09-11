@@ -123,6 +123,9 @@
     <ClInclude Include="src\Fejioa\Renderer\Renderer.h">
       <Filter>src\Fejioa\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Fejioa\Renderer\Renderer2D.h">
+      <Filter>src\Fejioa\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Fejioa\Renderer\RendererAPI.h">
       <Filter>src\Fejioa\Renderer</Filter>
     </ClInclude>
@@ -1410,7 +1413,6 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Fejioa\Renderer\Renderer2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Fejioa\Core\Application.cpp">
@@ -1434,6 +1436,9 @@
     <ClCompile Include="src\Fejioa\Renderer\Buffer.cpp">
       <Filter>src\Fejioa\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Fejioa\Renderer\GraphicsContext.cpp">
+      <Filter>src\Fejioa\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Fejioa\Renderer\OrthographicCamera.cpp">
       <Filter>src\Fejioa\Renderer</Filter>
     </ClCompile>
@@ -1444,6 +1449,9 @@
       <Filter>src\Fejioa\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Fejioa\Renderer\Renderer.cpp">
+      <Filter>src\Fejioa\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Fejioa\Renderer\Renderer2D.cpp">
       <Filter>src\Fejioa\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Fejioa\Renderer\RendererAPI.cpp">
@@ -1488,6 +1496,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Fejioa\Renderer\Renderer2D.cpp" />
   </ItemGroup>
 </Project>

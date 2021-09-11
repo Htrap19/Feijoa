@@ -2,18 +2,33 @@
 
 #include <memory>
 
-#ifdef FJ_PLATFORM_WINDOWS
-	#ifdef FJ_DYNAMIC_LINK
-		#ifdef FJ_BUILD_DLL
-			#define FEJIOA_API __declspec(dllexport)
-		#else
-			#define FEJIOA_API __declspec(dllimport)
-		#endif
+#ifdef _WIN32
+	#ifdef _WIN64
+		#define FJ_PLATFORM_WINDOWS
 	#else
-		#define FEJIOA_API
+		#error "x86 builds not supported"
+	#endif // _WIN64
+#elif defined(__APPLE__) || defined(__MACH__)
+	#include "<TargetConditionals.h>"
+	#if TARGET_IPHONE_SIMULATOR == 1
+		#error "IOS simulator is not supported!"
+	#elif TARGET_OS_IPHONE == 1
+		#define FJ_PLATFORM_IOS
+		#error "IOS is not supported!"
+	#elif TARGET_OS_MAC == 1
+		#define FJ_PLATFORM_MACOS
+		#error "MacOS not supported!"
+	#else
+		#error "Unknown Apple platform!"
 	#endif
+#elif defined(__ANDROID__)
+	#define FJ_PLATFORM_ANDROID
+	#error "Android is not supported!"
+#elif defined(__linux__)
+	#define FJ_PLATFORM_LINUX
+	#error "Linux is not supported!"
 #else
-	#error Fejioa only supports Windows!
+	#error "Unknown platform!"
 #endif
 
 #ifdef FJ_DEBUG
@@ -47,7 +62,7 @@ namespace Fejioa
 	using Ref = std::shared_ptr<T>;
 
 	template <typename T, typename ... Args>
-	constexpr Ref<T> CreareRef(Args&& ... args)
+	constexpr Ref<T> CreateRef(Args&& ... args)
 	{
 		return std::make_shared<T>(std::forward<Args>(args)...);
 	}

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "RendererAPI.h"
+#include "Fejioa/Renderer/RendererAPI.h"
 
 namespace Fejioa
 {
@@ -11,9 +11,9 @@ namespace Fejioa
 		static inline void SetViewport(unsigned int x, unsigned int y, unsigned int width, unsigned int height) { s_RendererAPI->SetViewport(x, y, width, height); }
 		static inline void Clear() { s_RendererAPI->Clear(); }
 		static inline void SetClearColor(const glm::vec4& color) { s_RendererAPI->SetClearColor(color); }
-		static inline void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray) { s_RendererAPI->DrawIndexed(vertexArray); }
+		static inline void DrawIndexed(const Ref<VertexArray>& vertexArray) { s_RendererAPI->DrawIndexed(vertexArray); }
 
 	private:
-		static RendererAPI* s_RendererAPI;
+		static Scope<RendererAPI> s_RendererAPI;
 	};
 }

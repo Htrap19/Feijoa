@@ -77,7 +77,6 @@ project "Fejioa"
 
 		defines
 		{
-			"FJ_PLATFORM_WINDOWS",
 			"FJ_BUILD_DLL",
 			"GLFW_INCLUDE_NONE"
 		}

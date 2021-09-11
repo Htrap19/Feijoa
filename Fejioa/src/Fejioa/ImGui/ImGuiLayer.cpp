@@ -1,15 +1,14 @@
 #include "fjpch.h"
 #include "ImGuiLayer.h"
 
-#include "imgui.h"
+#include <imgui.h>
 #include "Fejioa/Core/Application.h"
 
-#include "backends/imgui_impl_glfw.h"
-#include "backends/imgui_impl_opengl3.h"
+#include <backends/imgui_impl_glfw.h>
+#include <backends/imgui_impl_opengl3.h>
 
 // Temp
 #include <glfw/glfw3.h>
-#include <glad/glad.h>
 
 namespace Fejioa
 {

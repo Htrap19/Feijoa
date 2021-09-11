@@ -4,21 +4,22 @@
 #include "Fejioa/Events/ApplicationEvent.h"
 #include "Fejioa/Events/MouseEvent.h"
 #include "Fejioa/Events/KeyEvent.h"
+#include "Fejioa/Core/Core.h"
 
 #include "Platform/OpenGL/OpenGLContext.h"
 
 namespace Fejioa
 {
-	static bool s_GLFWInitialized = false;
+	static unsigned int s_GLFWWindowCount = 0;
 
 	static void GLFWErrorCallback(int error, const char* description)
 	{
 		FJ_CORE_ERROR("GLFW error ({0}): {1}", error, description);
 	}
 
-	Window* Window::Create(const WindowProps& props /* = WindowProps() */)
+	Scope<Window> Window::Create(const WindowProps& props /* = WindowProps() */)
 	{
-		return new WindowsWindow(props);
+		return CreateScope<WindowsWindow>(props);
 	}
 
 	WindowsWindow::WindowsWindow(const WindowProps& props)
@@ -39,16 +40,16 @@ namespace Fejioa
 
 		FJ_CORE_INFO("Creating Window {0} ({1}, {2})", props.Title, props.Width, props.Height);
 
-		if (!s_GLFWInitialized)
+		if (s_GLFWWindowCount == 0)
 		{
 			int success = glfwInit();
 			FJ_CORE_ASSERT(success, "Could not initialize GLFW!");
 			glfwSetErrorCallback(GLFWErrorCallback);
-			s_GLFWInitialized = true;
 		}
 
 		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, props.Title.c_str(), nullptr, nullptr);
-		m_Context = new OpenGLContext(m_Window);
+		s_GLFWWindowCount++;
+		m_Context = GraphicsContext::Create(m_Window);
 		m_Context->Init();
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
@@ -154,7 +155,9 @@ namespace Fejioa
 	void WindowsWindow::Shutdown()
 	{
 		glfwDestroyWindow(m_Window);
-		delete m_Context;
+		--s_GLFWWindowCount;
+		if (s_GLFWWindowCount == 0)
+			glfwTerminate();
 	}
 
 	void WindowsWindow::OnUpdate()

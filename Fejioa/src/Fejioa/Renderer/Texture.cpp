@@ -11,7 +11,7 @@ namespace Fejioa
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None: FJ_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-		case RendererAPI::API::OpenGL: return CreareRef<OpenGLTexture2D>(width, height);
+		case RendererAPI::API::OpenGL: return CreateRef<OpenGLTexture2D>(width, height);
 
 		default:
 			break;
@@ -26,7 +26,7 @@ namespace Fejioa
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None: FJ_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-		case RendererAPI::API::OpenGL: return CreareRef<OpenGLTexture2D>(path);
+		case RendererAPI::API::OpenGL: return CreateRef<OpenGLTexture2D>(path);
 
 		default:
 			break;

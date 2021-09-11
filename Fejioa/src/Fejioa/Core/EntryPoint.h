@@ -1,4 +1,5 @@
 #pragma once
+#include "Fejioa/Core/Core.h"
 
 #ifdef FJ_PLATFORM_WINDOWS
 
