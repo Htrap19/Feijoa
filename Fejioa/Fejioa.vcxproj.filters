@@ -10,6 +10,9 @@
     <Filter Include="src\Fejioa\Core">
       <UniqueIdentifier>{02C98D7B-6E54-FB3F-7765-7E34E36F5740}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Fejioa\Debug">
+      <UniqueIdentifier>{604453ED-4C3D-723F-756F-57C461C7514B}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Fejioa\Events">
       <UniqueIdentifier>{0E23469B-7A39-4431-C3B0-CF522F0615B9}</UniqueIdentifier>
     </Filter>
@@ -89,6 +92,9 @@
     </ClInclude>
     <ClInclude Include="src\Fejioa\Core\Window.h">
       <Filter>src\Fejioa\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Fejioa\Debug\Instrumentor.h">
+      <Filter>src\Fejioa\Debug</Filter>
     </ClInclude>
     <ClInclude Include="src\Fejioa\Events\ApplicationEvent.h">
       <Filter>src\Fejioa\Events</Filter>
@@ -1413,7 +1419,6 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Fejioa\Debug\Instrumentor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Fejioa\Core\Application.cpp">
