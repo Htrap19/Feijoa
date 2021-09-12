@@ -22,10 +22,14 @@
 		#error "Unknown Apple platform!"
 	#endif
 #elif defined(__ANDROID__)
-	#define FJ_PLATFORM_ANDROID
+	#ifdef FJ_PLATFORM_ANDROID
+		#define FJ_PLATFORM_ANDROID
+	#endif
 	#error "Android is not supported!"
 #elif defined(__linux__)
-	#define FJ_PLATFORM_LINUX
+	#ifdef FJ_PLATFORM_LINUX
+		#define FJ_PLATFORM_LINUX
+	#endif
 	#error "Linux is not supported!"
 #else
 	#error "Unknown platform!"
