@@ -14,6 +14,7 @@
 #include <unordered_set>
 
 #include "Fejioa/Core/Log.h"
+#include "Fejioa/Debug/Instrumentor.h"
 
 #ifdef FJ_PLATFORM_WINDOWS
 	#include <Windows.h>

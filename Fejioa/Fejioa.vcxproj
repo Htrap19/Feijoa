@@ -152,6 +152,7 @@
     <ClInclude Include="src\Fejioa\Core\MouseButtonCodes.h" />
     <ClInclude Include="src\Fejioa\Core\Timestep.h" />
     <ClInclude Include="src\Fejioa\Core\Window.h" />
+    <ClInclude Include="src\Fejioa\Debug\Instrumentor.h" />
     <ClInclude Include="src\Fejioa\Events\ApplicationEvent.h" />
     <ClInclude Include="src\Fejioa\Events\Event.h" />
     <ClInclude Include="src\Fejioa\Events\KeyEvent.h" />

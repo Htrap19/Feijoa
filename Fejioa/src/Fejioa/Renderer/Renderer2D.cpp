@@ -32,8 +32,7 @@ namespace Fejioa
 			-0.5f,  0.5f, 0.0f,		0.0f, 1.0f
 		};
 
-		Fejioa::Ref<Fejioa::VertexBuffer> squareVB;
-		squareVB = Fejioa::VertexBuffer::Create(squarevertices, sizeof(squarevertices));
+		Fejioa::Ref<Fejioa::VertexBuffer> squareVB = Fejioa::VertexBuffer::Create(squarevertices, sizeof(squarevertices));
 		squareVB->SetLayout({
 			{ Fejioa::ShaderDataType::Float3, "a_Position" },
 			{ Fejioa::ShaderDataType::Float2, "a_Tex" }
