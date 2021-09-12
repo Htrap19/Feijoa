@@ -1,5 +1,5 @@
 #include "fjpch.h"
-#include "OpenGLTexture2D.h"
+#include "OpenGLTexture.h"
 
 #include <stb_image.h>
 
@@ -9,6 +9,8 @@ namespace Fejioa
 	OpenGLTexture2D::OpenGLTexture2D(const std::string& path)
 		: m_Path(path)
 	{
+		FJ_PROFILE_FUNCTION();
+
 		int width, height, channels;
 		stbi_set_flip_vertically_on_load(true);
 		stbi_uc* data = stbi_load(path.c_str(), &width, &height, &channels, 0);
@@ -51,6 +53,8 @@ namespace Fejioa
 	OpenGLTexture2D::OpenGLTexture2D(unsigned int width, unsigned int height)
 		: m_Width(width), m_Height(height)
 	{
+		FJ_PROFILE_FUNCTION();
+
 		m_InternalFormat = GL_RGBA8;
 		m_DataFormat = GL_RGBA;
 
@@ -65,11 +69,15 @@ namespace Fejioa
 
 	OpenGLTexture2D::~OpenGLTexture2D()
 	{
+		FJ_PROFILE_FUNCTION();
+
 		glDeleteTextures(1, &m_RendererID);
 	}
 
 	void OpenGLTexture2D::SetData(void* data, unsigned int size)
 	{
+		FJ_PROFILE_FUNCTION();
+
 		unsigned int bpp = m_DataFormat == GL_RGBA ? 4 : 3;
 		FJ_CORE_ASSERT(size == m_Width * m_Height * bpp, "Data must be entire texture!");
 		glBindTexture(GL_TEXTURE_2D, m_RendererID);
@@ -78,6 +86,8 @@ namespace Fejioa
 
 	void OpenGLTexture2D::Bind(unsigned int slot /*= 0*/) const
 	{
+		FJ_PROFILE_FUNCTION();
+
 		glBindTexture(GL_TEXTURE_2D, m_RendererID);
 		glActiveTexture(GL_TEXTURE0 + slot);
 	}

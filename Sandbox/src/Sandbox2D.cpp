@@ -12,11 +12,14 @@ Sandbox2D::Sandbox2D()
 
 void Sandbox2D::OnAttach()
 {
+	FJ_PROFILE_FUNCTION();
+
 	m_CheckerBoardTexture = Fejioa::Texture2D::Create("assets/textures/Checkerboard.png");
 }
 
 void Sandbox2D::OnDetach()
 {
+	FJ_PROFILE_FUNCTION();
 }
 
 void Sandbox2D::OnUpdate(Fejioa::Timestep ts)
@@ -24,10 +27,7 @@ void Sandbox2D::OnUpdate(Fejioa::Timestep ts)
 	FJ_PROFILE_FUNCTION();
 
 	// Update
-	{
-		FJ_PROFILE_SCOPE("CameraController::OnUpdate");
-		m_CameraController.OnUpdate(ts);
-	}
+	m_CameraController.OnUpdate(ts);
 
 	// Render
 	{

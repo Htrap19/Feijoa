@@ -10,6 +10,8 @@ namespace Fejioa
 	
 	void Renderer::Init()
 	{
+		FJ_PROFILE_FUNCTION();
+
 		RenderCommand::Init();
 		Renderer2D::Init();
 	}

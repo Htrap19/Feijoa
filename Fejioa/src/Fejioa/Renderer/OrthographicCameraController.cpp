@@ -15,6 +15,8 @@ namespace Fejioa
 
 	void OrthographicCameraController::OnUpdate(Timestep ts)
 	{
+		FJ_PROFILE_FUNCTION();
+
 		if (Fejioa::Input::IsKeyPressed(FJ_KEY_A))
 			m_CameraPosition.x -= m_CameraTranslationSpeed * ts;
 		else if (Fejioa::Input::IsKeyPressed(FJ_KEY_D))
@@ -42,6 +44,8 @@ namespace Fejioa
 
 	void OrthographicCameraController::OnEvent(Event& e)
 	{
+		FJ_PROFILE_FUNCTION();
+
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<MouseScrolledEvent>(FJ_BIND_EVENT_FN(OrthographicCameraController::OnMouseScrolled));
 		dispatcher.Dispatch<WindowResizeEvent>(FJ_BIND_EVENT_FN(OrthographicCameraController::OnWindowResized));
@@ -49,6 +53,8 @@ namespace Fejioa
 
 	bool OrthographicCameraController::OnMouseScrolled(MouseScrolledEvent& e)
 	{
+		FJ_PROFILE_FUNCTION();
+
 		m_ZoomLevel -= e.GetYOffset() * 0.25f;
 		m_ZoomLevel = std::max(m_ZoomLevel, 0.25f);
 		m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
@@ -57,6 +63,8 @@ namespace Fejioa
 
 	bool OrthographicCameraController::OnWindowResized(WindowResizeEvent& e)
 	{
+		FJ_PROFILE_FUNCTION();
+
 		m_AspectRatio = (float)e.GetWidth() / (float)e.GetHeight();
 		m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
 		return false;
