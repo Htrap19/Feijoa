@@ -7,6 +7,20 @@
 
 namespace Fejioa
 {
+	Ref<VertexBuffer> VertexBuffer::Create(unsigned int size)
+	{
+		switch (Renderer::GetAPI())
+		{
+		case RendererAPI::API::None: FJ_CORE_ASSERT(false, "Renderer::None is currently not supported!"); return nullptr;
+		case RendererAPI::API::OpenGL: return CreateRef<OpenGLVertexBuffer>(size);
+
+		default:
+			break;
+		}
+
+		FJ_CORE_ASSERT(false, "Unknown RendererAPI!");
+		return nullptr;
+	}
 
 	Ref<VertexBuffer> VertexBuffer::Create(float* vertices, unsigned int size)
 	{

@@ -11,6 +11,6 @@ namespace Fejioa
 		virtual void SetViewport(unsigned int x, unsigned int y, unsigned int width, unsigned int height) override;
 		virtual void Clear() override;
 		virtual void SetClearColor(const glm::vec4& color) override;
-		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray) override;
+		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray, unsigned int indexCount = 0) override;
 	};
 }

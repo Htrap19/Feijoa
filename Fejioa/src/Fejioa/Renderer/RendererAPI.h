@@ -23,7 +23,7 @@ namespace Fejioa
 		virtual void Clear() = 0;
 		virtual void SetClearColor(const glm::vec4& color) = 0;
 		
-		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray) = 0;
+		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray, unsigned int indexCount = 0) = 0;
 
 		static inline API GetApi() { return s_API; }
 		static Scope<RendererAPI> Create();

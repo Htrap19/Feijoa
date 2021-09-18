@@ -123,7 +123,7 @@ namespace Fejioa
 		std::chrono::time_point<std::chrono::steady_clock> m_StartTimePoint;
 	};
 
-#define FJ_PROFILE 1
+#define FJ_PROFILE 0
 #if FJ_PROFILE
 	#define FJ_PROFILE_BEGIN_SESSION(name, filepath) ::Fejioa::Instrumentor::Get().BeginSession(name, filepath)
 	#define FJ_PROFILE_END_SESSION() ::Fejioa::Instrumentor::Get().EndSession()

@@ -128,11 +128,6 @@ project "Sandbox"
 	filter "system:windows"
 		systemversion "latest"
 
-		defines
-		{
-			"FJ_PLATFORM_WINDOWS"
-		}
-
 		filter "configurations:Debug"
 			defines "FJ_DEBUG"
 			runtime "Debug"
