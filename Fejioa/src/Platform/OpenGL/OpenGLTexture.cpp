@@ -88,8 +88,8 @@ namespace Fejioa
 	{
 		FJ_PROFILE_FUNCTION();
 
-		glBindTexture(GL_TEXTURE_2D, m_RendererID);
 		glActiveTexture(GL_TEXTURE0 + slot);
+		glBindTexture(GL_TEXTURE_2D, m_RendererID);
 	}
 
 }

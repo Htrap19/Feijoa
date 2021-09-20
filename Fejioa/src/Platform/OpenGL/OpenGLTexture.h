@@ -19,6 +19,11 @@ namespace Fejioa
 
 		virtual void Bind(unsigned int slot = 0) const override;
 
+		virtual inline bool operator==(const Texture& other) const override
+		{
+			return m_RendererID == ((OpenGLTexture2D&)other).m_RendererID;
+		}
+
 	private:
 		unsigned int m_Width, m_Height;
 		unsigned int m_RendererID;
