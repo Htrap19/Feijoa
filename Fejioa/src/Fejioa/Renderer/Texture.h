@@ -13,6 +13,7 @@ namespace Fejioa
 
 		virtual unsigned int GetWidth() const = 0;
 		virtual unsigned int GetHeight() const = 0;
+		virtual unsigned int GetRendererID() const = 0;
 
 		virtual void SetData(void* data, unsigned int size) = 0;
 

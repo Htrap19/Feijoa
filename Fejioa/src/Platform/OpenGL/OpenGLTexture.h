@@ -14,6 +14,7 @@ namespace Fejioa
 
 		virtual inline unsigned int GetWidth() const override { return m_Width; }
 		virtual inline unsigned int GetHeight() const override { return m_Height; }
+		virtual inline unsigned int GetRendererID() const override { return m_RendererID; }
 
 		virtual void SetData(void* data, unsigned int size) override;
 
