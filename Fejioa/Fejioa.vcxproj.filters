@@ -63,7 +63,7 @@
     <ClInclude Include="src\Fejioa\Core\Application.h">
       <Filter>src\Fejioa\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Fejioa\Core\Base.h">
+    <ClInclude Include="src\Fejioa\Core\Core.h">
       <Filter>src\Fejioa\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Fejioa\Core\EntryPoint.h">
@@ -1420,6 +1420,8 @@
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
     <ClInclude Include="src\Fejioa\Renderer\FrameBuffer.h" />
+    <ClInclude Include="src\Fejioa\Core\Base.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLFrameBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Fejioa\Core\Application.cpp">
@@ -1504,5 +1506,6 @@
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
     <ClCompile Include="src\Fejioa\Renderer\FrameBuffer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLFrameBuffer.cpp" />
   </ItemGroup>
 </Project>

@@ -23,6 +23,7 @@
 
 #include "Fejioa/Renderer/Buffer.h"
 #include "Fejioa/Renderer/Shader.h"
+#include "Fejioa/Renderer/FrameBuffer.h"
 #include "Fejioa/Renderer/Texture.h"
 #include "Fejioa/Renderer/VertexArray.h"
 

@@ -4,7 +4,7 @@
 #include "Fejioa/Events/ApplicationEvent.h"
 #include "Fejioa/Events/MouseEvent.h"
 #include "Fejioa/Events/KeyEvent.h"
-#include "Fejioa/Core/Core.h"
+#include "Fejioa/Core/Base.h"
 
 #include "Platform/OpenGL/OpenGLContext.h"
 

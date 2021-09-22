@@ -15,6 +15,11 @@ void Sandbox2D::OnAttach()
 	FJ_PROFILE_FUNCTION();
 
 	m_CheckerBoardTexture = Fejioa::Texture2D::Create("assets/textures/Checkerboard.png");
+
+	Fejioa::FrameBufferSpecification spec;
+	spec.Width = 1270;
+	spec.Height = 720;
+	m_FrameBuffer = Fejioa::FrameBuffer::Create(spec);
 }
 
 void Sandbox2D::OnDetach()
@@ -32,6 +37,7 @@ void Sandbox2D::OnUpdate(Fejioa::Timestep ts)
 	// Render
 	{
 		FJ_PROFILE_SCOPE("Renderer Prep");
+		m_FrameBuffer->Bind();
 		Fejioa::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 		Fejioa::RenderCommand::Clear();
 	}
@@ -61,6 +67,7 @@ void Sandbox2D::OnUpdate(Fejioa::Timestep ts)
 			}
 		}
 		Fejioa::Renderer2D::EndScene();
+		m_FrameBuffer->Unbind();
 	}
 }
 
@@ -69,7 +76,7 @@ void Sandbox2D::OnImGuiRender()
 	FJ_PROFILE_FUNCTION();
 
 	// Note: Switch this to true to enable dockspace
-	static bool dockingEnabled = false;
+	static bool dockingEnabled = true;
 	if (dockingEnabled)
 	{
 		static bool dockspaceOpen = true;
@@ -140,8 +147,8 @@ void Sandbox2D::OnImGuiRender()
 
 		ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
 
-		unsigned int textureID = m_CheckerBoardTexture->GetRendererID();
-		ImGui::Image((void*)textureID, ImVec2{ 256.0f, 256.0f });
+		unsigned int textureID = m_FrameBuffer->GetColorAttachmentRendererID();
+		ImGui::Image((void*)textureID, ImVec2{ 1270.0f, 720.0f });
 		ImGui::End();
 
 		ImGui::End();
@@ -158,8 +165,8 @@ void Sandbox2D::OnImGuiRender()
 		ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
 
 		ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
-		unsigned int textureID = m_CheckerBoardTexture->GetRendererID();
-		ImGui::Image((void*)textureID, ImVec2{ 256.0f, 256.0f });
+		unsigned int textureID = m_FrameBuffer->GetColorAttachmentRendererID();
+		ImGui::Image((void*)textureID, ImVec2{ 1270.0f, 720.f });
 
 		ImGui::End();
 	}

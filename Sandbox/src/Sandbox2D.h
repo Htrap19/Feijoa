@@ -18,6 +18,7 @@ public:
 private:
 	Fejioa::OrthographicCameraController m_CameraController;
 
+	Fejioa::Ref<Fejioa::FrameBuffer> m_FrameBuffer;
 	Fejioa::Ref<Fejioa::Texture2D> m_CheckerBoardTexture;
 
 	glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
