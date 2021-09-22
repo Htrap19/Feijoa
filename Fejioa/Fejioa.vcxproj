@@ -142,7 +142,7 @@
   <ItemGroup>
     <ClInclude Include="src\Fejioa.h" />
     <ClInclude Include="src\Fejioa\Core\Application.h" />
-    <ClInclude Include="src\Fejioa\Core\Core.h" />
+    <ClInclude Include="src\Fejioa\Core\Base.h" />
     <ClInclude Include="src\Fejioa\Core\EntryPoint.h" />
     <ClInclude Include="src\Fejioa\Core\Input.h" />
     <ClInclude Include="src\Fejioa\Core\KeyCodes.h" />
@@ -159,6 +159,7 @@
     <ClInclude Include="src\Fejioa\Events\MouseEvent.h" />
     <ClInclude Include="src\Fejioa\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Fejioa\Renderer\Buffer.h" />
+    <ClInclude Include="src\Fejioa\Renderer\FrameBuffer.h" />
     <ClInclude Include="src\Fejioa\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Fejioa\Renderer\OrthographicCamera.h" />
     <ClInclude Include="src\Fejioa\Renderer\OrthographicCameraController.h" />
@@ -603,6 +604,7 @@
     <ClCompile Include="src\Fejioa\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Fejioa\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Fejioa\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Fejioa\Renderer\FrameBuffer.cpp" />
     <ClCompile Include="src\Fejioa\Renderer\GraphicsContext.cpp" />
     <ClCompile Include="src\Fejioa\Renderer\OrthographicCamera.cpp" />
     <ClCompile Include="src\Fejioa\Renderer\OrthographicCameraController.cpp" />

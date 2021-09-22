@@ -63,7 +63,7 @@
     <ClInclude Include="src\Fejioa\Core\Application.h">
       <Filter>src\Fejioa\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Fejioa\Core\Core.h">
+    <ClInclude Include="src\Fejioa\Core\Base.h">
       <Filter>src\Fejioa\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Fejioa\Core\EntryPoint.h">
@@ -1419,6 +1419,7 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
+    <ClInclude Include="src\Fejioa\Renderer\FrameBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Fejioa\Core\Application.cpp">
@@ -1502,5 +1503,6 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
+    <ClCompile Include="src\Fejioa\Renderer\FrameBuffer.cpp" />
   </ItemGroup>
 </Project>

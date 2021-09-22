@@ -2,7 +2,7 @@
 
 // For use by Fejioa applications
 
-#include "Fejioa/Core/Core.h"
+#include "Fejioa/Core/Base.h"
 #include "Fejioa/Core/Application.h"
 #include "Fejioa/Core/Layer.h"
 #include "Fejioa/Core/Log.h"

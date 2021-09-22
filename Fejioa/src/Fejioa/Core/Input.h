@@ -1,7 +1,7 @@
 #pragma once
 
 #include "fjpch.h"
-#include "Fejioa/Core/Core.h"
+#include "Fejioa/Core/Base.h"
 
 namespace Fejioa
 {

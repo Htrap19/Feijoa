@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Fejioa/Core/Core.h"
+#include "Fejioa/Core/Base.h"
 #include "spdlog/spdlog.h"
 #include "spdlog/fmt/ostr.h"
 

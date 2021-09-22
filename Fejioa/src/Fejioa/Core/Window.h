@@ -2,7 +2,7 @@
 
 #include "fjpch.h"
 
-#include "Fejioa/Core/Core.h"
+#include "Fejioa/Core/Base.h"
 #include "Fejioa/Events/Event.h"
 
 namespace Fejioa
