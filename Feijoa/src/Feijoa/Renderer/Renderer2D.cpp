@@ -20,22 +20,22 @@ namespace Feijoa
 
 	struct Renderer2DData
 	{
-		static const unsigned int MaxQuad = 20000;
-		static const unsigned int MaxVertices = MaxQuad * 4;
-		static const unsigned int MaxIndices = MaxQuad * 6;
-		static const unsigned int MaxTextureSlots = 32; // TODO: RenderCaps
+		static const uint32_t MaxQuad = 20000;
+		static const uint32_t MaxVertices = MaxQuad * 4;
+		static const uint32_t MaxIndices = MaxQuad * 6;
+		static const uint32_t MaxTextureSlots = 32; // TODO: RenderCaps
 
 		Ref<VertexArray> QuadVertexArray;
 		Ref<VertexBuffer> QuadVertexBuffer;
 		Ref<Shader> TextureShader;
 		Ref<Texture2D> WhiteTexture;
 
-		unsigned int QuadIndexCount = 0;
+		uint32_t QuadIndexCount = 0;
 		QuadVertex* QuadVertexBufferBase = nullptr;
 		QuadVertex* QuadVertexBufferPtr = nullptr;
 
 		std::array<Ref<Texture2D>, MaxTextureSlots> TextureSlots;
-		unsigned int TextureSlotIndex = 1; // 0 = White texture
+		uint32_t TextureSlotIndex = 1; // 0 = White texture
 
 		glm::vec4 QuadVertexPositions[4];
 
@@ -62,10 +62,10 @@ namespace Feijoa
 
 		s_Data.QuadVertexBufferBase = new QuadVertex[s_Data.MaxVertices];
 
-		unsigned int* quadIndices = new unsigned int[s_Data.MaxIndices];
+		uint32_t* quadIndices = new uint32_t[s_Data.MaxIndices];
 
-		unsigned int offset = 0;
-		for (unsigned int i = 0; i < s_Data.MaxIndices; i += 6)
+		uint32_t offset = 0;
+		for (uint32_t i = 0; i < s_Data.MaxIndices; i += 6)
 		{
 			quadIndices[i + 0] = offset + 0;
 			quadIndices[i + 1] = offset + 1;
@@ -83,8 +83,8 @@ namespace Feijoa
 		delete[] quadIndices;
 
 		s_Data.WhiteTexture = Texture2D::Create(1, 1);
-		unsigned int whiteTextureData = 0xffffffff;
-		s_Data.WhiteTexture->SetData(&whiteTextureData, sizeof(unsigned int));
+		uint32_t whiteTextureData = 0xffffffff;
+		s_Data.WhiteTexture->SetData(&whiteTextureData, sizeof(uint32_t));
 
 		int samplers[s_Data.MaxTextureSlots];
 		for (int i = 0; i < s_Data.MaxTextureSlots; i++)
@@ -124,7 +124,7 @@ namespace Feijoa
 	{
 		FJ_PROFILE_FUNCTION();
 
-		unsigned int dataSize = (unsigned char*)s_Data.QuadVertexBufferPtr - (unsigned char*)s_Data.QuadVertexBufferBase;
+		uint32_t dataSize = (unsigned char*)s_Data.QuadVertexBufferPtr - (unsigned char*)s_Data.QuadVertexBufferBase;
 		s_Data.QuadVertexBuffer->SetData(s_Data.QuadVertexBufferBase, dataSize);
 
 		Flush();
@@ -132,7 +132,7 @@ namespace Feijoa
 
 	void Renderer2D::Flush()
 	{
-		for (unsigned int i = 0; i < s_Data.TextureSlotIndex; i++)
+		for (uint32_t i = 0; i < s_Data.TextureSlotIndex; i++)
 			s_Data.TextureSlots[i]->Bind(i);
 
 		RenderCommand::DrawIndexed(s_Data.QuadVertexArray, s_Data.QuadIndexCount);
@@ -208,7 +208,7 @@ namespace Feijoa
 			FlushAndReset();
 
 		float textureIndex = 0.0f;
-		for (unsigned int i = 1; i < s_Data.TextureSlotIndex; i++)
+		for (uint32_t i = 1; i < s_Data.TextureSlotIndex; i++)
 		{
 			if (*s_Data.TextureSlots[i].get() == *texture.get())
 			{
@@ -325,7 +325,7 @@ namespace Feijoa
 			FlushAndReset();
 
 		float textureIndex = 0.0f;
-		for (unsigned int i = 1; i < s_Data.TextureSlotIndex; i++)
+		for (uint32_t i = 1; i < s_Data.TextureSlotIndex; i++)
 		{
 			if (*s_Data.TextureSlots[i].get() == *texture.get())
 			{

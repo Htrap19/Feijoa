@@ -9,7 +9,7 @@ namespace Feijoa
 		None = 0, Float, Float2, Float3, Float4, Mat3, Mat4, Int, Int2, Int3, Int4, Bool
 	};
 
-	static unsigned int ShaderDataTypeSize(ShaderDataType type)
+	static uint32_t ShaderDataTypeSize(ShaderDataType type)
 	{
 		switch (type)
 		{
@@ -37,8 +37,8 @@ namespace Feijoa
 	{
 		std::string Name;
 		ShaderDataType Type;
-		unsigned int Size;
-		unsigned int Offset;
+		uint32_t Size;
+		size_t Offset;
 		bool Normalized;
 
 		BufferElement(ShaderDataType type, const std::string& name, bool normalized = false)
@@ -46,7 +46,7 @@ namespace Feijoa
 		{
 		}
 
-		unsigned int GetComponentCount() const
+		uint32_t GetComponentCount() const
 		{
 			switch (Type)
 			{
@@ -82,7 +82,7 @@ namespace Feijoa
 			CalculateOffsetsAndStride();
 		}
 
-		inline unsigned int GetStride() const { return m_Stride; }
+		inline uint32_t GetStride() const { return m_Stride; }
 		inline const std::vector<BufferElement>& GetElements() const { return m_Elements; }
 
 		std::vector<BufferElement>::iterator begin() { return m_Elements.begin(); }
@@ -93,7 +93,7 @@ namespace Feijoa
 	private:
 		void CalculateOffsetsAndStride()
 		{
-			unsigned int offset = 0;
+			size_t offset = 0;
 			m_Stride = 0;
 
 			for (auto& element : m_Elements)
@@ -106,7 +106,7 @@ namespace Feijoa
 
 	private:
 		std::vector<BufferElement> m_Elements;
-		unsigned int m_Stride;
+		uint32_t m_Stride;
 	};
 
 	class VertexBuffer
@@ -117,13 +117,13 @@ namespace Feijoa
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
 
-		virtual void SetData(const void* data, unsigned int size) = 0;
+		virtual void SetData(const void* data, uint32_t size) = 0;
 
 		virtual void SetLayout(const BufferLayout& layout) = 0;
 		virtual const BufferLayout& GetLayout() const = 0;
 
-		static Ref<VertexBuffer> Create(unsigned int size);
-		static Ref<VertexBuffer> Create(float* vertices, unsigned int size);
+		static Ref<VertexBuffer> Create(uint32_t size);
+		static Ref<VertexBuffer> Create(float* vertices, uint32_t size);
 	};
 
 	class IndexBuffer
@@ -134,8 +134,8 @@ namespace Feijoa
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
 
-		virtual inline unsigned int GetCount() const = 0;
+		virtual inline uint32_t GetCount() const = 0;
 
-		static Ref<IndexBuffer> Create(unsigned int* indices, unsigned int count);
+		static Ref<IndexBuffer> Create(uint32_t* indices, uint32_t count);
 	};
 }

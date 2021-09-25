@@ -84,7 +84,7 @@
     <ClInclude Include="src\Feijoa\Core\Log.h">
       <Filter>src\Feijoa\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Feijoa\Core\MouseButtonCodes.h">
+    <ClInclude Include="src\Feijoa\Core\MouseCodes.h">
       <Filter>src\Feijoa\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Feijoa\Core\Timestep.h">
@@ -1514,5 +1514,7 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
+    <ClCompile Include="src\Feijoa\Core\Input.cpp" />
+    <ClCompile Include="src\Feijoa\Core\Window.cpp" />
   </ItemGroup>
 </Project>

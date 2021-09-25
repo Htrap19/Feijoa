@@ -9,16 +9,16 @@ namespace Feijoa
 	{
 	public:
 		OpenGLTexture2D(const std::string& path);
-		OpenGLTexture2D(unsigned int width, unsigned int height);
+		OpenGLTexture2D(uint32_t width, uint32_t height);
 		virtual ~OpenGLTexture2D();
 
-		virtual inline unsigned int GetWidth() const override { return m_Width; }
-		virtual inline unsigned int GetHeight() const override { return m_Height; }
-		virtual inline unsigned int GetRendererID() const override { return m_RendererID; }
+		virtual inline uint32_t GetWidth() const override { return m_Width; }
+		virtual inline uint32_t GetHeight() const override { return m_Height; }
+		virtual inline uint32_t GetRendererID() const override { return m_RendererID; }
 
-		virtual void SetData(void* data, unsigned int size) override;
+		virtual void SetData(void* data, uint32_t size) override;
 
-		virtual void Bind(unsigned int slot = 0) const override;
+		virtual void Bind(uint32_t slot = 0) const override;
 
 		virtual inline bool operator==(const Texture& other) const override
 		{
@@ -26,8 +26,8 @@ namespace Feijoa
 		}
 
 	private:
-		unsigned int m_Width, m_Height;
-		unsigned int m_RendererID;
+		uint32_t m_Width, m_Height;
+		uint32_t m_RendererID;
 		std::string m_Path;
 		GLenum m_InternalFormat, m_DataFormat;
 	};

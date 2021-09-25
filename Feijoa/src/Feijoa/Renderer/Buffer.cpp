@@ -7,7 +7,7 @@
 
 namespace Feijoa
 {
-	Ref<VertexBuffer> VertexBuffer::Create(unsigned int size)
+	Ref<VertexBuffer> VertexBuffer::Create(uint32_t size)
 	{
 		switch (Renderer::GetAPI())
 		{
@@ -22,7 +22,7 @@ namespace Feijoa
 		return nullptr;
 	}
 
-	Ref<VertexBuffer> VertexBuffer::Create(float* vertices, unsigned int size)
+	Ref<VertexBuffer> VertexBuffer::Create(float* vertices, uint32_t size)
 	{
 		switch (Renderer::GetAPI())
 		{
@@ -37,12 +37,12 @@ namespace Feijoa
 		return nullptr;
 	}
 
-	Ref<IndexBuffer> IndexBuffer::Create(unsigned int* indices, unsigned int count)
+	Ref<IndexBuffer> IndexBuffer::Create(uint32_t* indices, uint32_t count)
 	{
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None: FJ_CORE_ASSERT(false, "Renderer::None is currently not supported!"); return nullptr;
-		case RendererAPI::API::OpenGL: return CreateRef<OpenGLIndexBuffer>(indices, count * sizeof(unsigned int));
+		case RendererAPI::API::OpenGL: return CreateRef<OpenGLIndexBuffer>(indices, count * sizeof(uint32_t));
 
 		default:
 			break;

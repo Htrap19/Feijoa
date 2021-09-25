@@ -11,7 +11,7 @@
 
 #include "Feijoa/Core/Input.h"
 #include "Feijoa/Core/KeyCodes.h"
-#include "Feijoa/Core/MouseButtonCodes.h"
+#include "Feijoa/Core/MouseCodes.h"
 #include "Feijoa/Renderer/OrthographicCameraController.h"
 
 #include "Feijoa/ImGui/ImGuiLayer.h"

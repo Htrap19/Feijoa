@@ -5,21 +5,17 @@
 #include "Feijoa/Events/MouseEvent.h"
 #include "Feijoa/Events/KeyEvent.h"
 #include "Feijoa/Core/Base.h"
+#include "Feijoa/Renderer/Renderer.h"
 
 #include "Platform/OpenGL/OpenGLContext.h"
 
 namespace Feijoa
 {
-	static unsigned int s_GLFWWindowCount = 0;
+	static uint32_t s_GLFWWindowCount = 0;
 
 	static void GLFWErrorCallback(int error, const char* description)
 	{
 		FJ_CORE_ERROR("GLFW error ({0}): {1}", error, description);
-	}
-
-	Scope<Window> Window::Create(const WindowProps& props /* = WindowProps() */)
-	{
-		return CreateScope<WindowsWindow>(props);
 	}
 
 	WindowsWindow::WindowsWindow(const WindowProps& props)
@@ -55,6 +51,10 @@ namespace Feijoa
 
 		{
 			FJ_PROFILE_SCOPE("glfwCreateWindow");
+#if defined(FJ_DEBUG)
+			if (Renderer::GetAPI() == RendererAPI::API::OpenGL)
+				glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
+#endif
 			m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, props.Title.c_str(), nullptr, nullptr);
 			s_GLFWWindowCount++;
 		}
@@ -91,19 +91,19 @@ namespace Feijoa
 				{
 				case GLFW_PRESS:
 				{
-					KeyPressedEvent event(key, 0);
+					KeyPressedEvent event(static_cast<KeyCode>(key), 0);
 					data.EventCallback(event);
 					break;
 				}
 				case GLFW_RELEASE:
 				{
-					KeyReleasedEvent event(key);
+					KeyReleasedEvent event(static_cast<KeyCode>(key));
 					data.EventCallback(event);
 					break;
 				}
 				case GLFW_REPEAT:
 				{
-					KeyPressedEvent event(key, 1);
+					KeyPressedEvent event(static_cast<KeyCode>(key), 1);
 					data.EventCallback(event);
 					break;
 				}
@@ -121,13 +121,13 @@ namespace Feijoa
 				{
 				case GLFW_PRESS:
 				{
-					MouseButtonPressedEvent event(button);
+					MouseButtonPressedEvent event(static_cast<MouseCode>(button));
 					data.EventCallback(event);
 					break;
 				}
 				case GLFW_RELEASE:
 				{
-					MouseButtonReleasedEvent event(button);
+					MouseButtonReleasedEvent event(static_cast<MouseCode>(button));
 					data.EventCallback(event);
 					break;
 				}
@@ -153,11 +153,11 @@ namespace Feijoa
 				data.EventCallback(event);
 			});
 
-		glfwSetCharCallback(m_Window, [](GLFWwindow* window, unsigned int key)
+		glfwSetCharCallback(m_Window, [](GLFWwindow* window, uint32_t key)
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
-				KeyTypedEvent event(key);
+				KeyTypedEvent event(static_cast<KeyCode>(key));
 				data.EventCallback(event);
 			});
 	}

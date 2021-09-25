@@ -76,7 +76,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>fjpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;FJ_BUILD_DLL;GLFW_INCLUDE_NONE;FJ_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLFW_INCLUDE_NONE;FJ_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
@@ -96,7 +96,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>fjpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;FJ_BUILD_DLL;GLFW_INCLUDE_NONE;FJ_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLFW_INCLUDE_NONE;FJ_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -120,7 +120,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>fjpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;FJ_BUILD_DLL;GLFW_INCLUDE_NONE;FJ_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLFW_INCLUDE_NONE;FJ_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -149,7 +149,7 @@
     <ClInclude Include="src\Feijoa\Core\Layer.h" />
     <ClInclude Include="src\Feijoa\Core\LayerStack.h" />
     <ClInclude Include="src\Feijoa\Core\Log.h" />
-    <ClInclude Include="src\Feijoa\Core\MouseButtonCodes.h" />
+    <ClInclude Include="src\Feijoa\Core\MouseCodes.h" />
     <ClInclude Include="src\Feijoa\Core\Timestep.h" />
     <ClInclude Include="src\Feijoa\Core\Window.h" />
     <ClInclude Include="src\Feijoa\Debug\Instrumentor.h" />
@@ -599,9 +599,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Feijoa\Core\Application.cpp" />
+    <ClCompile Include="src\Feijoa\Core\Input.cpp" />
     <ClCompile Include="src\Feijoa\Core\Layer.cpp" />
     <ClCompile Include="src\Feijoa\Core\LayerStack.cpp" />
     <ClCompile Include="src\Feijoa\Core\Log.cpp" />
+    <ClCompile Include="src\Feijoa\Core\Window.cpp" />
     <ClCompile Include="src\Feijoa\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Feijoa\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Feijoa\Renderer\Buffer.cpp" />

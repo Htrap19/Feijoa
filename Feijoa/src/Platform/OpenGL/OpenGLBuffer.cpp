@@ -9,7 +9,7 @@ namespace Feijoa
 	// VertexBuffer ///////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 
-	OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, unsigned int size)
+	OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size)
 	{
 		FJ_PROFILE_FUNCTION();
 
@@ -18,7 +18,7 @@ namespace Feijoa
 		glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_DYNAMIC_DRAW);
 	}
 
-	OpenGLVertexBuffer::OpenGLVertexBuffer(unsigned int size)
+	OpenGLVertexBuffer::OpenGLVertexBuffer(uint32_t size)
 	{
 		FJ_PROFILE_FUNCTION();
 
@@ -48,7 +48,7 @@ namespace Feijoa
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
-	void OpenGLVertexBuffer::SetData(const void* data, unsigned int size)
+	void OpenGLVertexBuffer::SetData(const void* data, uint32_t size)
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
 		glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
@@ -58,7 +58,7 @@ namespace Feijoa
 	// IndexBuffer ////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 
-	OpenGLIndexBuffer::OpenGLIndexBuffer(unsigned int* indices, unsigned int count)
+	OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* indices, uint32_t count)
 		: m_Count(count)
 	{
 		FJ_PROFILE_FUNCTION();

@@ -6,7 +6,7 @@
 
 namespace Feijoa
 {
-	Ref<Feijoa::Texture2D> Texture2D::Create(unsigned int width, unsigned int height)
+	Ref<Feijoa::Texture2D> Texture2D::Create(uint32_t width, uint32_t height)
 	{
 		switch (Renderer::GetAPI())
 		{

@@ -147,7 +147,7 @@ void Sandbox2D::OnImGuiRender()
 
 		ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
 
-		unsigned int textureID = m_FrameBuffer->GetColorAttachmentRendererID();
+		uint32_t textureID = m_FrameBuffer->GetColorAttachmentRendererID();
 		ImGui::Image((void*)textureID, ImVec2{ 1270.0f, 720.0f });
 		ImGui::End();
 
@@ -165,7 +165,7 @@ void Sandbox2D::OnImGuiRender()
 		ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
 
 		ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
-		unsigned int textureID = m_FrameBuffer->GetColorAttachmentRendererID();
+		uint32_t textureID = m_FrameBuffer->GetColorAttachmentRendererID();
 		ImGui::Image((void*)textureID, ImVec2{ 1270.0f, 720.f });
 
 		ImGui::End();

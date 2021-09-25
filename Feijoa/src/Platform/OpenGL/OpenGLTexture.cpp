@@ -50,7 +50,7 @@ namespace Feijoa
 		stbi_image_free(data);
 	}
 
-	OpenGLTexture2D::OpenGLTexture2D(unsigned int width, unsigned int height)
+	OpenGLTexture2D::OpenGLTexture2D(uint32_t width, uint32_t height)
 		: m_Width(width), m_Height(height)
 	{
 		FJ_PROFILE_FUNCTION();
@@ -74,17 +74,17 @@ namespace Feijoa
 		glDeleteTextures(1, &m_RendererID);
 	}
 
-	void OpenGLTexture2D::SetData(void* data, unsigned int size)
+	void OpenGLTexture2D::SetData(void* data, uint32_t size)
 	{
 		FJ_PROFILE_FUNCTION();
 
-		unsigned int bpp = m_DataFormat == GL_RGBA ? 4 : 3;
+		uint32_t bpp = m_DataFormat == GL_RGBA ? 4 : 3;
 		FJ_CORE_ASSERT(size == m_Width * m_Height * bpp, "Data must be entire texture!");
 		glBindTexture(GL_TEXTURE_2D, m_RendererID);
 		glTexImage2D(GL_TEXTURE_2D, 0, m_InternalFormat, m_Width, m_Height, 0, m_DataFormat, GL_UNSIGNED_BYTE, data);
 	}
 
-	void OpenGLTexture2D::Bind(unsigned int slot /*= 0*/) const
+	void OpenGLTexture2D::Bind(uint32_t slot /*= 0*/) const
 	{
 		FJ_PROFILE_FUNCTION();
 

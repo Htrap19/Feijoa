@@ -28,11 +28,11 @@ namespace Feijoa
 
 		struct Statistics
 		{
-			unsigned int DrawCalls = 0;
-			unsigned int QuadCount = 0;
+			uint32_t DrawCalls = 0;
+			uint32_t QuadCount = 0;
 
-			unsigned int GetTotalVertexCount() { return QuadCount * 4; }
-			unsigned int GetTotalIndexCount() { return QuadCount * 6; }
+			uint32_t GetTotalVertexCount() { return QuadCount * 4; }
+			uint32_t GetTotalIndexCount() { return QuadCount * 6; }
 		};
 		
 		static void ResetStats();
