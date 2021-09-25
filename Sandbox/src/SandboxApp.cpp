@@ -1,11 +1,10 @@
-#include <Fejioa.h>
-#include <Fejioa/Core/EntryPoint.h>
+#include <Feijoa.h>
+#include <Feijoa/Core/EntryPoint.h>
 
 #include "ExampleLayer.h"
 #include "Sandbox2D.h"
 
-
-class SandboxApp : public Fejioa::Application
+class SandboxApp : public Feijoa::Application
 {
 public:
 	SandboxApp()
@@ -19,7 +18,7 @@ public:
 	}
 };
 
-Fejioa::Application* Fejioa::CreateApplication()
+Feijoa::Application* Feijoa::CreateApplication()
 {
 	return new SandboxApp();
 }

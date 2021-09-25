@@ -1,8 +1,8 @@
 #pragma once
 
-#include <Fejioa.h>
+#include <Feijoa.h>
 
-class Sandbox2D : public Fejioa::Layer
+class Sandbox2D : public Feijoa::Layer
 {
 public:
 	Sandbox2D();
@@ -11,15 +11,15 @@ public:
 	virtual void OnAttach() override;
 	virtual void OnDetach() override;
 
-	virtual void OnUpdate(Fejioa::Timestep ts) override;
+	virtual void OnUpdate(Feijoa::Timestep ts) override;
 	virtual void OnImGuiRender() override;
-	virtual void OnEvent(Fejioa::Event& e) override;
+	virtual void OnEvent(Feijoa::Event& e) override;
 
 private:
-	Fejioa::OrthographicCameraController m_CameraController;
+	Feijoa::OrthographicCameraController m_CameraController;
 
-	Fejioa::Ref<Fejioa::FrameBuffer> m_FrameBuffer;
-	Fejioa::Ref<Fejioa::Texture2D> m_CheckerBoardTexture;
+	Feijoa::Ref<Feijoa::FrameBuffer> m_FrameBuffer;
+	Feijoa::Ref<Feijoa::Texture2D> m_CheckerBoardTexture;
 
 	glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
 };

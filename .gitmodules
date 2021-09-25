@@ -1,12 +1,12 @@
-[submodule "Fejioa/vendor/spdlog"]
-	path = Fejioa/vendor/spdlog
+[submodule "Feijoa/vendor/spdlog"]
+	path = Feijoa/vendor/spdlog
 	url = https://github.com/gabime/spdlog
-[submodule "Fejioa/vendor/GLFW"]
-	path = Fejioa/vendor/GLFW
+[submodule "Feijoa/vendor/GLFW"]
+	path = Feijoa/vendor/GLFW
 	url = https://github.com/Developmentprogramming/glfw
-[submodule "Fejioa/vendor/imgui"]
-	path = Fejioa/vendor/imgui
+[submodule "Feijoa/vendor/imgui"]
+	path = Feijoa/vendor/imgui
 	url = https://github.com/Developmentprogramming/imgui
-[submodule "Fejioa/vendor/glm"]
-	path = Fejioa/vendor/glm
+[submodule "Feijoa/vendor/glm"]
+	path = Feijoa/vendor/glm
 	url = https://github.com/g-truc/glm

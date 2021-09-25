@@ -1,3 +1,3 @@
-# Fejioa
+# Feijoa
 
-![Fejioa Logo](/Resources/Branding/Fejioa_Logo.png?raw=true "Fejioa")
+![Feijoa Logo](/Resources/Branding/Feijoa_Logo.png?raw=true "Feijoa")

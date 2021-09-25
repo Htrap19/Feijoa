@@ -3,7 +3,7 @@
 ExampleLayer::ExampleLayer()
 	: Layer("Example"), m_CameraController(1280.0f / 720.0f)
 {
-	m_VertexArray = Fejioa::VertexArray::Create();
+	m_VertexArray = Feijoa::VertexArray::Create();
 
 	float vertices[3 * 7] = {
 		-0.5f, -0.5f, 0.0f,		0.8f, 0.2f, 0.8f, 1.0f,
@@ -11,20 +11,20 @@ ExampleLayer::ExampleLayer()
 		 0.0f,  0.5f, 0.0f,		0.8f, 0.8f, 0.2f, 1.0f
 	};
 
-	Fejioa::Ref<Fejioa::VertexBuffer> vertexBuffer;
-	vertexBuffer = Fejioa::VertexBuffer::Create(vertices, sizeof(vertices));
+	Feijoa::Ref<Feijoa::VertexBuffer> vertexBuffer;
+	vertexBuffer = Feijoa::VertexBuffer::Create(vertices, sizeof(vertices));
 	vertexBuffer->SetLayout({
-		{ Fejioa::ShaderDataType::Float3, "a_Position" },
-		{ Fejioa::ShaderDataType::Float4, "a_Color" },
+		{ Feijoa::ShaderDataType::Float3, "a_Position" },
+		{ Feijoa::ShaderDataType::Float4, "a_Color" },
 		});
 	m_VertexArray->AddVertexBuffer(vertexBuffer);
 
 	uint32_t indices[] = { 0, 1, 2 };
-	Fejioa::Ref<Fejioa::IndexBuffer> indexBuffer;
-	indexBuffer = Fejioa::IndexBuffer::Create(indices, sizeof(indices) / sizeof(indices[0]));
+	Feijoa::Ref<Feijoa::IndexBuffer> indexBuffer;
+	indexBuffer = Feijoa::IndexBuffer::Create(indices, sizeof(indices) / sizeof(indices[0]));
 	m_VertexArray->SetIndexBuffer(indexBuffer);
 
-	m_SquareVA = Fejioa::VertexArray::Create();
+	m_SquareVA = Feijoa::VertexArray::Create();
 	float squarevertices[5 * 4] =
 	{
 		-0.5f, -0.5f, 0.0f,		0.0f, 0.0f,
@@ -33,17 +33,17 @@ ExampleLayer::ExampleLayer()
 		-0.5f,  0.5f, 0.0f,		0.0f, 1.0f
 	};
 
-	Fejioa::Ref<Fejioa::VertexBuffer> squareVB;
-	squareVB = Fejioa::VertexBuffer::Create(squarevertices, sizeof(squarevertices));
+	Feijoa::Ref<Feijoa::VertexBuffer> squareVB;
+	squareVB = Feijoa::VertexBuffer::Create(squarevertices, sizeof(squarevertices));
 	squareVB->SetLayout({
-		{ Fejioa::ShaderDataType::Float3, "a_Position" },
-		{ Fejioa::ShaderDataType::Float2, "a_TexCoord" }
+		{ Feijoa::ShaderDataType::Float3, "a_Position" },
+		{ Feijoa::ShaderDataType::Float2, "a_TexCoord" }
 		});
 	m_SquareVA->AddVertexBuffer(squareVB);
 
 	uint32_t squareIndices[] = { 0, 1, 2, 2, 3, 0 };
-	Fejioa::Ref<Fejioa::IndexBuffer> squereIB;
-	squereIB = Fejioa::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(squareIndices[0]));
+	Feijoa::Ref<Feijoa::IndexBuffer> squereIB;
+	squereIB = Feijoa::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(squareIndices[0]));
 	m_SquareVA->SetIndexBuffer(squereIB);
 
 	std::string vertexSource = R"(
@@ -80,32 +80,32 @@ ExampleLayer::ExampleLayer()
 				color = v_Color;
 			}
 		)";
-	m_Shader = Fejioa::Shader::Create("VertexPosColor", vertexSource, fragmentSource);
+	m_Shader = Feijoa::Shader::Create("VertexPosColor", vertexSource, fragmentSource);
 
-	m_FlatColorShader = Fejioa::Shader::Create("assets/shaders/FlatColor.glsl");
+	m_FlatColorShader = Feijoa::Shader::Create("assets/shaders/FlatColor.glsl");
 
 	auto textureShader = m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
 
-	m_Texture = Fejioa::Texture2D::Create("assets/textures/Checkerboard.png");
-	m_FejioaLogoTexture = Fejioa::Texture2D::Create("assets/textures/FejioaLogo.png");
+	m_Texture = Feijoa::Texture2D::Create("assets/textures/Checkerboard.png");
+	m_FejioaLogoTexture = Feijoa::Texture2D::Create("assets/textures/FejioaLogo.png");
 
-	std::dynamic_pointer_cast<Fejioa::OpenGLShader>(textureShader)->Bind();
-	std::dynamic_pointer_cast<Fejioa::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
+	std::dynamic_pointer_cast<Feijoa::OpenGLShader>(textureShader)->Bind();
+	std::dynamic_pointer_cast<Feijoa::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
 }
 
-void ExampleLayer::OnUpdate(Fejioa::Timestep ts)
+void ExampleLayer::OnUpdate(Feijoa::Timestep ts)
 {
 	m_CameraController.OnUpdate(ts);
 
-	Fejioa::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
-	Fejioa::RenderCommand::Clear();
+	Feijoa::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
+	Feijoa::RenderCommand::Clear();
 
-	Fejioa::Renderer::BeginScene(m_CameraController.GetCamera());
+	Feijoa::Renderer::BeginScene(m_CameraController.GetCamera());
 
 	glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
-	std::dynamic_pointer_cast<Fejioa::OpenGLShader>(m_FlatColorShader)->Bind();
-	std::dynamic_pointer_cast<Fejioa::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat3("u_Color", m_SquareColor);
+	std::dynamic_pointer_cast<Feijoa::OpenGLShader>(m_FlatColorShader)->Bind();
+	std::dynamic_pointer_cast<Feijoa::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat3("u_Color", m_SquareColor);
 
 	for (int y = 0; y < 20; y++)
 	{
@@ -113,19 +113,19 @@ void ExampleLayer::OnUpdate(Fejioa::Timestep ts)
 		{
 			glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
 			glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
-			Fejioa::Renderer::Submit(m_FlatColorShader, m_SquareVA, transform);
+			Feijoa::Renderer::Submit(m_FlatColorShader, m_SquareVA, transform);
 		}
 	}
 
 	auto textureShader = m_ShaderLibrary.Get("Texture");
 
 	m_Texture->Bind();
-	Fejioa::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+	Feijoa::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 	m_FejioaLogoTexture->Bind();
-	Fejioa::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+	Feijoa::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
-	Fejioa::Renderer::EndScene();
+	Feijoa::Renderer::EndScene();
 }
 
 void ExampleLayer::OnImGuiRender()
@@ -135,7 +135,7 @@ void ExampleLayer::OnImGuiRender()
 	ImGui::End();
 }
 
-void ExampleLayer::OnEvent(Fejioa::Event& e)
+void ExampleLayer::OnEvent(Feijoa::Event& e)
 {
 	m_CameraController.OnEvent(e);
 }

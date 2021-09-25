@@ -1,4 +1,4 @@
-workspace "Fejioa"
+workspace "Feijoa"
 	architecture "x86_64"
 	startproject "Sandbox"
 
@@ -12,21 +12,21 @@ workspace "Fejioa"
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
-IncludeDir["GLFW"] = "Fejioa/vendor/GLFW/include"
-IncludeDir["Glad"] = "Fejioa/vendor/Glad/include"
-IncludeDir["ImGui"] = "Fejioa/vendor/imgui"
-IncludeDir["glm"] = "Fejioa/vendor/glm"
-IncludeDir["stb_image"] = "Fejioa/vendor/stb_image"
+IncludeDir["GLFW"] = "Feijoa/vendor/GLFW/include"
+IncludeDir["Glad"] = "Feijoa/vendor/Glad/include"
+IncludeDir["ImGui"] = "Feijoa/vendor/imgui"
+IncludeDir["glm"] = "Feijoa/vendor/glm"
+IncludeDir["stb_image"] = "Feijoa/vendor/stb_image"
 
 group "Dependencies"
-	include "Fejioa/vendor/GLFW"
-	include "Fejioa/vendor/Glad"
-	include "Fejioa/vendor/imgui"
+	include "Feijoa/vendor/GLFW"
+	include "Feijoa/vendor/Glad"
+	include "Feijoa/vendor/imgui"
 
 group ""
 
-project "Fejioa"
-	location "Fejioa"
+project "Feijoa"
+	location "Feijoa"
 	kind "StaticLib"
 	language "C++"
 	cppdialect "C++17"
@@ -36,7 +36,7 @@ project "Fejioa"
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
 	pchheader "fjpch.h"
-	pchsource "Fejioa/src/fjpch.cpp"
+	pchsource "Feijoa/src/fjpch.cpp"
 
 	files
 	{
@@ -114,15 +114,15 @@ project "Sandbox"
 
 	includedirs
 	{
-		"Fejioa/vendor/spdlog/include",
-		"Fejioa/src",
-		"Fejioa/vendor/",
+		"Feijoa/vendor/spdlog/include",
+		"Feijoa/src",
+		"Feijoa/vendor/",
 		"%{IncludeDir.glm}"
 	}
 
 	links
 	{
-		"Fejioa"
+		"Feijoa"
 	}
 
 	filter "system:windows"
