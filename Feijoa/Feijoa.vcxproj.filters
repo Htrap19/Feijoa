@@ -1430,6 +1430,9 @@
     <ClCompile Include="src\Feijoa\Core\Application.cpp">
       <Filter>src\Feijoa\Core</Filter>
     </ClCompile>
+    <ClCompile Include="src\Feijoa\Core\Input.cpp">
+      <Filter>src\Feijoa\Core</Filter>
+    </ClCompile>
     <ClCompile Include="src\Feijoa\Core\Layer.cpp">
       <Filter>src\Feijoa\Core</Filter>
     </ClCompile>
@@ -1437,6 +1440,9 @@
       <Filter>src\Feijoa\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Feijoa\Core\Log.cpp">
+      <Filter>src\Feijoa\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Feijoa\Core\Window.cpp">
       <Filter>src\Feijoa\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Feijoa\ImGui\ImGuiBuild.cpp">
@@ -1514,7 +1520,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Feijoa\Core\Input.cpp" />
-    <ClCompile Include="src\Feijoa\Core\Window.cpp" />
   </ItemGroup>
 </Project>

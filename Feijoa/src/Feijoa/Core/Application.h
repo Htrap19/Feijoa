@@ -11,7 +11,7 @@ namespace Feijoa
 	class Application
 	{
 	public:
-		Application();
+		Application(const std::string& name = "Feijoa App");
 		virtual ~Application();
 
 		void Run();

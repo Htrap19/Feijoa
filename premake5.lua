@@ -141,3 +141,50 @@ project "Sandbox"
 			defines "FJ_DIST"
 			runtime "Release"
 			optimize "on"
+
+project "Sellowiana"
+	location "Sellowiana"
+	kind "ConsoleApp"
+	language "C++"
+	cppdialect "C++17"
+	staticruntime "on"
+
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+	files
+	{
+		"%{prj.name}/src/**.h",
+		"%{prj.name}/src/**.cpp"
+	}
+
+	includedirs
+	{
+		"Feijoa/vendor/spdlog/include",
+		"Feijoa/src",
+		"Feijoa/vendor/",
+		"%{IncludeDir.glm}"
+	}
+
+	links
+	{
+		"Feijoa"
+	}
+
+	filter "system:windows"
+		systemversion "latest"
+
+		filter "configurations:Debug"
+			defines "FJ_DEBUG"
+			runtime "Debug"
+			symbols "on"
+
+		filter "configurations:Release"
+			defines "FJ_RELEASE"
+			runtime "Release"
+			optimize "on"
+
+		filter "configurations:Dist"
+			defines "FJ_DIST"
+			runtime "Release"
+			optimize "on"
