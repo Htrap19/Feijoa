@@ -14,6 +14,7 @@
 #include "Feijoa/Core/KeyCodes.h"
 #include "Feijoa/Core/MouseCodes.h"
 #include "Feijoa/Renderer/OrthographicCameraController.h"
+#include "Feijoa/Renderer/PerspectiveCameraController.h"
 
 #include "Feijoa/ImGui/ImGuiLayer.h"
 
@@ -25,6 +26,7 @@
 // -- Renderer --------------------------
 #include "Feijoa/Renderer/Renderer.h"
 #include "Feijoa/Renderer/Renderer2D.h"
+#include "Feijoa/Renderer/Renderer3D.h"
 #include "Feijoa/Renderer/RenderCommand.h"
 
 #include "Feijoa/Renderer/Buffer.h"
@@ -34,5 +36,6 @@
 #include "Feijoa/Renderer/VertexArray.h"
 
 #include "Feijoa/Renderer/OrthographicCamera.h"
+#include "Feijoa/Renderer/PerspectiveCamera.h"
 
 // --------------------------------------

@@ -6,8 +6,15 @@
 #include <imgui/imgui.h>
 
 Sandbox2D::Sandbox2D()
-	: Layer("Sandbox2D"), m_CameraController(1280.0f / 720.0f)
+	: Layer("Sandbox2D"), m_CameraController(1280.0f / 720.0f),
+	m_ParticleSystem(10000)
 {
+	m_ParticleProps.Position = { 0.0f, 0.0f };
+	m_ParticleProps.Velocity = { -2.0f, 0.0f }, m_ParticleProps.VelocityVariation = { 3.0f, 1.0f };
+	m_ParticleProps.SizeBegin = 0.5f, m_ParticleProps.SizeEnd = 0.0f, m_ParticleProps.SizeVariation = 0.3f;
+	m_ParticleProps.ColorBegin = m_SquareColor;
+	m_ParticleProps.ColorEnd = { 254 / 255.0f, 212 / 255.0f, 123 / 255.0f, 1.0f };
+	m_ParticleProps.LifeTime = 1.0f;
 }
 
 void Sandbox2D::OnAttach()
@@ -28,6 +35,7 @@ void Sandbox2D::OnUpdate(Feijoa::Timestep ts)
 
 	// Update
 	m_CameraController.OnUpdate(ts);
+	m_ParticleSystem.OnUpdate(ts);
 
 	// Render
 	{
@@ -36,31 +44,31 @@ void Sandbox2D::OnUpdate(Feijoa::Timestep ts)
 		Feijoa::RenderCommand::Clear();
 	}
 
-	Feijoa::Renderer2D::ResetStats();
 	{
-		static float rotation = 0.0f;
-		rotation += ts * 50.0f;
-
 		FJ_PROFILE_SCOPE("Renderer Draw");
 		Feijoa::Renderer2D::BeginScene(m_CameraController.GetCamera());
-		Feijoa::Renderer2D::DrawRotatedQuad({ 1.0f,  0.0f }, { 0.8f, 0.8f }, -45.0f, { 0.8f, 0.2f, 0.3f, 1.0f });
-		Feijoa::Renderer2D::DrawQuad({ -1.0f,  0.0f }, { 0.8f, 0.8f }, { 0.8f, 0.2f, 0.3f, 1.0f });
-		Feijoa::Renderer2D::DrawQuad({  0.5f, -0.5f }, { 0.5f, 0.75f }, { 0.2f, 0.3f, 0.8f, 1.0f });
-		Feijoa::Renderer2D::DrawQuad({ 0.0f,  0.0f, -0.1f }, { 20.0f, 20.0f }, m_CheckerBoardTexture, 10.0f);
-		Feijoa::Renderer2D::DrawRotatedQuad({ -2.0f,  0.0f, -0.0f }, { 1.0f, 1.0f }, rotation, m_CheckerBoardTexture, 20.0f);
+		m_ParticleSystem.OnRender();
+		Feijoa::Renderer2D::DrawRotatedQuad({ -1.0f,  0.0f }, { 0.8f, 0.8f }, glm::radians(-45.0f), { 0.8f, 0.2f, 0.3f, 1.0f });
+		Feijoa::Renderer2D::DrawQuad({ 0.5f, -0.5f }, { 0.5f, 0.75f }, { 0.2f, 0.3f, 0.8f, 1.0f });
+		Feijoa::Renderer2D::DrawQuad({ 0.0f,  0.0f, -0.1f }, { 10.0f, 10.0f }, m_CheckerBoardTexture);
 		Feijoa::Renderer2D::EndScene();
+	}
 
-		Feijoa::Renderer2D::BeginScene(m_CameraController.GetCamera());
-		for (float y = -5.0f; y < 5.0f; y += 0.5f)
-		{
-			for (float x = -5.0f; x < 5.0f; x += 0.5f)
-			{
-				glm::vec4 color = { (x + 5.0f) / 10.0f, 0.4f, (y + 5.0f) / 10.0f, 0.7f };
+	if (Feijoa::Input::IsMouseButtonPressed(Feijoa::Mouse::ButtonLeft))
+	{
+		auto x = Feijoa::Input::GetMouseX();
+		auto y = Feijoa::Input::GetMouseY();
+		auto width = Feijoa::Application::Get().GetWindow().GetWidth();
+		auto height = Feijoa::Application::Get().GetWindow().GetHeight();
 
-				Feijoa::Renderer2D::DrawQuad({ x, y }, { 0.45f, 0.45f }, color);
-			}
-		}
-		Feijoa::Renderer2D::EndScene();
+		auto bounds = m_CameraController.GetBounds();
+		auto pos = m_CameraController.GetCamera().GetPosition();
+		x = (x / width) * bounds.GetWidth() - bounds.GetWidth() * 0.5f;
+		y = bounds.GetHeight() * 0.5f - (y / height) * bounds.GetHeight();
+		m_ParticleProps.Position = { x + pos.x, y + pos.y };
+		m_ParticleProps.ColorBegin = m_SquareColor;
+		for (uint8_t i = 0; i < 5; i++)
+			m_ParticleSystem.Emit(m_ParticleProps);
 	}
 }
 
@@ -69,16 +77,7 @@ void Sandbox2D::OnImGuiRender()
 	FJ_PROFILE_FUNCTION();
 
 	ImGui::Begin("Settings");
-
-	auto stats = Feijoa::Renderer2D::GetStats();
-	ImGui::Text("Renderer2D Stats:");
-	ImGui::Text("Draw calls: %d", stats.DrawCalls);
-	ImGui::Text("Quad: %d", stats.QuadCount);
-	ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
-	ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
-
-	ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
-
+	ImGui::ColorEdit3("Square Color", glm::value_ptr(m_SquareColor));
 	ImGui::End();
 }
 

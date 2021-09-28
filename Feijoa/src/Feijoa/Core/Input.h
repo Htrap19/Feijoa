@@ -1,9 +1,10 @@
 #pragma once
 
 #include "fjpch.h"
-#include <glm/glm.hpp>
 #include "Feijoa/Core/KeyCodes.h"
 #include "Feijoa/Core/MouseCodes.h"
+
+#include <glm/glm.hpp>
 
 namespace Feijoa
 {

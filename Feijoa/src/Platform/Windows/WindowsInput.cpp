@@ -1,7 +1,7 @@
 #include "fjpch.h"
 #include "Feijoa/Core/Input.h"
-
 #include "Feijoa/Core/Application.h"
+
 #include <GLFW/glfw3.h>
 
 #ifdef FJ_PLATFORM_WINDOWS

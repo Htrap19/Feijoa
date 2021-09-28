@@ -22,6 +22,7 @@ namespace Feijoa
 		inline void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
 		void SetVSync(bool enabled) override;
 		bool IsVSync() const override;
+		inline void DisableCursor(bool disable) override { glfwSetInputMode(m_Window, GLFW_CURSOR, (disable ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL)); }
 
 		inline virtual void* GetNativeWindow() const override { return m_Window; }
 
