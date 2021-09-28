@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Feijoa.h>
+#include "ParticleSystem.h"
 
 class Sandbox2D : public Feijoa::Layer
 {
@@ -17,7 +18,10 @@ public:
 
 private:
 	Feijoa::OrthographicCameraController m_CameraController;
+
 	Feijoa::Ref<Feijoa::Texture2D> m_CheckerBoardTexture;
+	ParticleProps m_ParticleProps;
+	ParticleSystem m_ParticleSystem;
 
 	glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
 };

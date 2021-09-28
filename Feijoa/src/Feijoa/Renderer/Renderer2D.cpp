@@ -52,11 +52,11 @@ namespace Feijoa
 
 		s_Data.QuadVertexBuffer = Feijoa::VertexBuffer::Create(s_Data.MaxVertices * sizeof(QuadVertex));
 		s_Data.QuadVertexBuffer->SetLayout({
-			{ Feijoa::ShaderDataType::Float3, "a_Position" },
-			{ Feijoa::ShaderDataType::Float4, "a_Color" },
-			{ Feijoa::ShaderDataType::Float2, "a_TexCoord" },
-			{ Feijoa::ShaderDataType::Float, "a_TexIndex" },
-			{ Feijoa::ShaderDataType::Float, "a_TilingFactor" }
+			{ ShaderDataType::Float3, "a_Position" },
+			{ ShaderDataType::Float4, "a_Color" },
+			{ ShaderDataType::Float2, "a_TexCoord" },
+			{ ShaderDataType::Float, "a_TexIndex" },
+			{ ShaderDataType::Float, "a_TilingFactor" }
 			});
 		s_Data.QuadVertexArray->AddVertexBuffer(s_Data.QuadVertexBuffer);
 
@@ -155,6 +155,7 @@ namespace Feijoa
 		for (uint32_t i = 0; i < s_Data.TextureSlotIndex; i++)
 			s_Data.TextureSlots[i]->Bind(i);
 
+		s_Data.TextureShader->Bind();
 		RenderCommand::DrawIndexed(s_Data.QuadVertexArray, s_Data.QuadIndexCount);
 		s_Data.Stats.DrawCalls++;
 	}
