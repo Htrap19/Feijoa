@@ -7,11 +7,15 @@ namespace Feijoa
 	PerspectiveCamera::PerspectiveCamera(const glm::vec3& position, float aspectRatio)
 		: m_Position(position), m_AspectRatio(aspectRatio)
 	{
+		FJ_PROFILE_FUNCTION();
+
 		UpdateCamera();
 	}
 
 	void PerspectiveCamera::UpdatePosition(float dx, float dy)
 	{
+		FJ_PROFILE_FUNCTION();
+
 		m_Yaw += dx;
 		m_Pitch += dy;
 
@@ -25,6 +29,8 @@ namespace Feijoa
 
 	void PerspectiveCamera::UpdateDir(Direction dir, Timestep ts)
 	{
+		FJ_PROFILE_FUNCTION();
+
 		float velocity = ts * m_Speed;
 
 		switch (dir)
@@ -57,6 +63,8 @@ namespace Feijoa
 
 	void PerspectiveCamera::UpdateFOV(float fov)
 	{
+		FJ_PROFILE_FUNCTION();
+
 		if (m_FOV >= m_MinFOV && m_FOV <= m_MaxFOV)
 			m_FOV -= fov;
 		else if (m_FOV < m_MinFOV)
@@ -67,6 +75,8 @@ namespace Feijoa
 
 	void PerspectiveCamera::UpdateCamera()
 	{
+		FJ_PROFILE_FUNCTION();
+
 		glm::vec3 direction;
 		direction.x = cos(glm::radians(m_Yaw)) * cos(glm::radians(m_Pitch));
 		direction.y = sin(glm::radians(m_Pitch));
