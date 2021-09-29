@@ -12,6 +12,8 @@ namespace Feijoa
 
 	void PerspectiveCameraController::OnUpdate(Timestep ts)
 	{
+		FJ_PROFILE_FUNCTION();
+
 		if (Input::IsKeyPressed(FJ_KEY_A))
 			m_Camera.UpdateDir(PerspectiveCamera::Direction::Left, ts);
 		if (Input::IsKeyPressed(FJ_KEY_D))
@@ -36,12 +38,16 @@ namespace Feijoa
 
 	void PerspectiveCameraController::OnEvent(Event& e)
 	{
+		FJ_PROFILE_FUNCTION();
+
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowResizeEvent>(FJ_BIND_EVENT_FN(PerspectiveCameraController::OnWindowResize));
 	}
 
 	bool PerspectiveCameraController::OnWindowResize(WindowResizeEvent& e)
 	{
+		FJ_PROFILE_FUNCTION();
+
 		m_Camera.SetAspectRatio((float)e.GetWidth() / (float)e.GetHeight());
 
 		return false;
