@@ -44,6 +44,8 @@ namespace Feijoa
 
 	void Renderer3D::Init()
 	{
+		FJ_PROFILE_FUNCTION();
+
 		s_Data3D.CubeVertexArray = VertexArray::Create();
 
 		s_Data3D.CubeVertexBuffer = VertexBuffer::Create(sizeof(CubeVertex) * Renderer3DData::MaxCube);
@@ -147,6 +149,8 @@ namespace Feijoa
 
 	void Renderer3D::Shutdown()
 	{
+		FJ_PROFILE_FUNCTION();
+
 		delete[] s_Data3D.CubeVertexBufferBase;
 	}
 
@@ -162,6 +166,8 @@ namespace Feijoa
 
 	void Renderer3D::BeginScene(PerspectiveCamera& camera)
 	{
+		FJ_PROFILE_FUNCTION();
+
 		s_Data3D.Renderer3DShader->Bind();
 		s_Data3D.Renderer3DShader->SetMat4("u_VP", camera.GetViewProjectionMatrix());
 
@@ -172,6 +178,8 @@ namespace Feijoa
 
 	void Renderer3D::EndScene()
 	{
+		FJ_PROFILE_FUNCTION();
+
 		uint32_t bufferSize = (uint32_t)((uint8_t*)s_Data3D.CubeVertexBufferPtr - (uint8_t*)s_Data3D.CubeVertexBufferBase);
 		s_Data3D.CubeVertexBuffer->SetData(s_Data3D.CubeVertexBufferBase, bufferSize);
 
@@ -203,6 +211,8 @@ namespace Feijoa
 
 	void Renderer3D::DrawQuad(const glm::vec3& position, const glm::vec3& size, const glm::vec4& color)
 	{
+		FJ_PROFILE_FUNCTION();
+
 		if (s_Data3D.CubeIndexCount >= s_Data3D.MaxIndices)
 			FlushAndReset();
 
@@ -232,6 +242,11 @@ namespace Feijoa
 
 	void Renderer3D::DrawQuad(const glm::vec3& position, const glm::vec3& size, const Ref<Texture2D>& texture, float tilingFactor /*= 1.0f*/, const glm::vec4& tintColor /*= glm::vec4(1.0f)*/)
 	{
+		FJ_PROFILE_FUNCTION();
+
+		if (s_Data3D.CubeIndexCount >= s_Data3D.MaxIndices)
+			FlushAndReset();
+
 		glm::mat4 model = glm::translate(glm::mat4(1.0f), position)
 			* glm::scale(glm::mat4(1.0f), size);
 
@@ -273,6 +288,8 @@ namespace Feijoa
 
 	void Renderer3D::DrawRotatedQuad(const glm::vec3& position, const glm::vec3& size, float rotation, const glm::vec3& rotation_vec, const glm::vec4& color)
 	{
+		FJ_PROFILE_FUNCTION();
+
 		if (s_Data3D.CubeIndexCount >= s_Data3D.MaxIndices)
 			FlushAndReset();
 

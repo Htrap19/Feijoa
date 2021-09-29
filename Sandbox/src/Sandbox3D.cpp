@@ -10,15 +10,20 @@ Sandbox3D::Sandbox3D()
 
 void Sandbox3D::OnAttach()
 {
+	FJ_PROFILE_FUNCTION();
+
 	m_CheckerboardTexture = Feijoa::Texture2D::Create("assets/textures/Checkerboard.png");
 }
 
 void Sandbox3D::OnDetach()
 {
+	FJ_PROFILE_FUNCTION();
 }
 
 void Sandbox3D::OnUpdate(Feijoa::Timestep ts)
 {
+	FJ_PROFILE_FUNCTION();
+
 	m_CameraController.OnUpdate(ts);
 
 	Feijoa::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
@@ -39,6 +44,8 @@ void Sandbox3D::OnEvent(Feijoa::Event& e)
 
 void Sandbox3D::OnImGuiRender()
 {
+	FJ_PROFILE_FUNCTION();
+
 	auto& camera = m_CameraController.GetCamera();
 	ImGui::Begin("Camera control");
 	ImGui::DragFloat("FOV", &m_FOV, 1.0f, camera.GetMinFOV(), camera.GetMaxFOV());
