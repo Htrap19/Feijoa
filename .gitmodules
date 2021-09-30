@@ -21,3 +21,6 @@
 [submodule "Feijoa/vendor/ImGuizmo"]
 	path = Feijoa/vendor/ImGuizmo
 	url = https://github.com/CedricGuillemet/ImGuizmo.git
+[submodule "Feijoa/vendor/Assimp"]
+	path = Feijoa/vendor/Assimp
+	url = https://github.com/Htrap19/Feijoa-Assimp
