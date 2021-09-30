@@ -18,11 +18,13 @@ IncludeDir["ImGui"] = "Feijoa/vendor/imgui"
 IncludeDir["glm"] = "Feijoa/vendor/glm"
 IncludeDir["stb_image"] = "Feijoa/vendor/stb_image"
 IncludeDir["entt"] = "Feijoa/vendor/entt/include"
+IncludeDir["Assimp"] = "Feijoa/vendor/Assimp/assimp/include"
 
 group "Dependencies"
 	include "Feijoa/vendor/GLFW"
 	include "Feijoa/vendor/Glad"
 	include "Feijoa/vendor/imgui"
+	include "Feijoa/vendor/Assimp"
 
 group ""
 
@@ -58,7 +60,8 @@ project "Feijoa"
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.stb_image}",
-		"%{IncludeDir.entt}"
+		"%{IncludeDir.entt}",
+		"%{IncludeDir.Assimp}"
 	}
 
 	defines
@@ -72,6 +75,7 @@ project "Feijoa"
 		"GLFW",
 		"Glad",
 		"ImGui",
+		"Assimp",
 		"opengl32.lib"
 	}
 
