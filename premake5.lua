@@ -17,6 +17,7 @@ IncludeDir["Glad"] = "Feijoa/vendor/Glad/include"
 IncludeDir["ImGui"] = "Feijoa/vendor/imgui"
 IncludeDir["glm"] = "Feijoa/vendor/glm"
 IncludeDir["stb_image"] = "Feijoa/vendor/stb_image"
+IncludeDir["entt"] = "Feijoa/vendor/entt/include"
 
 group "Dependencies"
 	include "Feijoa/vendor/GLFW"
@@ -56,7 +57,8 @@ project "Feijoa"
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.stb_image}"
+		"%{IncludeDir.stb_image}",
+		"%{IncludeDir.entt}"
 	}
 
 	defines
@@ -116,7 +118,8 @@ project "Sandbox"
 		"Feijoa/vendor/spdlog/include",
 		"Feijoa/src",
 		"Feijoa/vendor/",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.entt}"
 	}
 
 	links
@@ -163,7 +166,8 @@ project "Sellowiana"
 		"Feijoa/vendor/spdlog/include",
 		"Feijoa/src",
 		"Feijoa/vendor/",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.entt}"
 	}
 
 	links
