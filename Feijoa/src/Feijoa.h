@@ -17,6 +17,7 @@
 #include "Feijoa/ImGui/ImGuiLayer.h"
 
 #include "Feijoa/Scene/Scene.h"
+#include "Feijoa/Scene/Entity.h"
 #include "Feijoa/Scene/Components.h"
 
 // -- Renderer --------------------------
