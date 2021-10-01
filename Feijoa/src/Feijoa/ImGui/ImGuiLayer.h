@@ -20,7 +20,6 @@ namespace Feijoa
 
 		void Begin();
 		void End();
-<<<<<<< HEAD
 
 		void BlockEvents(bool block) { m_BlockEvents = block; }
 
@@ -29,7 +28,5 @@ namespace Feijoa
 	private:
 		bool m_BlockEvents = true;
 		float m_Time = 0.0f;
-=======
->>>>>>> eefd98d (Added profiling functions)
 	};
 }
