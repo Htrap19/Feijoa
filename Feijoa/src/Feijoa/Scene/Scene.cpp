@@ -39,6 +39,7 @@ namespace Feijoa
 				{
 					mainCamera = &camera.Camera;
 					cameraTransform = &transform.Transform;
+					break;
 				}
 			}
 		}
