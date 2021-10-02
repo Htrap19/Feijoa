@@ -1,7 +1,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
-#include "Feijoa/Renderer/Camera.h"
+#include "Feijoa/Scene/SceneCamera.h"
 
 namespace Feijoa
 {
@@ -17,13 +17,12 @@ namespace Feijoa
 
 	struct CameraComponent
 	{
-		Feijoa::Camera Camera;
+		SceneCamera Camera;
 		bool Primary = true;
+		bool FixedAspectRatio = false;
 
 		CameraComponent() = default;
 		CameraComponent(const CameraComponent&) = default;
-		CameraComponent(const glm::mat4& projection)
-			: Camera(projection) {}
 	};
 
 	struct TransformComponent
