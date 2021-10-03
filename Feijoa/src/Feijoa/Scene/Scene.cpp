@@ -4,6 +4,7 @@
 #include "Feijoa/Scene/Components.h"
 #include "Feijoa/Scene/Entity.h"
 #include "Feijoa/Renderer/Renderer2D.h"
+#include "Feijoa/Renderer/Renderer3D.h"
 
 namespace Feijoa
 {
@@ -45,6 +46,7 @@ namespace Feijoa
 				});
 		}
 
+#ifdef FJ_2DSCENE
 		Camera* mainCamera = nullptr;
 		glm::mat4* cameraTransform = nullptr;
 
@@ -74,6 +76,17 @@ namespace Feijoa
 			}
 
 			Renderer2D::EndScene();
+		}
+#endif
+		{
+			
+			auto view = m_Registry.view<MeshComponent>();
+
+			for (auto entity : view)
+			{
+				auto& vertexArray = view.get<MeshComponent>(entity).VertexArray;
+				Renderer3D::DrawModel(vertexArray);
+			}
 		}
 	}
 

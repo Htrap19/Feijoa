@@ -13,6 +13,10 @@ void Sandbox3D::OnAttach()
 	FJ_PROFILE_FUNCTION();
 
 	m_CheckerboardTexture = Feijoa::Texture2D::Create("assets/textures/Checkerboard.png");
+
+	m_ActiveScene = Feijoa::CreateRef<Feijoa::Scene>();
+	m_Model = m_ActiveScene->CreateEntity("Sphere");
+	m_Model.AddComponent<Feijoa::ModelComponent>(&m_Model, "assets/models/sphere/scene.gltf", glm::vec3(0.0f));
 }
 
 void Sandbox3D::OnDetach()
@@ -31,9 +35,10 @@ void Sandbox3D::OnUpdate(Feijoa::Timestep ts)
 
 	Feijoa::Renderer3D::ResetStats();
 	Feijoa::Renderer3D::BeginScene(m_CameraController.GetCamera());
-	Feijoa::Renderer3D::DrawQuad(glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f), glm::vec4(0.8f, 0.2f, 0.3f, 1.0f));
-	Feijoa::Renderer3D::DrawQuad(glm::vec3(3.0f, 1.0f, 3.0f), glm::vec3(1.0f), m_CheckerboardTexture);
-	Feijoa::Renderer3D::DrawRotatedQuad(glm::vec3(5.0f), glm::vec3(0.5f), 45.0f, glm::vec3(1.0f), m_SquareColor);
+	// Feijoa::Renderer3D::DrawQuad(glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f), glm::vec4(0.8f, 0.2f, 0.3f, 1.0f));
+	// Feijoa::Renderer3D::DrawQuad(glm::vec3(3.0f, 1.0f, 3.0f), glm::vec3(1.0f), m_CheckerboardTexture);
+	// Feijoa::Renderer3D::DrawRotatedQuad(glm::vec3(5.0f), glm::vec3(0.5f), 45.0f, glm::vec3(1.0f), m_SquareColor);
+	m_ActiveScene->OnUpdate(ts);
 	Feijoa::Renderer3D::EndScene();
 }
 

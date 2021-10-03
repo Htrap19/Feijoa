@@ -3,6 +3,8 @@
 #include <glm/glm.hpp>
 #include "Feijoa/Scene/SceneCamera.h"
 #include "Feijoa/Scene/ScriptableEntity.h"
+#include "Feijoa/Scene/ModelEntity.h"
+#include "Feijoa/Renderer/VertexArray.h"
 
 namespace Feijoa
 {
@@ -70,5 +72,25 @@ namespace Feijoa
 		SpriteRendererComponent(const SpriteRendererComponent&) = default;
 		SpriteRendererComponent(const glm::vec4& color)
 			: Color(color) {}
+	};
+
+	struct MeshComponent
+	{
+		Ref<VertexArray> VertexArray;
+
+		MeshComponent() = default;
+		MeshComponent(const MeshComponent&) = default;
+		MeshComponent(const Ref<Feijoa::VertexArray>& vertexArray)
+			: VertexArray(vertexArray) {}
+	};
+
+	struct ModelComponent
+	{
+		ModelEntity Model;
+
+		ModelComponent() = default;
+		ModelComponent(const ModelComponent&) = default;
+		ModelComponent(Entity* entity, const std::string& model, const glm::vec3& position)
+			: Model(entity, model, position) {}
 	};
 }

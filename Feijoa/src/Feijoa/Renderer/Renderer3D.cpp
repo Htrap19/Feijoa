@@ -27,6 +27,7 @@ namespace Feijoa
 		Ref<VertexBuffer> CubeVertexBuffer;
 		Ref<Texture2D> WhiteTexture;
 		Ref<Shader> Renderer3DShader;
+		Ref<Shader> Model3DShader;
 
 		uint32_t CubeIndexCount = 0;
 		CubeVertex* CubeVertexBufferBase = nullptr;
@@ -134,6 +135,8 @@ namespace Feijoa
 		s_Data3D.Renderer3DShader->Bind();
 		s_Data3D.Renderer3DShader->SetIntArray("u_Textures", samplers, s_Data3D.MaxTextureSlots);
 
+		s_Data3D.Model3DShader = Shader::Create("assets/shaders/Model3D.glsl");
+
 		// Front
 		s_Data3D.CubePositions[0] = { -0.5f, -0.5f,  0.5f, 1.0f };
 		s_Data3D.CubePositions[1] = {  0.5f, -0.5f,  0.5f, 1.0f };
@@ -168,8 +171,8 @@ namespace Feijoa
 	{
 		FJ_PROFILE_FUNCTION();
 
-		s_Data3D.Renderer3DShader->Bind();
-		s_Data3D.Renderer3DShader->SetMat4("u_VP", camera.GetViewProjectionMatrix());
+		s_Data3D.Model3DShader->Bind();
+		s_Data3D.Model3DShader->SetMat4("u_VP", camera.GetViewProjectionMatrix());
 
 		s_Data3D.CubeIndexCount = 0;
 		s_Data3D.CubeVertexBufferPtr = s_Data3D.CubeVertexBufferBase;
@@ -194,7 +197,7 @@ namespace Feijoa
 		for (uint32_t i = 0; i < s_Data3D.TextureSlotIndex; i++)
 			s_Data3D.TextureSlots[i]->Bind(i);
 
-		s_Data3D.Renderer3DShader->Bind();
+		s_Data3D.Model3DShader->Bind();
 		RenderCommand::DrawIndexed(s_Data3D.CubeVertexArray, s_Data3D.CubeIndexCount);
 		s_Data3D.Stats.DrawCalls++;
 	}
@@ -316,6 +319,13 @@ namespace Feijoa
 		s_Data3D.CubeIndexCount += 36;
 
 		s_Data3D.Stats.QuadCount++;
+	}
+
+	void Renderer3D::DrawModel(const Ref<VertexArray>& vertexArray)
+	{
+		s_Data3D.Model3DShader->Bind();
+		auto indexCount = vertexArray->GetIndexBuffer()->GetCount();
+		RenderCommand::DrawIndexed(vertexArray, indexCount);
 	}
 
 }

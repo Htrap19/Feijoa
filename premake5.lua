@@ -123,7 +123,8 @@ project "Sandbox"
 		"Feijoa/src",
 		"Feijoa/vendor/",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.entt}"
+		"%{IncludeDir.entt}",
+		"%{IncludeDir.Assimp}"
 	}
 
 	links

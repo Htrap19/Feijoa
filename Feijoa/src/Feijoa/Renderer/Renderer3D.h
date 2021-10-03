@@ -2,6 +2,7 @@
 
 #include "Feijoa/Renderer/PerspectiveCamera.h"
 #include "Feijoa/Renderer/Texture.h"
+#include "Feijoa/Renderer/VertexArray.h"
 
 namespace Feijoa
 {
@@ -32,6 +33,8 @@ namespace Feijoa
 		static void DrawQuad(const glm::vec3& position, const glm::vec3& size, const Ref<Texture2D>& texture, float tilingFactor = 1.0f, const glm::vec4& tintColor = glm::vec4(1.0f));
 
 		static void DrawRotatedQuad(const glm::vec3& position, const glm::vec3& size, float rotation, const glm::vec3& rotation_vec, const glm::vec4& color);
+
+		static void DrawModel(const Ref<VertexArray>& vertexArray);
 
 	private:
 		static void FlushAndReset();
