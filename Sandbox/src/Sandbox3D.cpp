@@ -16,7 +16,7 @@ void Sandbox3D::OnAttach()
 
 	m_ActiveScene = Feijoa::CreateRef<Feijoa::Scene>();
 	m_Model = m_ActiveScene->CreateEntity("Sphere");
-	m_Model.AddComponent<Feijoa::ModelComponent>(&m_Model, "assets/models/sphere/scene.gltf", glm::vec3(0.0f));
+	m_Model.AddComponent<Feijoa::ModelComponent>(&m_Model, "assets/models/sphere/scene.gltf", glm::vec3(0.0f), glm::vec3(0.25f));
 }
 
 void Sandbox3D::OnDetach()

@@ -90,7 +90,7 @@ namespace Feijoa
 
 		ModelComponent() = default;
 		ModelComponent(const ModelComponent&) = default;
-		ModelComponent(Entity* entity, const std::string& model, const glm::vec3& position)
-			: Model(entity, model, position) {}
+		ModelComponent(Entity* entity, const std::string& model, const glm::vec3& position, const glm::vec3& size)
+			: Model(entity, model, position, size) {}
 	};
 }
