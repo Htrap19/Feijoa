@@ -27,6 +27,24 @@ namespace Feijoa
 
 	void Scene::OnUpdate(Timestep ts)
 	{
+		// Update scripts
+		{
+			m_Registry.view<NativeScriptComponent>().each([=](auto entity, auto& ncs)
+				{
+					if (!ncs.Instance)
+					{
+						ncs.InstantiateFunction();
+						ncs.Instance->m_Entity = Entity{ entity, this };
+
+						if (ncs.OnCreateFunction)
+							ncs.OnCreateFunction(ncs.Instance);
+					}
+
+					if (ncs.OnUpdateFunction)
+						ncs.OnUpdateFunction(ncs.Instance, ts);
+				});
+		}
+
 		Camera* mainCamera = nullptr;
 		glm::mat4* cameraTransform = nullptr;
 

@@ -18,6 +18,7 @@
 
 #include "Feijoa/Scene/Scene.h"
 #include "Feijoa/Scene/Entity.h"
+#include "Feijoa/Scene/ScriptableEntity.h"
 #include "Feijoa/Scene/Components.h"
 
 // -- Renderer --------------------------
