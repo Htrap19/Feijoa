@@ -176,6 +176,20 @@ namespace Feijoa
 		s_Data3D.TextureSlotIndex = 1;
 	}
 
+	void Renderer3D::BeginScene(const Camera& camera, const glm::mat4& view)
+	{
+		FJ_PROFILE_FUNCTION();
+
+		glm::mat4 viewProj = camera.GetProjection() * view;
+
+		s_Data3D.Renderer3DShader->Bind();
+		s_Data3D.Renderer3DShader->SetMat4("u_VP", viewProj);
+
+		s_Data3D.CubeIndexCount = 0;
+		s_Data3D.CubeVertexBufferPtr = s_Data3D.CubeVertexBufferBase;
+		s_Data3D.TextureSlotIndex = 1;
+	}
+
 	void Renderer3D::EndScene()
 	{
 		FJ_PROFILE_FUNCTION();

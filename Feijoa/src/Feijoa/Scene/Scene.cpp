@@ -4,6 +4,7 @@
 #include "Feijoa/Scene/Components.h"
 #include "Feijoa/Scene/Entity.h"
 #include "Feijoa/Renderer/Renderer2D.h"
+#include "Feijoa/Renderer/Renderer3D.h"
 
 namespace Feijoa
 {
@@ -77,6 +78,33 @@ namespace Feijoa
 
 			Renderer2D::EndScene();
 		}
+
+		Camera* mainPerspectiveCamera = nullptr;
+		const glm::mat4* mainView = nullptr;
+
+		{
+			auto view = m_Registry.view<PerspectiveCameraComponent>();
+
+			for (auto entity : view)
+			{
+				auto& camera = view.get<PerspectiveCameraComponent>(entity);
+				if (camera.Primary)
+				{
+					mainPerspectiveCamera = &camera.Camera;
+					mainView = &camera.Camera.GetView();
+					break;
+				}
+			}
+		}
+
+		if (mainPerspectiveCamera)
+		{
+			Renderer3D::ResetStats();
+			Renderer3D::BeginScene(*mainPerspectiveCamera, *mainView);
+			// Temp
+			Renderer3D::DrawQuad(glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f), glm::vec4(0.8f, 0.2f, 0.3f, 1.0f));
+			Renderer3D::EndScene();
+		}
 	}
 
 	void Scene::OnUpdateEditor(Timestep ts, EditorCamera& camera)
@@ -97,13 +125,15 @@ namespace Feijoa
 	{
 		m_ViewportWidth = width, m_ViewportHeight = height;
 
-		auto& view = m_Registry.view<CameraComponent>();
+		auto& view = m_Registry.view<CameraComponent, PerspectiveCameraComponent>();
 
 		for (auto entity : view)
 		{
-			auto& cameraComponent = view.get<CameraComponent>(entity);
+			auto& [cameraComponent, persCameraComponent ] = view.get<CameraComponent, PerspectiveCameraComponent>(entity);
 			if (!cameraComponent.FixedAspectRatio)
 				cameraComponent.Camera.SetViewportSize(width, height);
+			if (!persCameraComponent.FixedAspectRatio)
+				persCameraComponent.Camera.SetViewportSize(width, height);
 		}
 	}
 

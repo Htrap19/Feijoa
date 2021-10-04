@@ -31,6 +31,18 @@ namespace Feijoa
 		CameraComponent(const CameraComponent&) = default;
 	};
 
+	struct PerspectiveCameraComponent
+	{
+		PerspectiveSceneCamera Camera;
+		bool Primary = true;
+		bool FixedAspectRatio = false;
+
+		PerspectiveCameraComponent() = default;
+		PerspectiveCameraComponent(const PerspectiveCameraComponent&) = default;
+		PerspectiveCameraComponent(const glm::vec3& position, float aspectRatio)
+			: Camera(position, aspectRatio) {}
+	};
+
 	struct NativeScriptComponent
 	{
 		ScriptableEntity* Instance = nullptr;

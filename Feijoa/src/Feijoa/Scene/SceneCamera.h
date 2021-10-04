@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Feijoa/Renderer/Camera.h"
+#include "Feijoa/Core/Timestep.h"
 
 namespace Feijoa
 {
@@ -51,5 +52,65 @@ namespace Feijoa
 		float m_OrthographicNear = -1.0f, m_OrthographicFar = 1.0f;
 		
 		float m_AspectRatio = 0.0f;
+	};
+
+	class PerspectiveSceneCamera : public Camera
+	{
+	public:
+		enum class Direction
+		{
+			None = -1,
+			Forward, Backward,
+			Left, Right,
+			Top, Bottom
+		};
+
+	public:
+		PerspectiveSceneCamera();
+		PerspectiveSceneCamera(const glm::vec3& position, float aspectRatio);
+		PerspectiveSceneCamera(const glm::vec3& position, uint32_t width, uint32_t height);
+		virtual ~PerspectiveSceneCamera() = default;
+
+		void SetViewportSize(uint32_t width, uint32_t height);
+
+		// Note: UpdatePosition function requires delta(change in) 'x' or 'y',
+		// not mouse 'x' or 'y' positions
+		// E.g
+		//		...
+		//		float lastX, lastY;
+		//		...
+		// 
+		// ...
+		// void OnUpdate(TimeStep ts)
+		// {
+		//		...
+		//		auto& [x, y] = Input::GetMousePosition();
+		//		float dx = x - lastX; // This is the value will be passed the update function
+		//		// Note: Y is inverted here
+		//		float dy = lastY - y; // This is the value will be passed the update function
+		//		lastX = x;
+		//		lastY = y;
+		//		UpdateDirection(dx, dy); // Like so
+		//		...
+		// }
+		// ...
+		void UpdatePosition(float dx, float dy);
+		void UpdateDirection(Direction dir, Timestep ts);
+
+		inline const glm::mat4& GetView() const { return m_View; }
+
+	private:
+		void RecalculateView();
+
+	private:
+		glm::vec3 m_Position = { 0.0f, 0.0f, 0.0f };
+
+		glm::vec3 m_CameraFront, m_CameraUp, m_CameraRight;
+		glm::vec3 m_WorldUp = { 0.0f, 1.0f, 0.0f };
+
+		glm::mat4 m_View;
+
+		float m_FOV = 50.0f, m_Speed = 2.5f, m_AspectRatio;
+		float m_Yaw = -90.0f, m_Pitch = 0.0f;
 	};
 }
