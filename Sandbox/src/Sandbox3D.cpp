@@ -13,6 +13,51 @@ void Sandbox3D::OnAttach()
 	FJ_PROFILE_FUNCTION();
 
 	m_CheckerboardTexture = Feijoa::Texture2D::Create("assets/textures/Checkerboard.png");
+
+	m_ActiveScene = Feijoa::CreateRef<Feijoa::Scene>();
+	m_Camera = m_ActiveScene->CreateEntity("Perspective Camera");
+	m_Camera.AddComponent<Feijoa::PerspectiveCameraComponent>(glm::vec3(0.0f, 0.0f, 0.0f), 1280.0f/720.0f);
+
+	class CameraController : public Feijoa::ScriptableEntity
+	{
+	public:
+		void OnCreate()
+		{
+		}
+
+		void OnDestroy()
+		{
+		}
+
+		void OnUpdate(Feijoa::Timestep ts)
+		{
+			auto& camera = GetComponent<Feijoa::PerspectiveCameraComponent>().Camera;
+
+			if (Feijoa::Input::IsKeyPressed(Feijoa::KeyCode::W))
+				camera.UpdateDirection(Feijoa::PerspectiveSceneCamera::Direction::Forward, ts);
+			if (Feijoa::Input::IsKeyPressed(Feijoa::KeyCode::S))
+				camera.UpdateDirection(Feijoa::PerspectiveSceneCamera::Direction::Backward, ts);
+			if (Feijoa::Input::IsKeyPressed(Feijoa::KeyCode::A))
+				camera.UpdateDirection(Feijoa::PerspectiveSceneCamera::Direction::Left, ts);
+			if (Feijoa::Input::IsKeyPressed(Feijoa::KeyCode::D))
+				camera.UpdateDirection(Feijoa::PerspectiveSceneCamera::Direction::Right, ts);
+			if (Feijoa::Input::IsKeyPressed(Feijoa::KeyCode::Space))
+				camera.UpdateDirection(Feijoa::PerspectiveSceneCamera::Direction::Top, ts);
+			if (Feijoa::Input::IsKeyPressed(Feijoa::KeyCode::LeftShift))
+				camera.UpdateDirection(Feijoa::PerspectiveSceneCamera::Direction::Bottom, ts);
+
+			auto [x, y] = Feijoa::Input::GetMousePosition();
+			float dx = x - m_LastX;
+			float dy = m_LastY - y; // Because y is inverted
+			m_LastX = x;
+			m_LastY = y;
+			camera.UpdatePosition(dx, dy);
+		}
+
+	private:
+		float m_LastX = 0, m_LastY = 0;
+	};
+	m_Camera.AddComponent<Feijoa::NativeScriptComponent>().Bind<CameraController>();
 }
 
 void Sandbox3D::OnDetach()
@@ -29,12 +74,8 @@ void Sandbox3D::OnUpdate(Feijoa::Timestep ts)
 	Feijoa::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 	Feijoa::RenderCommand::Clear();
 
-	Feijoa::Renderer3D::ResetStats();
-	Feijoa::Renderer3D::BeginScene(m_CameraController.GetCamera());
-	Feijoa::Renderer3D::DrawQuad(glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f), glm::vec4(0.8f, 0.2f, 0.3f, 1.0f));
-	Feijoa::Renderer3D::DrawQuad(glm::vec3(3.0f, 1.0f, 3.0f), glm::vec3(1.0f), m_CheckerboardTexture);
-	Feijoa::Renderer3D::DrawRotatedQuad(glm::vec3(5.0f), glm::vec3(0.5f), 45.0f, glm::vec3(1.0f), m_SquareColor);
-	Feijoa::Renderer3D::EndScene();
+	m_ActiveScene->OnUpdate(ts);
+	
 }
 
 void Sandbox3D::OnEvent(Feijoa::Event& e)

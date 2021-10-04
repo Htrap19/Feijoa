@@ -2,6 +2,7 @@
 
 #include "Feijoa/Renderer/PerspectiveCamera.h"
 #include "Feijoa/Renderer/Texture.h"
+#include "Feijoa/Scene/SceneCamera.h"
 
 namespace Feijoa
 {
@@ -24,6 +25,7 @@ namespace Feijoa
 		static void ResetStats();
 		static Statistics GetStats();
 
+		static void BeginScene(const Camera& camera, const glm::mat4& view);
 		static void BeginScene(PerspectiveCamera& camera);
 		static void EndScene();
 		static void Flush();
