@@ -32,7 +32,6 @@ namespace Feijoa
 		bool Primary = true;
 		bool FixedAspectRatio = false;
 
-		PerspectiveCameraComponent() = default;
 		PerspectiveCameraComponent(const PerspectiveCameraComponent&) = default;
 		PerspectiveCameraComponent(const glm::vec3& position, float aspectRatio)
 			: Camera(position, aspectRatio) {}

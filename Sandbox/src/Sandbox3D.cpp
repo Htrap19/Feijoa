@@ -73,6 +73,7 @@ void Sandbox3D::OnUpdate(Feijoa::Timestep ts)
 
 	Feijoa::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 	Feijoa::RenderCommand::Clear();
+	Feijoa::Renderer3D::ResetStats();
 
 	m_ActiveScene->OnUpdate(ts);
 	
@@ -81,22 +82,35 @@ void Sandbox3D::OnUpdate(Feijoa::Timestep ts)
 void Sandbox3D::OnEvent(Feijoa::Event& e)
 {
 	m_CameraController.OnEvent(e);
+
+	Feijoa::EventDispatcher dispatcher(e);
+	dispatcher.Dispatch<Feijoa::WindowResizeEvent>(FJ_BIND_EVENT_FN(Sandbox3D::OnWindowResize));
 }
 
 void Sandbox3D::OnImGuiRender()
 {
 	FJ_PROFILE_FUNCTION();
 
-	auto& camera = m_CameraController.GetCamera();
+	auto& camera = m_Camera.GetComponent<Feijoa::PerspectiveCameraComponent>().Camera;
 	ImGui::Begin("Camera control");
-	ImGui::DragFloat("FOV", &m_FOV, 1.0f, camera.GetMinFOV(), camera.GetMaxFOV());
-	ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
 	auto stats = Feijoa::Renderer3D::GetStats();
 	ImGui::Text("Renderer 3D Stats:");
 	ImGui::Text("Draw calls: %d", stats.DrawCalls);
 	ImGui::Text("Quad count: %d", stats.QuadCount);
 	ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
 	ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
+	ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
+
+	ImGui::DragFloat("FOV", &m_FOV, 1.0f);
+	ImGui::DragFloat("Speed", &m_Speed, 1.0f);
 	ImGui::End();
 	camera.SetFOV(m_FOV);
+	camera.SetSpeed(m_Speed);
+}
+
+bool Sandbox3D::OnWindowResize(Feijoa::WindowResizeEvent& e)
+{
+	m_ActiveScene->OnViewportResize(e.GetWidth(), e.GetHeight());
+
+	return false;
 }
