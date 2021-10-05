@@ -57,8 +57,9 @@ namespace Feijoa
 	// Perspective Scene Camera ================================================================
 	// =========================================================================================
 
-	PerspectiveSceneCamera::PerspectiveSceneCamera(const glm::vec3& position, float aspectRatio)
-		: Camera(glm::perspective(glm::radians(m_FOV), aspectRatio, 1.0f, 100.0f)), m_Position(position), m_AspectRatio(aspectRatio)
+	PerspectiveSceneCamera::PerspectiveSceneCamera(const glm::vec3& position, float aspectRatio, float fov /* = 45.0f */, float nearClip /* = 1.0f */, float farClip /* = 100.0f */)
+		: Camera(glm::perspective(glm::radians(fov), aspectRatio, nearClip, farClip)), m_Position(position), m_AspectRatio(aspectRatio), m_FOV(fov),
+		m_NearClip(nearClip), m_FarClip(farClip)
 	{
 		RecalculateView();
 	}
@@ -68,15 +69,10 @@ namespace Feijoa
 	{
 	}
 
-	PerspectiveSceneCamera::PerspectiveSceneCamera()
-		: PerspectiveSceneCamera(glm::vec3(0.0f, 0.0f, 0.0f), 0)
-	{
-	}
-
 	void PerspectiveSceneCamera::SetViewportSize(uint32_t width, uint32_t height)
 	{
 		m_AspectRatio = (float)width / (float)height;
-		m_Projection = glm::perspective(glm::radians(m_FOV), m_AspectRatio, 1.0f, 100.0f);
+		m_Projection = glm::perspective(glm::radians(m_FOV), m_AspectRatio, m_NearClip, m_FarClip);
 	}
 
 	void PerspectiveSceneCamera::UpdatePosition(float dx, float dy)

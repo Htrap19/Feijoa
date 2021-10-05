@@ -99,7 +99,6 @@ namespace Feijoa
 
 		if (mainPerspectiveCamera)
 		{
-			Renderer3D::ResetStats();
 			Renderer3D::BeginScene(*mainPerspectiveCamera, *mainView);
 			// Temp
 			Renderer3D::DrawQuad(glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f), glm::vec4(0.8f, 0.2f, 0.3f, 1.0f));
@@ -125,16 +124,29 @@ namespace Feijoa
 	{
 		m_ViewportWidth = width, m_ViewportHeight = height;
 
-		auto& view = m_Registry.view<CameraComponent, PerspectiveCameraComponent>();
-
-		for (auto entity : view)
 		{
-			auto& [cameraComponent, persCameraComponent ] = view.get<CameraComponent, PerspectiveCameraComponent>(entity);
-			if (!cameraComponent.FixedAspectRatio)
-				cameraComponent.Camera.SetViewportSize(width, height);
-			if (!persCameraComponent.FixedAspectRatio)
-				persCameraComponent.Camera.SetViewportSize(width, height);
+			auto& view = m_Registry.view<CameraComponent>();
+
+			for (auto entity : view)
+			{
+				auto& cameraComponent = view.get<CameraComponent>(entity);
+				if (!cameraComponent.FixedAspectRatio)
+					cameraComponent.Camera.SetViewportSize(width, height);
+
+			}
 		}
+		{
+			auto& view = m_Registry.view<PerspectiveCameraComponent>();
+
+			for (auto entity : view)
+			{
+				auto& cameraComponent = view.get<PerspectiveCameraComponent>(entity);
+				if (!cameraComponent.FixedAspectRatio)
+					cameraComponent.Camera.SetViewportSize(width, height);
+
+			}
+		}
+		
 	}
 
 	Entity Scene::GetPrimaryCameraEntity()

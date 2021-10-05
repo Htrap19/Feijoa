@@ -66,8 +66,7 @@ namespace Feijoa
 		};
 
 	public:
-		PerspectiveSceneCamera();
-		PerspectiveSceneCamera(const glm::vec3& position, float aspectRatio);
+		PerspectiveSceneCamera(const glm::vec3& position, float aspectRatio, float fov = 45.0f, float nearClip = 1.0f, float farClip = 100.0f);
 		PerspectiveSceneCamera(const glm::vec3& position, uint32_t width, uint32_t height);
 		virtual ~PerspectiveSceneCamera() = default;
 
@@ -98,6 +97,14 @@ namespace Feijoa
 		void UpdateDirection(Direction dir, Timestep ts);
 
 		inline const glm::mat4& GetView() const { return m_View; }
+		inline const float GetFOV() const { return m_FOV; }
+		inline void SetFOV(float fov) { m_FOV = fov; }
+		inline const float GetSpeed() const { return m_Speed; }
+		inline void SetSpeed(float speed) { m_Speed = speed; }
+		inline void SetFarClip(float farClip) { m_FarClip = farClip; }
+		inline const float GetFarClip() const { return m_FarClip; }
+		inline void SetNearClip(float nearClip) { m_NearClip = nearClip; }
+		inline const float GetNearClip() const { return m_NearClip; }
 
 	private:
 		void RecalculateView();
@@ -108,9 +115,10 @@ namespace Feijoa
 		glm::vec3 m_CameraFront, m_CameraUp, m_CameraRight;
 		glm::vec3 m_WorldUp = { 0.0f, 1.0f, 0.0f };
 
-		glm::mat4 m_View;
+		glm::mat4 m_View = glm::mat4(1.0f);
 
-		float m_FOV = 50.0f, m_Speed = 2.5f, m_AspectRatio;
+		float m_FOV, m_Speed = 2.5f, m_AspectRatio;
 		float m_Yaw = -90.0f, m_Pitch = 0.0f;
+		float m_NearClip, m_FarClip;
 	};
 }
