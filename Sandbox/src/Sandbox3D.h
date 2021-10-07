@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Feijoa.h>
+#include <glm/glm.hpp>
 
 class Sandbox3D : public Feijoa::Layer
 {

@@ -14,24 +14,24 @@ namespace Feijoa
 	{
 		FJ_PROFILE_FUNCTION();
 
-		if (Input::IsKeyPressed(FJ_KEY_A))
+		if (Input::IsKeyPressed(Key::A))
 			m_Camera.UpdateDir(PerspectiveCamera::Direction::Left, ts);
-		if (Input::IsKeyPressed(FJ_KEY_D))
+		if (Input::IsKeyPressed(Key::D))
 			m_Camera.UpdateDir(PerspectiveCamera::Direction::Right, ts);
-		if (Input::IsKeyPressed(FJ_KEY_W))
+		if (Input::IsKeyPressed(Key::W))
 			m_Camera.UpdateDir(PerspectiveCamera::Direction::Forward, ts);
-		if (Input::IsKeyPressed(FJ_KEY_S))
+		if (Input::IsKeyPressed(Key::S))
 			m_Camera.UpdateDir(PerspectiveCamera::Direction::Backward, ts);
-		if (Input::IsKeyPressed(FJ_KEY_SPACE))
+		if (Input::IsKeyPressed(Key::Space))
 			m_Camera.UpdateDir(PerspectiveCamera::Direction::Top, ts);
-		if (Input::IsKeyPressed(FJ_KEY_LEFT_SHIFT))
+		if (Input::IsKeyPressed(Key::LeftShift))
 			m_Camera.UpdateDir(PerspectiveCamera::Direction::Bottom, ts);
 
-		auto [x, y] = Input::GetMousePosition();
-		float dx = x - m_LastX;
-		float dy = m_LastY - y;
-		m_LastX = x;
-		m_LastY = y;
+		auto cursor = Input::GetMousePosition();
+		float dx = cursor.x - m_LastX;
+		float dy = m_LastY - cursor.y;
+		m_LastX = cursor.x;
+		m_LastY = cursor.y;
 		if (dx != 0 || dy != 0)
 			m_Camera.UpdatePosition(dx, dy);
 	}

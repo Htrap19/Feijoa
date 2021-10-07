@@ -29,6 +29,7 @@ project "Feijoa"
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.stb_image}",
+		"%{IncludeDir.Assimp}",
 		"%{IncludeDir.entt}"
 	}
 
@@ -43,6 +44,7 @@ project "Feijoa"
 		"GLFW",
 		"Glad",
 		"ImGui",
+		"Assimp",
 		"opengl32.lib"
 	}
 
