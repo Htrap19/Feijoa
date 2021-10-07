@@ -17,21 +17,21 @@ namespace Feijoa
 	{
 		FJ_PROFILE_FUNCTION();
 
-		if (Feijoa::Input::IsKeyPressed(FJ_KEY_A))
+		if (Feijoa::Input::IsKeyPressed(Key::A))
 			m_CameraPosition.x -= m_CameraTranslationSpeed * ts;
-		else if (Feijoa::Input::IsKeyPressed(FJ_KEY_D))
+		else if (Feijoa::Input::IsKeyPressed(Key::D))
 			m_CameraPosition.x += m_CameraTranslationSpeed * ts;
 
-		if (Feijoa::Input::IsKeyPressed(FJ_KEY_W))
+		if (Feijoa::Input::IsKeyPressed(Key::W))
 			m_CameraPosition.y += m_CameraTranslationSpeed * ts;
-		else if (Feijoa::Input::IsKeyPressed(FJ_KEY_S))
+		else if (Feijoa::Input::IsKeyPressed(Key::S))
 			m_CameraPosition.y -= m_CameraTranslationSpeed * ts;
 
 		if (m_Rotation)
 		{
-			if (Feijoa::Input::IsKeyPressed(FJ_KEY_Q))
+			if (Feijoa::Input::IsKeyPressed(Key::Q))
 				m_CameraRotation += m_CameraRotationSpeed * ts;
-			if (Feijoa::Input::IsKeyPressed(FJ_KEY_E))
+			if (Feijoa::Input::IsKeyPressed(Key::E))
 				m_CameraRotation -= m_CameraRotationSpeed * ts;
 
 			m_Camera.SetRotation(m_CameraRotation);

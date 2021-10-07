@@ -10,7 +10,7 @@ namespace Feijoa
 	class MouseMovedEvent : public Event
 	{
 	public:
-		MouseMovedEvent(float x, float y)
+		MouseMovedEvent(const float x, const float y)
 			: m_MouseX(x), m_MouseY(y)
 		{}
 
@@ -34,7 +34,7 @@ namespace Feijoa
 	class MouseScrolledEvent : public Event
 	{
 	public:
-		MouseScrolledEvent(float xOffset, float yOffset)
+		MouseScrolledEvent(const float xOffset, const float yOffset)
 			: m_OffsetX(xOffset), m_OffsetY(yOffset)
 		{}
 
@@ -61,7 +61,7 @@ namespace Feijoa
 
 		EVENT_CLASS_CATEGORY(EventCategoryMouseButton | EventCategoryInput)
 	protected:
-		MouseButtonEvent(MouseCode button)
+		MouseButtonEvent(const MouseCode button)
 			: m_Button(button)
 		{}
 
@@ -71,7 +71,7 @@ namespace Feijoa
 	class MouseButtonPressedEvent : public MouseButtonEvent
 	{
 	public:
-		MouseButtonPressedEvent(MouseCode button)
+		MouseButtonPressedEvent(const MouseCode button)
 			: MouseButtonEvent(button)
 		{}
 
@@ -88,7 +88,7 @@ namespace Feijoa
 	class MouseButtonReleasedEvent : public MouseButtonEvent
 	{
 	public:
-		MouseButtonReleasedEvent(MouseCode button)
+		MouseButtonReleasedEvent(const MouseCode button)
 			: MouseButtonEvent(button)
 		{}
 

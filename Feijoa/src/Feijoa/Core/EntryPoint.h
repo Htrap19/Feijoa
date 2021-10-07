@@ -1,5 +1,5 @@
 #pragma once
-#include "Feijoa/Core/Base.h"
+#include "Feijoa/Debug/Instrumentor.h"
 
 #ifdef FJ_PLATFORM_WINDOWS
 

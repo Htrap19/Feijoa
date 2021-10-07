@@ -1,5 +1,13 @@
 #pragma once
 
+#include "Feijoa/Core/PlatformDetection.h"
+
+#ifdef FJ_PLATFORM_WINDOWS
+	#ifndef NOMINMAX
+		#define NOMINMAX
+	#endif
+#endif
+
 #include <iostream>
 #include <memory>
 #include <utility>
@@ -13,6 +21,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
+#include "Feijoa/Core/Base.h"
 #include "Feijoa/Core/Log.h"
 #include "Feijoa/Debug/Instrumentor.h"
 
