@@ -33,15 +33,12 @@ namespace Feijoa
 				{
 					if (!ncs.Instance)
 					{
-						ncs.InstantiateFunction();
+						ncs.Instance = ncs.InstantiateScript();
 						ncs.Instance->m_Entity = Entity{ entity, this };
-
-						if (ncs.OnCreateFunction)
-							ncs.OnCreateFunction(ncs.Instance);
+						ncs.Instance->OnCreate();
 					}
 
-					if (ncs.OnUpdateFunction)
-						ncs.OnUpdateFunction(ncs.Instance, ts);
+					ncs.Instance->OnUpdate(ts);
 				});
 		}
 
@@ -52,7 +49,7 @@ namespace Feijoa
 			auto view = m_Registry.view<TransformComponent, CameraComponent>();
 			for (auto entity : view)
 			{
-				auto& [transform, camera] = view.get<TransformComponent, CameraComponent>(entity);
+				auto [transform, camera] = view.get<TransformComponent, CameraComponent>(entity);
 				if (camera.Primary)
 				{
 					mainCamera = &camera.Camera;
@@ -69,7 +66,7 @@ namespace Feijoa
 
 			for (auto entity : group)
 			{
-				auto& [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
+				auto [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
 				Renderer2D::DrawQuad(transform, sprite.Color);
 			}
 
