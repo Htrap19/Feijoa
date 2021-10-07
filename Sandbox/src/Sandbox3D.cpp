@@ -33,24 +33,24 @@ void Sandbox3D::OnAttach()
 		{
 			auto& camera = GetComponent<Feijoa::PerspectiveCameraComponent>().Camera;
 
-			if (Feijoa::Input::IsKeyPressed(Feijoa::KeyCode::W))
+			if (Feijoa::Input::IsKeyPressed(Feijoa::Key::W))
 				camera.UpdateDirection(Feijoa::PerspectiveSceneCamera::Direction::Forward, ts);
-			if (Feijoa::Input::IsKeyPressed(Feijoa::KeyCode::S))
+			if (Feijoa::Input::IsKeyPressed(Feijoa::Key::S))
 				camera.UpdateDirection(Feijoa::PerspectiveSceneCamera::Direction::Backward, ts);
-			if (Feijoa::Input::IsKeyPressed(Feijoa::KeyCode::A))
+			if (Feijoa::Input::IsKeyPressed(Feijoa::Key::A))
 				camera.UpdateDirection(Feijoa::PerspectiveSceneCamera::Direction::Left, ts);
-			if (Feijoa::Input::IsKeyPressed(Feijoa::KeyCode::D))
+			if (Feijoa::Input::IsKeyPressed(Feijoa::Key::D))
 				camera.UpdateDirection(Feijoa::PerspectiveSceneCamera::Direction::Right, ts);
-			if (Feijoa::Input::IsKeyPressed(Feijoa::KeyCode::Space))
+			if (Feijoa::Input::IsKeyPressed(Feijoa::Key::Space))
 				camera.UpdateDirection(Feijoa::PerspectiveSceneCamera::Direction::Top, ts);
-			if (Feijoa::Input::IsKeyPressed(Feijoa::KeyCode::LeftShift))
+			if (Feijoa::Input::IsKeyPressed(Feijoa::Key::LeftShift))
 				camera.UpdateDirection(Feijoa::PerspectiveSceneCamera::Direction::Bottom, ts);
 
-			auto [x, y] = Feijoa::Input::GetMousePosition();
-			float dx = x - m_LastX;
-			float dy = m_LastY - y; // Because y is inverted
-			m_LastX = x;
-			m_LastY = y;
+			auto cursor = Feijoa::Input::GetMousePosition();
+			float dx = cursor.x - m_LastX;
+			float dy = m_LastY - cursor.y; // Because y is inverted
+			m_LastX = cursor.x;
+			m_LastY = cursor.y;
 			camera.UpdatePosition(dx, dy);
 		}
 

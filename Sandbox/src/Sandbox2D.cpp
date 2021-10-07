@@ -56,8 +56,8 @@ void Sandbox2D::OnUpdate(Feijoa::Timestep ts)
 
 	if (Feijoa::Input::IsMouseButtonPressed(Feijoa::Mouse::ButtonLeft))
 	{
-		auto x = Feijoa::Input::GetMouseX();
-		auto y = Feijoa::Input::GetMouseY();
+		auto cursor = Feijoa::Input::GetMousePosition();
+		float x = cursor.x, y = cursor.y;
 		auto width = Feijoa::Application::Get().GetWindow().GetWidth();
 		auto height = Feijoa::Application::Get().GetWindow().GetHeight();
 

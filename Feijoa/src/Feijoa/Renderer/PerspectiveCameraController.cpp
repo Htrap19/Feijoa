@@ -29,12 +29,10 @@ namespace Feijoa
 			m_Camera.UpdateDir(PerspectiveCamera::Direction::Bottom, ts);
 
 		auto cursor = Input::GetMousePosition();
-		auto x = cursor.x;
-		auto y = cursor.y;
-		float dx = x - m_LastX;
-		float dy = m_LastY - y;
-		m_LastX = x;
-		m_LastY = y;
+		float dx = cursor.x - m_LastX;
+		float dy = m_LastY - cursor.y;
+		m_LastX = cursor.x;
+		m_LastY = cursor.y;
 		if (dx != 0 || dy != 0)
 			m_Camera.UpdatePosition(dx, dy);
 	}
