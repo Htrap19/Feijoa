@@ -58,6 +58,12 @@ void Sandbox3D::OnAttach()
 		float m_LastX = 0, m_LastY = 0;
 	};
 	m_Camera.AddComponent<Feijoa::NativeScriptComponent>().Bind<CameraController>();
+
+	m_SphereModel = m_ActiveScene->CreateEntity("Sphere Model");
+	auto& model = m_SphereModel.AddComponent<Feijoa::ModelComponent>(&m_SphereModel, "assets/models/sphere/scene.gltf", glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.025f));
+	auto& transform = m_SphereModel.GetComponent<Feijoa::TransformComponent>().Transform;
+	transform = glm::translate(glm::mat4(1.0f), model.Model.GetPosition())
+		* glm::scale(glm::mat4(1.0f), model.Model.GetSize());
 }
 
 void Sandbox3D::OnDetach()
@@ -103,6 +109,8 @@ void Sandbox3D::OnImGuiRender()
 
 	ImGui::DragFloat("FOV", &m_FOV, 1.0f);
 	ImGui::DragFloat("Speed", &m_Speed, 1.0f);
+	auto io = ImGui::GetIO();
+	ImGui::Text("%.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
 	ImGui::End();
 	camera.SetFOV(m_FOV);
 	camera.SetSpeed(m_Speed);

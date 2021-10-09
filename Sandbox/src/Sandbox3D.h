@@ -26,6 +26,7 @@ private:
 	Feijoa::Ref<Feijoa::Texture2D> m_CheckerboardTexture;
 	Feijoa::Ref<Feijoa::Scene> m_ActiveScene;
 	Feijoa::Entity m_Camera;
+	Feijoa::Entity m_SphereModel;
 
 	float m_FOV = 45.0f, m_Speed = 2.5f;
 	glm::vec4 m_SquareColor = { 0.7f, 0.2f, 0.3f, 1.0f };
