@@ -4,6 +4,7 @@
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
 #include "Feijoa/Scene/Components.h"
+#include "Feijoa/Renderer/Renderer3D.h"
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace Feijoa
@@ -34,8 +35,9 @@ namespace Feijoa
 
 	MeshComponent ModelEntity::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 	{
-		void* vertices = new aiVector3D[mesh->mNumVertices];
-		memcpy(vertices, mesh->mVertices, mesh->mNumVertices * sizeof(aiVector3D));
+		ModelVertex* vertices = new ModelVertex[mesh->mNumVertices];
+		for (uint32_t i = 0; i < mesh->mNumVertices; i++)
+			vertices[i] = { { mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z } };
 		
 		std::vector<uint32_t> indicesVec;
 		for (uint32_t i = 0; i < mesh->mNumFaces; i++)

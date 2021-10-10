@@ -21,6 +21,7 @@ project "Sellowiana"
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.entt}",
 		"%{IncludeDir.ImGuizmo}"
+		"%{IncludeDir.Assimp}"
 	}
 
 	links

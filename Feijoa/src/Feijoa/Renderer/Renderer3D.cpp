@@ -4,6 +4,7 @@
 #include "Feijoa/Renderer/VertexArray.h"
 #include "Feijoa/Renderer/Shader.h"
 #include "Feijoa/Renderer/RenderCommand.h"
+#include <glad/glad.h>
 
 namespace Feijoa
 {
@@ -14,11 +15,6 @@ namespace Feijoa
 		glm::vec2 TexCoord;
 		float TexIndex;
 		float TilingFactor;
-	};
-
-	struct ModelVertex
-	{
-		glm::vec3 Position;
 	};
 
 	struct Renderer3DData
@@ -43,10 +39,17 @@ namespace Feijoa
 		glm::vec4 CubePositions[8];
 
 		// Model
+		static const uint32_t ModelMaxVertices = 268435455; // Equals to UINT32_MAX/2
+		static const uint32_t ModelMaxIndices = 268435455 / sizeof(uint32_t);
+
+		Ref<VertexArray> ModelVertexArray;
+		Ref<VertexBuffer> ModelVertexBuffer;
+		Ref<IndexBuffer> ModelIndexBuffer;
 		std::vector<ModelVertex> ModelVertexData;
 		std::vector<uint32_t> ModelIndicesData;
 		Ref<Shader> ModelShader;
 		uint32_t ModelIndexOffset = 0;
+		uint32_t ModelIndexCount = 0;
 
 		Renderer3D::Statistics Stats;
 	};
@@ -159,6 +162,15 @@ namespace Feijoa
 
 		// Model init
 		s_Data3D.ModelShader = Shader::Create("assets/shaders/Model3D.glsl");
+		s_Data3D.ModelVertexArray = VertexArray::Create();
+		s_Data3D.ModelVertexBuffer = VertexBuffer::Create(s_Data3D.ModelMaxVertices);
+		s_Data3D.ModelVertexBuffer->SetLayout({
+			{ ShaderDataType::Float3, "a_Position" }
+			});
+		s_Data3D.ModelIndexBuffer = IndexBuffer::Create(s_Data3D.ModelMaxIndices);
+
+		s_Data3D.ModelVertexArray->AddVertexBuffer(s_Data3D.ModelVertexBuffer);
+		s_Data3D.ModelVertexArray->SetIndexBuffer(s_Data3D.ModelIndexBuffer);
 	}
 
 	void Renderer3D::Shutdown()
@@ -183,14 +195,17 @@ namespace Feijoa
 		FJ_PROFILE_FUNCTION();
 
 		s_Data3D.Renderer3DShader->Bind();
-		s_Data3D.Renderer3DShader->SetMat4("u_VP", camera.GetViewProjectionMatrix());
+		s_Data3D.Renderer3DShader->SetMat4("u_Projection", camera.GetProjectionMatrix());
+		s_Data3D.Renderer3DShader->SetMat4("u_View", camera.GetViewMatrix());
 		s_Data3D.ModelShader->Bind();
-		s_Data3D.ModelShader->SetMat4("u_VP", camera.GetViewProjectionMatrix());
+		s_Data3D.ModelShader->SetMat4("u_Projection", camera.GetProjectionMatrix());
+		s_Data3D.ModelShader->SetMat4("u_View", camera.GetViewMatrix());
 
 		s_Data3D.CubeIndexCount = 0;
 		s_Data3D.CubeVertexBufferPtr = s_Data3D.CubeVertexBufferBase;
 		s_Data3D.TextureSlotIndex = 1;
 		s_Data3D.ModelIndexOffset = 0;
+		s_Data3D.ModelIndexCount = 0;
 		s_Data3D.ModelVertexData.clear();
 		s_Data3D.ModelIndicesData.clear();
 	}
@@ -199,17 +214,18 @@ namespace Feijoa
 	{
 		FJ_PROFILE_FUNCTION();
 
-		glm::mat4 viewProj = camera.GetProjection() * view;
-
 		s_Data3D.Renderer3DShader->Bind();
-		s_Data3D.Renderer3DShader->SetMat4("u_VP", viewProj);
+		s_Data3D.Renderer3DShader->SetMat4("u_Projection", camera.GetProjection());
+		s_Data3D.Renderer3DShader->SetMat4("u_View", view);
 		s_Data3D.ModelShader->Bind();
-		s_Data3D.ModelShader->SetMat4("u_VP", viewProj);
+		s_Data3D.ModelShader->SetMat4("u_Projection", camera.GetProjection());
+		s_Data3D.ModelShader->SetMat4("u_View", view);
 
 		s_Data3D.CubeIndexCount = 0;
 		s_Data3D.CubeVertexBufferPtr = s_Data3D.CubeVertexBufferBase;
 		s_Data3D.TextureSlotIndex = 1;
 		s_Data3D.ModelIndexOffset = 0;
+		s_Data3D.ModelIndexCount = 0;
 		s_Data3D.ModelVertexData.clear();
 		s_Data3D.ModelIndicesData.clear();
 	}
@@ -223,22 +239,13 @@ namespace Feijoa
 
 		if (s_Data3D.ModelVertexData.size() >= 0 || s_Data3D.ModelIndicesData.size() >= 0)
 		{
-			uint32_t modelBufferAllocSize = sizeof(ModelVertex) * (uint32_t)s_Data3D.ModelVertexData.size();
-			Ref<VertexBuffer> modelVertexBuffer = VertexBuffer::Create(modelBufferAllocSize);
-			modelVertexBuffer->SetData(s_Data3D.ModelVertexData.data(), modelBufferAllocSize);
-			modelVertexBuffer->SetLayout({
-				{ ShaderDataType::Float3, "a_Position" }
-				});
-
-			Ref<IndexBuffer> modelIndexBuffer = IndexBuffer::Create(s_Data3D.ModelIndicesData.data(), (uint32_t)s_Data3D.ModelIndicesData.size());
-
-			Ref<VertexArray> modelVertexArray = VertexArray::Create();
-			modelVertexArray->AddVertexBuffer(modelVertexBuffer);
-			modelVertexArray->SetIndexBuffer(modelIndexBuffer);
-
-			s_Data3D.ModelShader->Bind();
-			RenderCommand::DrawIndexed(modelVertexArray);
+			/*uint32_t modelBufferAllocSize = sizeof(ModelVertex) * (uint32_t)s_Data3D.ModelVertexData.size();
+			s_Data3D.ModelVertexBuffer->SetData(s_Data3D.ModelVertexData.data(), modelBufferAllocSize);
+			s_Data3D.ModelIndexBuffer->SetData(s_Data3D.ModelIndicesData.data(), s_Data3D.ModelIndicesData.size());*/
 		}
+
+		s_Data3D.ModelShader->Bind();
+		RenderCommand::DrawIndexed(s_Data3D.ModelVertexArray, s_Data3D.ModelIndexCount);
 
 		Flush();
 	}
@@ -284,20 +291,13 @@ namespace Feijoa
 
 	void Renderer3D::DrawMesh(const glm::mat4& model, const MeshComponent& mesh)
 	{
-		auto vertices = (aiVector3D*)mesh.Vertices;
-		for (uint32_t i = 0; i < mesh.NumVertices; i++)
-		{
-			auto vertex = vertices[i];
-			glm::vec3 pos;
-			pos.x = (float)vertex.x, pos.y = (float)vertex.y, pos.z = (float)vertex.z;
-			pos = glm::vec3(glm::vec4(pos, 1.0f) * model);
-			s_Data3D.ModelVertexData.push_back({ pos });
-		}
-
-		for (uint32_t i = 0; i < mesh.NumIndices; i++)
-			s_Data3D.ModelIndicesData.push_back(s_Data3D.ModelIndexOffset + (mesh.Indices[i]));
+		s_Data3D.ModelVertexBuffer->SetData(mesh.Vertices, mesh.NumVertices * sizeof(ModelVertex));
+		s_Data3D.ModelIndexBuffer->SetData(mesh.Indices, mesh.NumIndices);
 
 		s_Data3D.ModelIndexOffset += mesh.NumVertices;
+		s_Data3D.ModelShader->Bind();
+		s_Data3D.ModelShader->SetMat4("u_Model", model);
+		s_Data3D.ModelIndexCount += mesh.NumIndices;
 	}
 
 	void Renderer3D::DrawMesh(const glm::vec3& position, const glm::vec3& size, const MeshComponent& mesh)

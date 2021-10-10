@@ -7,6 +7,11 @@
 
 namespace Feijoa
 {
+	struct ModelVertex
+	{
+		glm::vec3 Position;
+	};
+
 	class Renderer3D
 	{
 	public:
