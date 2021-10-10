@@ -37,6 +37,7 @@ namespace Feijoa
 		vertexArray->Bind();
 		glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
 		glBindTexture(GL_TEXTURE_2D, 0);
+		vertexArray->Unbind();
 	}
 
 }
