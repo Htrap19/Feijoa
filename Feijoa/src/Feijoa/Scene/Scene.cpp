@@ -100,11 +100,12 @@ namespace Feijoa
 		if (mainPerspectiveCamera)
 		{
 			Renderer3D::BeginScene(*mainPerspectiveCamera, *mainView);
-			auto group = m_Registry.group<TransformComponent, MeshComponent>();
+			auto group = m_Registry.group<TransformComponent, MeshContainerComponent>();
 			for (auto entity : group)
 			{
-				auto& [transform, mesh] = group.get<TransformComponent, MeshComponent>(entity);
-				Renderer3D::DrawMesh(transform.Transform, mesh);
+				auto& [transform, meshes] = group.get<TransformComponent, MeshContainerComponent>(entity);
+				for (auto& mesh : meshes.Meshes)
+					Renderer3D::DrawMesh(transform.Transform, mesh);
 			}
 			//Renderer3D::DrawQuad(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f), glm::vec4(1.0f));
 			Renderer3D::EndScene();

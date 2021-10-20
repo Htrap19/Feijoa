@@ -102,13 +102,16 @@ namespace Feijoa
 			: Vertices(vertices), NumVertices(numVertices), Indices(indices), NumIndices(numIndices) {}
 	};
 
-	struct NewMeshComponent
+	struct MeshContainerComponent
 	{
-		Ref<VertexArray> VertexArray;
+		std::vector<MeshComponent> Meshes;
 
-		NewMeshComponent(const NewMeshComponent&) = default;
-		NewMeshComponent(const Ref<Feijoa::VertexArray>& vertexArray)
-			: VertexArray(vertexArray) {}
+		MeshContainerComponent(const MeshContainerComponent&) = default;
+		MeshContainerComponent() = default;
+		MeshContainerComponent(const std::vector<MeshComponent>& meshes)
+			: Meshes(meshes) {}
+
+		inline void AddMesh(const MeshComponent& mesh) { Meshes.push_back(mesh); }
 	};
 
 	struct ModelComponent
