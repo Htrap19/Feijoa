@@ -11,13 +11,17 @@ namespace Feijoa
 {
 
 	ModelEntity::ModelEntity(Entity* entity, const std::string& path, const glm::vec3& position, const glm::vec3& size)
-		: m_Entity(entity), m_Position(position), m_Size(size)
+		: m_Entity(entity), m_Position(position), m_Size(size), m_MeshContainer(nullptr)
 	{
+		auto& transform = m_Entity->GetComponent<TransformComponent>().Transform;
+		transform = glm::translate(glm::mat4(1.0f), position) * glm::scale(glm::mat4(1.0f), size);
+
 		Assimp::Importer importer;
 		const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
 		FJ_CORE_ASSERT(scene || scene->mRootNode || ((scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE) != AI_SCENE_FLAGS_INCOMPLETE), "Failed to load model!");
 
 		m_Directory = path.substr(0, path.find_last_of("/"));
+		m_MeshContainer = &m_Entity->AddComponent<MeshContainerComponent>();
 		ProcessNode(scene->mRootNode, scene);
 	}
 
@@ -26,7 +30,7 @@ namespace Feijoa
 		for (uint32_t i = 0; i < node->mNumMeshes; i++)
 		{
 			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-			m_Entity->AddComponent<MeshComponent>(ProcessMesh(mesh, scene));
+			m_MeshContainer->AddMesh(ProcessMesh(mesh, scene));
 		}
 
 		for (uint32_t i = 0; i < node->mNumChildren; i++)

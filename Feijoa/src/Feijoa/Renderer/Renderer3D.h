@@ -18,10 +18,9 @@ namespace Feijoa
 		struct Statistics
 		{
 			uint32_t DrawCalls = 0;
-			uint32_t QuadCount = 0;
-
-			uint32_t GetTotalVertexCount() { return QuadCount * 8; }
-			uint32_t GetTotalIndexCount() { return QuadCount * 36; }
+			uint32_t ModelCount = 0;
+			uint32_t ModelTotalVertexCount = 0;
+			uint32_t ModelTotalIndexCount = 0;
 		};
 
 	public:

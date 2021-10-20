@@ -8,6 +8,8 @@
 namespace Feijoa
 {
 	struct MeshComponent;
+	struct MeshContainerComponent;
+	struct ModelVertex;
 
 	class ModelEntity
 	{
@@ -25,5 +27,6 @@ namespace Feijoa
 		Entity* m_Entity;
 		std::string m_Directory;
 		glm::vec3 m_Position, m_Size;
+		MeshContainerComponent* m_MeshContainer;
 	};
 }

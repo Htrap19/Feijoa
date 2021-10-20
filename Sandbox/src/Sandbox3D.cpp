@@ -61,9 +61,6 @@ void Sandbox3D::OnAttach()
 
 	m_SphereModel = m_ActiveScene->CreateEntity("Sphere Model");
 	auto& model = m_SphereModel.AddComponent<Feijoa::ModelComponent>(&m_SphereModel, "assets/models/sphere/scene.gltf", glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.025f));
-	auto& transform = m_SphereModel.GetComponent<Feijoa::TransformComponent>().Transform;
-	transform = glm::translate(glm::mat4(1.0f), model.Model.GetPosition())
-		* glm::scale(glm::mat4(1.0f), model.Model.GetSize());
 }
 
 void Sandbox3D::OnDetach()
@@ -102,9 +99,9 @@ void Sandbox3D::OnImGuiRender()
 	auto stats = Feijoa::Renderer3D::GetStats();
 	ImGui::Text("Renderer 3D Stats:");
 	ImGui::Text("Draw calls: %d", stats.DrawCalls);
-	ImGui::Text("Quad count: %d", stats.QuadCount);
-	ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
-	ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
+	ImGui::Text("Model count: %d", stats.ModelCount);
+	ImGui::Text("Vertices: %d", stats.ModelTotalVertexCount);
+	ImGui::Text("Indices: %d", stats.ModelTotalIndexCount);
 	ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
 
 	ImGui::DragFloat("FOV", &m_FOV, 1.0f);
