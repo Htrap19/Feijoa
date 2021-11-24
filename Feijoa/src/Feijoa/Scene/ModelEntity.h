@@ -4,6 +4,7 @@
 #include <assimp/scene.h>
 #include <glm/glm.hpp>
 #include "Feijoa/Renderer/VertexArray.h"
+#include "Feijoa/Renderer/Texture.h"
 
 namespace Feijoa
 {
@@ -22,11 +23,15 @@ namespace Feijoa
 	protected:
 		void ProcessNode(aiNode* node, const aiScene* scene);
 		MeshComponent ProcessMesh(aiMesh* mesh, const aiScene* scene);
+		std::vector<Ref<Texture2D>> LoadTextures(const aiMaterial* material, aiTextureType type);
+
+		glm::vec4 GetMaterialColor(const aiMaterial* material, const char* pKey, uint32_t type, uint32_t idx);
 
 	private:
 		Entity* m_Entity;
 		std::string m_Directory;
 		glm::vec3 m_Position, m_Size;
+		std::vector<Ref<Texture2D>> m_Textures;
 		MeshContainerComponent* m_MeshContainer;
 	};
 }

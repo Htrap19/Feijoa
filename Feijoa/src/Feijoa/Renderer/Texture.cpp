@@ -21,12 +21,12 @@ namespace Feijoa
 		return nullptr;
 	}
 
-	Ref<Feijoa::Texture2D> Texture2D::Create(const std::string& path)
+	Ref<Feijoa::Texture2D> Texture2D::Create(const std::string& path, bool flip /* = true */)
 	{
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None: FJ_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-		case RendererAPI::API::OpenGL: return CreateRef<OpenGLTexture2D>(path);
+		case RendererAPI::API::OpenGL: return CreateRef<OpenGLTexture2D>(path, flip);
 
 		default:
 			break;
