@@ -10,6 +10,10 @@ namespace Feijoa
 	struct ModelVertex
 	{
 		glm::vec3 Position;
+		glm::mat4 Model;
+		glm::vec4 Color;
+		glm::vec2 TexCoord = glm::vec2(0.0f);
+		float TexIndex;
 	};
 
 	class Renderer3D
@@ -18,7 +22,7 @@ namespace Feijoa
 		struct Statistics
 		{
 			uint32_t DrawCalls = 0;
-			uint32_t ModelCount = 0;
+			uint32_t MeshCount = 0;
 			uint32_t ModelTotalVertexCount = 0;
 			uint32_t ModelTotalIndexCount = 0;
 		};

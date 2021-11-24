@@ -38,7 +38,7 @@ namespace Feijoa
 
 		glm::vec4 CubePositions[8];
 
-		// Model
+		// Model - Model loading using Assimp
 		static const uint32_t ModelMaxVertices = 268435455; // Equals to UINT32_MAX/4
 		static const uint32_t ModelMaxIndices = 268435455 / sizeof(uint32_t);
 
@@ -48,6 +48,9 @@ namespace Feijoa
 		Ref<Shader> ModelShader;
 		uint32_t ModelIndexOffset = 0;
 		uint32_t ModelIndexCount = 0;
+
+		std::vector<ModelVertex> ModelVertices;
+		std::vector<uint32_t> ModelIndices;
 
 		Renderer3D::Statistics Stats;
 	};
@@ -160,10 +163,16 @@ namespace Feijoa
 
 		// Model init
 		s_Data3D.ModelShader = Shader::Create("assets/shaders/Model3D.glsl");
+		s_Data3D.ModelShader->Bind();
+		s_Data3D.ModelShader->SetIntArray("u_Textures", samplers, s_Data3D.MaxTextureSlots);
 		s_Data3D.ModelVertexArray = VertexArray::Create();
 		s_Data3D.ModelVertexBuffer = VertexBuffer::Create(s_Data3D.ModelMaxVertices);
 		s_Data3D.ModelVertexBuffer->SetLayout({
-			{ ShaderDataType::Float3, "a_Position" }
+			{ ShaderDataType::Float3, "a_Position" },
+			{ ShaderDataType::Mat4, "a_Model" },
+			{ ShaderDataType::Float4, "a_Color" },
+			{ ShaderDataType::Float2, "a_TexCoord" },
+			{ ShaderDataType::Float, "a_TexIndex" }
 			});
 		s_Data3D.ModelIndexBuffer = IndexBuffer::Create(s_Data3D.ModelMaxIndices);
 
@@ -204,6 +213,9 @@ namespace Feijoa
 		s_Data3D.TextureSlotIndex = 1;
 		s_Data3D.ModelIndexOffset = 0;
 		s_Data3D.ModelIndexCount = 0;
+
+		s_Data3D.ModelVertices.clear();
+		s_Data3D.ModelIndices.clear();
 	}
 
 	void Renderer3D::BeginScene(const Camera& camera, const glm::mat4& view)
@@ -222,6 +234,9 @@ namespace Feijoa
 		s_Data3D.TextureSlotIndex = 1;
 		s_Data3D.ModelIndexOffset = 0;
 		s_Data3D.ModelIndexCount = 0;
+
+		s_Data3D.ModelVertices.clear();
+		s_Data3D.ModelIndices.clear();
 	}
 
 	void Renderer3D::EndScene()
@@ -230,6 +245,9 @@ namespace Feijoa
 
 		uint32_t bufferSize = (uint32_t)((uint8_t*)s_Data3D.CubeVertexBufferPtr - (uint8_t*)s_Data3D.CubeVertexBufferBase);
 		s_Data3D.CubeVertexBuffer->SetData(s_Data3D.CubeVertexBufferBase, bufferSize);
+
+		s_Data3D.ModelVertexBuffer->SetData(s_Data3D.ModelVertices.data(), (uint32_t)s_Data3D.ModelVertices.size() * sizeof(ModelVertex));
+		s_Data3D.ModelIndexBuffer->SetData(s_Data3D.ModelIndices.data(), (uint32_t)s_Data3D.ModelIndices.size());
 
 		Flush();
 	}
@@ -258,6 +276,11 @@ namespace Feijoa
 		s_Data3D.CubeVertexBufferPtr = s_Data3D.CubeVertexBufferBase;
 
 		s_Data3D.TextureSlotIndex = 1;
+		s_Data3D.ModelIndexOffset = 0;
+		s_Data3D.ModelIndexCount = 0;
+
+		s_Data3D.ModelVertices.clear();
+		s_Data3D.ModelIndices.clear();
 	}
 
 	void Renderer3D::DrawQuad(const glm::vec3& position, const glm::vec3& size, const glm::vec4& color)
@@ -278,17 +301,50 @@ namespace Feijoa
 
 	void Renderer3D::DrawMesh(const glm::mat4& model, const MeshComponent& mesh)
 	{
-		s_Data3D.ModelVertexBuffer->SetData(mesh.Vertices, mesh.NumVertices * sizeof(ModelVertex));
-		s_Data3D.ModelIndexBuffer->SetData(mesh.Indices, mesh.NumIndices);
+		FJ_PROFILE_FUNCTION();
 
-		s_Data3D.ModelIndexOffset += mesh.NumVertices;
-		s_Data3D.ModelShader->Bind();
-		s_Data3D.ModelShader->SetMat4("u_Model", model);
-		s_Data3D.ModelIndexCount += mesh.NumIndices;
+		uint32_t numVertices = (uint32_t)mesh.Vertices.size();
+		uint32_t numIndices = (uint32_t)mesh.Indices.size();
 
-		s_Data3D.Stats.ModelCount++;
-		s_Data3D.Stats.ModelTotalVertexCount += mesh.NumVertices;
-		s_Data3D.Stats.ModelTotalIndexCount += mesh.NumIndices;
+		if (s_Data3D.ModelIndexCount >= s_Data3D.ModelMaxIndices)
+			FlushAndReset();
+
+		float textureIndex = 0.0f; // White texture
+		for (uint32_t i = 0; i < s_Data3D.TextureSlotIndex; i++)
+		{
+			for (auto& texture : mesh.Textures)
+			{
+				if (*s_Data3D.TextureSlots[i] == *texture)
+				{
+					textureIndex = (float)i;
+					break;
+				}
+			}
+		}
+
+		if (textureIndex == 0.0f && mesh.HasTexture())
+		{
+			textureIndex = (float)s_Data3D.TextureSlotIndex;
+			s_Data3D.TextureSlots[s_Data3D.TextureSlotIndex] = mesh.Textures[0];
+			s_Data3D.TextureSlotIndex++;
+		}
+
+		auto tempMesh = mesh;
+		for (auto& vertex : tempMesh.Vertices)
+			vertex.Model = model, vertex.TexIndex = textureIndex;
+
+		for (auto& index : tempMesh.Indices)
+			index = s_Data3D.ModelIndexOffset + index;
+
+		s_Data3D.ModelVertices.insert(s_Data3D.ModelVertices.end(), tempMesh.Vertices.begin(), tempMesh.Vertices.end());
+		s_Data3D.ModelIndices.insert(s_Data3D.ModelIndices.end(), tempMesh.Indices.begin(), tempMesh.Indices.end());
+
+		s_Data3D.ModelIndexOffset += numVertices;
+		s_Data3D.ModelIndexCount += numIndices;
+
+		s_Data3D.Stats.MeshCount++;
+		s_Data3D.Stats.ModelTotalVertexCount += numVertices;
+		s_Data3D.Stats.ModelTotalIndexCount += numIndices;
 	}
 
 	void Renderer3D::DrawMesh(const glm::vec3& position, const glm::vec3& size, const MeshComponent& mesh)
@@ -342,7 +398,7 @@ namespace Feijoa
 
 		s_Data3D.CubeIndexCount += 36;
 
-		s_Data3D.Stats.ModelCount++;
+		s_Data3D.Stats.MeshCount++;
 		s_Data3D.Stats.ModelTotalVertexCount += 8;
 		s_Data3D.Stats.ModelTotalVertexCount += 36;
 	}
@@ -387,7 +443,7 @@ namespace Feijoa
 
 		s_Data3D.CubeIndexCount += 36;
 
-		s_Data3D.Stats.ModelCount++;
+		s_Data3D.Stats.MeshCount++;
 		s_Data3D.Stats.ModelTotalVertexCount += 8;
 		s_Data3D.Stats.ModelTotalVertexCount += 36;
 	}

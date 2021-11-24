@@ -60,7 +60,7 @@ void Sandbox3D::OnAttach()
 	m_Camera.AddComponent<Feijoa::NativeScriptComponent>().Bind<CameraController>();
 
 	m_SphereModel = m_ActiveScene->CreateEntity("Sphere Model");
-	auto& model = m_SphereModel.AddComponent<Feijoa::ModelComponent>(&m_SphereModel, "assets/models/sphere/scene.gltf", glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.025f));
+	m_SphereModel.AddComponent<Feijoa::ModelComponent>(&m_SphereModel, "assets/models/stylized_treasure_chest/scene.gltf", glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.025f));
 }
 
 void Sandbox3D::OnDetach()
@@ -74,12 +74,11 @@ void Sandbox3D::OnUpdate(Feijoa::Timestep ts)
 
 	m_CameraController.OnUpdate(ts);
 
-	Feijoa::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
+	Feijoa::RenderCommand::SetClearColor({ 0.2f, 0.2f, 0.3f, 1.0f });
 	Feijoa::RenderCommand::Clear();
 	Feijoa::Renderer3D::ResetStats();
 
 	m_ActiveScene->OnUpdate(ts);
-	
 }
 
 void Sandbox3D::OnEvent(Feijoa::Event& e)
@@ -99,7 +98,7 @@ void Sandbox3D::OnImGuiRender()
 	auto stats = Feijoa::Renderer3D::GetStats();
 	ImGui::Text("Renderer 3D Stats:");
 	ImGui::Text("Draw calls: %d", stats.DrawCalls);
-	ImGui::Text("Model count: %d", stats.ModelCount);
+	ImGui::Text("Mesh count: %d", stats.MeshCount);
 	ImGui::Text("Vertices: %d", stats.ModelTotalVertexCount);
 	ImGui::Text("Indices: %d", stats.ModelTotalIndexCount);
 	ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));

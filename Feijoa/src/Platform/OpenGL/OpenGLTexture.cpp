@@ -6,13 +6,13 @@
 namespace Feijoa
 {
 
-	OpenGLTexture2D::OpenGLTexture2D(const std::string& path)
+	OpenGLTexture2D::OpenGLTexture2D(const std::string& path, bool flip /* = true */)
 		: m_Path(path)
 	{
 		FJ_PROFILE_FUNCTION();
 
 		int width, height, channels;
-		stbi_set_flip_vertically_on_load(true);
+		stbi_set_flip_vertically_on_load(flip);
 		stbi_uc* data = stbi_load(path.c_str(), &width, &height, &channels, 0);
 		FJ_CORE_ASSERT(data, "Failed to load image!");
 		m_Width = width;

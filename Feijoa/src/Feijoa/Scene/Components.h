@@ -13,6 +13,8 @@
 
 namespace Feijoa
 {
+	struct ModelVertex;
+
 	struct TagComponent
 	{
 		std::string Tag;
@@ -92,22 +94,23 @@ namespace Feijoa
 
 	struct MeshComponent
 	{
-		void* Vertices = nullptr;
-		uint32_t NumVertices = 0;
-		uint32_t* Indices = nullptr;
-		uint32_t NumIndices = 0;
+		std::vector<ModelVertex> Vertices;
+		std::vector<uint32_t> Indices;
+		std::vector<Ref<Texture2D>> Textures;
 
 		MeshComponent(const MeshComponent&) = default;
-		MeshComponent(void* vertices, uint32_t numVertices, uint32_t* indices, uint32_t numIndices)
-			: Vertices(vertices), NumVertices(numVertices), Indices(indices), NumIndices(numIndices) {}
+		MeshComponent(const std::vector<ModelVertex>& vertices, const std::vector<uint32_t>& indices, const std::vector<Ref<Texture2D>>& textures = {})
+			: Vertices(vertices), Indices(indices), Textures(textures) {}
+
+		inline bool HasTexture() const { return !Textures.empty(); }
 	};
 
 	struct MeshContainerComponent
 	{
 		std::vector<MeshComponent> Meshes;
 
-		MeshContainerComponent(const MeshContainerComponent&) = default;
 		MeshContainerComponent() = default;
+		MeshContainerComponent(const MeshContainerComponent&) = default;
 		MeshContainerComponent(const std::vector<MeshComponent>& meshes)
 			: Meshes(meshes) {}
 
