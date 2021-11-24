@@ -40,6 +40,17 @@ namespace Feijoa
 		}
 
 		operator bool() const { return m_Scene->m_Registry.valid(m_EntityHandle); }
+		operator uint32_t() const { return (uint32_t)m_EntityHandle; }
+
+		bool operator==(const Entity& other) const
+		{
+			return m_EntityHandle == other.m_EntityHandle && m_Scene == other.m_Scene;
+		}
+
+		bool operator!=(const Entity& other) const
+		{
+			return !(*this == other);
+		}
 		
 	private:
 		entt::entity m_EntityHandle;
