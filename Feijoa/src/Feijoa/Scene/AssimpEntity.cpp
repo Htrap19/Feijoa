@@ -1,5 +1,5 @@
 #include "fjpch.h"
-#include "ModelEntity.h"
+#include "AssimpEntity.h"
 
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
@@ -9,35 +9,29 @@
 
 namespace Feijoa
 {
-
-	ModelEntity::ModelEntity(Entity* entity, const std::string& path, const glm::vec3& position, const glm::vec3& size)
-		: m_Entity(entity), m_Position(position), m_Size(size), m_MeshContainer(nullptr)
+	AssimpEntity::AssimpEntity(const std::string& path)
 	{
-		auto& transform = m_Entity->GetComponent<TransformComponent>().Transform;
-		transform = glm::translate(glm::mat4(1.0f), position) * glm::scale(glm::mat4(1.0f), size);
-
 		Assimp::Importer importer;
 		const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
 		FJ_CORE_ASSERT(scene || scene->mRootNode || ((scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE) != AI_SCENE_FLAGS_INCOMPLETE), "Failed to load model!");
 
 		m_Directory = path.substr(0, path.find_last_of("/"));
-		m_MeshContainer = &m_Entity->AddComponent<MeshContainerComponent>();
 		ProcessNode(scene->mRootNode, scene);
 	}
 
-	void ModelEntity::ProcessNode(aiNode* node, const aiScene* scene)
+	void AssimpEntity::ProcessNode(aiNode* node, const aiScene* scene)
 	{
 		for (uint32_t i = 0; i < node->mNumMeshes; i++)
 		{
 			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-			m_MeshContainer->AddMesh(ProcessMesh(mesh, scene));
+			m_Meshes.push_back(ProcessMesh(mesh, scene));
 		}
 
 		for (uint32_t i = 0; i < node->mNumChildren; i++)
 			ProcessNode(node->mChildren[i], scene);
 	}
 
-	MeshComponent ModelEntity::ProcessMesh(aiMesh* mesh, const aiScene* scene)
+	RenderMesh AssimpEntity::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 	{
 		aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
 
@@ -67,12 +61,12 @@ namespace Feijoa
 		}
 
 		if (hasTexture)
-			return MeshComponent(vertices, indices, LoadTextures(material, aiTextureType_DIFFUSE));
+			return RenderMesh(vertices, indices, LoadTextures(material, aiTextureType_DIFFUSE));
 
-		return MeshComponent(vertices, indices);
+		return RenderMesh(vertices, indices);
 	}
 
-	std::vector<Ref<Texture2D>> ModelEntity::LoadTextures(const aiMaterial* material, aiTextureType type)
+	std::vector<Ref<Texture2D>> AssimpEntity::LoadTextures(const aiMaterial* material, aiTextureType type)
 	{
 		std::vector<Ref<Texture2D>> textures;
 
@@ -104,7 +98,7 @@ namespace Feijoa
 		return textures;
 	}
 
-	glm::vec4 ModelEntity::GetMaterialColor(const aiMaterial* material, const char* pKey, uint32_t type, uint32_t idx)
+	glm::vec4 AssimpEntity::GetMaterialColor(const aiMaterial* material, const char* pKey, uint32_t type, uint32_t idx)
 	{
 		aiColor4D color;
 		if (material->Get(pKey, type, idx, color) != aiReturn_FAILURE)

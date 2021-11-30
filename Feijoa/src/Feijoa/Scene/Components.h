@@ -8,13 +8,11 @@
 
 #include "Feijoa/Scene/SceneCamera.h"
 #include "Feijoa/Scene/ScriptableEntity.h"
-#include "Feijoa/Scene/ModelEntity.h"
+#include "Feijoa/Scene/AssimpEntity.h"
 #include "Feijoa/Renderer/VertexArray.h"
 
 namespace Feijoa
 {
-	struct ModelVertex;
-
 	struct TagComponent
 	{
 		std::string Tag;
@@ -94,35 +92,10 @@ namespace Feijoa
 
 	struct MeshComponent
 	{
-		std::vector<ModelVertex> Vertices;
-		std::vector<uint32_t> Indices;
-		std::vector<Ref<Texture2D>> Textures;
+		AssimpEntity Model;
 
 		MeshComponent(const MeshComponent&) = default;
-		MeshComponent(const std::vector<ModelVertex>& vertices, const std::vector<uint32_t>& indices, const std::vector<Ref<Texture2D>>& textures = {})
-			: Vertices(vertices), Indices(indices), Textures(textures) {}
-
-		inline bool HasTexture() const { return !Textures.empty(); }
-	};
-
-	struct MeshContainerComponent
-	{
-		std::vector<MeshComponent> Meshes;
-
-		MeshContainerComponent() = default;
-		MeshContainerComponent(const MeshContainerComponent&) = default;
-		MeshContainerComponent(const std::vector<MeshComponent>& meshes)
-			: Meshes(meshes) {}
-
-		inline void AddMesh(const MeshComponent& mesh) { Meshes.push_back(mesh); }
-	};
-
-	struct ModelComponent
-	{
-		ModelEntity Model;
-
-		ModelComponent(const ModelComponent&) = default;
-		ModelComponent(Entity* entity, const std::string& path, const glm::vec3& position, const glm::vec3& size)
-			: Model(entity, path, position, size) {}
+		MeshComponent(const std::string& path)
+			: Model(path) {}
 	};
 }

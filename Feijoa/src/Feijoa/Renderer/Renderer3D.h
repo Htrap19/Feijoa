@@ -39,17 +39,8 @@ namespace Feijoa
 		static void EndScene();
 		static void Flush();
 
-		static void DrawQuad(const glm::vec3& position, const glm::vec3& size, const glm::vec4& color);
-		static void DrawQuad(const glm::vec3& position, const glm::vec3& size, const Ref<Texture2D>& texture, float tilingFactor = 1.0f, const glm::vec4& tintColor = glm::vec4(1.0f));
-
-		static void DrawRotatedQuad(const glm::vec3& position, const glm::vec3& size, float rotation, const glm::vec3& rotation_vec, const glm::vec4& color);
-		static void DrawRotatedQuad(const glm::vec3& position, const glm::vec3& size, float rotation, const glm::vec3& rotation_vec, const Ref<Texture2D>& texture, float tilingFactor = 1.0f, const glm::vec4& tintColor = glm::vec4(1.0f));
-
-		static void DrawQuad(const glm::mat4& model, const glm::vec4& color);
-		static void DrawQuad(const glm::mat4& model, const Ref<Texture2D>& texture, float tilingFactor = 1.0f, const glm::vec4& tintColor = glm::vec4(1.0f));
-
-		static void DrawMesh(const glm::mat4& model, const MeshComponent& mesh);
-		static void DrawMesh(const glm::vec3& position, const glm::vec3& size, const MeshComponent& mesh);
+		static void DrawMesh(const glm::mat4& model, const RenderMesh& mesh, const glm::vec4& color = glm::vec4(1.0f));
+		static void DrawMesh(const glm::vec3& position, const glm::vec3& size, const RenderMesh& mesh);
 
 	private:
 		static void FlushAndReset();

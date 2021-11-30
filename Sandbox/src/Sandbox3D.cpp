@@ -21,15 +21,15 @@ void Sandbox3D::OnAttach()
 	class CameraController : public Feijoa::ScriptableEntity
 	{
 	public:
-		void OnCreate()
+		virtual void OnCreate() override
 		{
 		}
 
-		void OnDestroy()
+		virtual void OnDestroy() override
 		{
 		}
 
-		void OnUpdate(Feijoa::Timestep ts)
+		virtual void OnUpdate(Feijoa::Timestep ts) override
 		{
 			auto& camera = GetComponent<Feijoa::PerspectiveCameraComponent>().Camera;
 
@@ -60,7 +60,10 @@ void Sandbox3D::OnAttach()
 	m_Camera.AddComponent<Feijoa::NativeScriptComponent>().Bind<CameraController>();
 
 	m_SphereModel = m_ActiveScene->CreateEntity("Sphere Model");
-	m_SphereModel.AddComponent<Feijoa::ModelComponent>(&m_SphereModel, "assets/models/stylized_treasure_chest/scene.gltf", glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.025f));
+	m_SphereModel.AddComponent<Feijoa::MeshComponent>("assets/models/stylized_treasure_chest/scene.gltf");
+	auto& transform = m_SphereModel.GetComponent<Feijoa::TransformComponent>().Transform;
+	transform = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f))
+		* glm::scale(glm::mat4(1.0f), glm::vec3(0.025f));
 }
 
 void Sandbox3D::OnDetach()
