@@ -174,11 +174,11 @@ namespace Feijoa
 				in.read(&result[0], result.size());
 			}
 			else
-				FJ_CORE_ASSERT(false, "Could not read from file '{0}'", filepath);
+				FJ_CORE_ERROR("Could not read from file '{0}'", filepath);
 			in.close();
 		}
 		else
-			FJ_CORE_ASSERT(false, "Could not open file '{0}'", filepath);
+			FJ_CORE_ERROR("Could not open file '{0}'", filepath);
 
 		return result;
 	}

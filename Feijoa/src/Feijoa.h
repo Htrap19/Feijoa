@@ -6,6 +6,7 @@
 #include "Feijoa/Core/Application.h"
 #include "Feijoa/Core/Layer.h"
 #include "Feijoa/Core/Log.h"
+#include "Feijoa/Core/Assert.h"
 
 #include "Feijoa/Core/Timestep.h"
 

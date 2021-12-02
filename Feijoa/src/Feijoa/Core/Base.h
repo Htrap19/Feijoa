@@ -17,13 +17,8 @@
 	#define FJ_DEBUGBREAK()
 #endif
 
-#ifdef FJ_ENABLE_ASSERTS
-	#define FJ_ASSERT(x, ...) { if (!(x)) { FJ_ERROR("Assertion Failed: {0}", __VA_ARGS__); FJ_DEBUGBREAK(); } }
-	#define FJ_CORE_ASSERT(x, ...) { if(!(x)) { FJ_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); FJ_DEBUGBREAK(); } }
-#else
-	#define FJ_ASSERT(x, ...)
-	#define FJ_CORE_ASSERT(x, ...)
-#endif
+#define FJ_EXPAND_MACRO(x) x
+#define FJ_STRINGIFY_MACRO(x) #x
 
 #define BIT(x) (1 << x)
 
@@ -49,3 +44,6 @@ namespace Feijoa
 		return std::make_shared<T>(std::forward<Args>(args)...);
 	}
 }
+
+#include "Feijoa/Core/Log.h"
+#include "Feijoa/Core/Assert.h"
