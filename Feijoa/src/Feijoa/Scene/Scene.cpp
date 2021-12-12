@@ -25,6 +25,11 @@ namespace Feijoa
 		return entity;
 	}
 
+	void Scene::DestroyEntity(Entity entity)
+	{
+		m_Registry.destroy(entity);
+	}
+
 	void Scene::OnUpdate(Timestep ts)
 	{
 		// Update scripts
@@ -88,4 +93,35 @@ namespace Feijoa
 		}
 	}
 
+	template <typename T>
+	void Scene::OnComponentAdded(Entity entity, T& component)
+	{
+		static_assert(false);
+	}
+
+	template <>
+	void Scene::OnComponentAdded(Entity entity, TransformComponent& component)
+	{
+	}
+
+	template <>
+	void Scene::OnComponentAdded(Entity entity, CameraComponent& component)
+	{
+		component.Camera.SetViewportSize(m_ViewportWidth, m_ViewportHeight);
+	}
+
+	template <>
+	void Scene::OnComponentAdded(Entity entity, SpriteRendererComponent& component)
+	{
+	}
+
+	template <>
+	void Scene::OnComponentAdded(Entity entity, TagComponent& component)
+	{
+	}
+
+	template <>
+	void Scene::OnComponentAdded(Entity entity, NativeScriptComponent& component)
+	{
+	}
 }
