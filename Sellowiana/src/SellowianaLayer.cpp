@@ -1,9 +1,10 @@
 #include "SellowianaLayer.h"
 
-#include "Platform/OpenGL/OpenGLShader.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <imgui/imgui.h>
+
+#include "Feijoa/Scene/SceneSerializer.h"
 
 namespace Feijoa
 {
@@ -24,6 +25,9 @@ namespace Feijoa
 		m_FrameBuffer = FrameBuffer::Create(spec);
 
 		m_ActiveScene = CreateRef<Scene>();
+
+#if 0
+		// Entity
 		m_SquareEntity = m_ActiveScene->CreateEntity("Green Square");
 		m_SquareEntity.AddComponent<SpriteRendererComponent>(glm::vec4{ 0.2f, 0.8f, 0.2f, 1.0f });
 
@@ -68,6 +72,7 @@ namespace Feijoa
 
 		m_CameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();
 		m_SecondCamera.AddComponent<NativeScriptComponent>().Bind<CameraController>();
+#endif
 
 		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
 	}
@@ -166,6 +171,19 @@ namespace Feijoa
 				// Disabling fullscreen would allow the window to be moved to the front of other window,
 				// which we can't undo at the moment without finer window depth/z control.
 				//ImGui::MenuItem("Fullscreen", nullptr, &opt_fullscreen_persistant);
+
+				if (ImGui::MenuItem("Serialize"))
+				{
+					SceneSerializer serializer(m_ActiveScene);
+					serializer.Serialize("assets/scenes/Example.feijoa");
+				}
+
+				if (ImGui::MenuItem("Deserialize"))
+				{
+					SceneSerializer serializer(m_ActiveScene);
+					serializer.Deserialize("assets/scenes/Example.feijoa");
+				}
+
 				if (ImGui::MenuItem("Exit")) Application::Get().Close();
 				ImGui::EndMenu();
 			}

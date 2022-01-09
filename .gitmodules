@@ -14,3 +14,7 @@
 	path = Feijoa/vendor/glm
 	url = https://github.com/g-truc/glm
 	branch = master
+[submodule "Feijoa/vendor/yaml-cpp"]
+	path = Feijoa/vendor/yaml-cpp
+	url = https://github.com/Htrap19/yaml-cpp
+	branch = master

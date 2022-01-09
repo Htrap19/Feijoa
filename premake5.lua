@@ -18,11 +18,13 @@ IncludeDir["ImGui"] = "%{wks.location}/Feijoa/vendor/imgui"
 IncludeDir["glm"] = "%{wks.location}/Feijoa/vendor/glm"
 IncludeDir["stb_image"] = "%{wks.location}/Feijoa/vendor/stb_image"
 IncludeDir["entt"] = "%{wks.location}/Feijoa/vendor/entt/include"
+IncludeDir["yaml_cpp"] = "%{wks.location}/Feijoa/vendor/yaml-cpp/include"
 
 group "Dependencies"
 	include "Feijoa/vendor/GLFW"
 	include "Feijoa/vendor/Glad"
 	include "Feijoa/vendor/imgui"
+	include "Feijoa/vendor/yaml-cpp"
 
 group ""
 
