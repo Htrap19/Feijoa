@@ -5,6 +5,7 @@
 #include <imgui/imgui.h>
 
 #include "Feijoa/Scene/SceneSerializer.h"
+#include "Feijoa/Utils/PlatformUtils.h"
 
 namespace Feijoa
 {
@@ -172,17 +173,14 @@ namespace Feijoa
 				// which we can't undo at the moment without finer window depth/z control.
 				//ImGui::MenuItem("Fullscreen", nullptr, &opt_fullscreen_persistant);
 
-				if (ImGui::MenuItem("Serialize"))
-				{
-					SceneSerializer serializer(m_ActiveScene);
-					serializer.Serialize("assets/scenes/Example.feijoa");
-				}
+				if (ImGui::MenuItem("New", "Ctrl+N"))
+					NewScene();
 
-				if (ImGui::MenuItem("Deserialize"))
-				{
-					SceneSerializer serializer(m_ActiveScene);
-					serializer.Deserialize("assets/scenes/Example.feijoa");
-				}
+				if (ImGui::MenuItem("Open...", "Ctrl+O"))
+					OpenScene();
+
+				if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S"))
+					SaveSceneAs();
 
 				if (ImGui::MenuItem("Exit")) Application::Get().Close();
 				ImGui::EndMenu();
@@ -224,5 +222,63 @@ namespace Feijoa
 	void SellowianaLayer::OnEvent(Event& e)
 	{
 		m_CameraController.OnEvent(e);
+
+		EventDispatcher dispatcher(e);
+		dispatcher.Dispatch<KeyPressedEvent>(FJ_BIND_EVENT_FN(SellowianaLayer::OnKeyPressed));
 	}
+
+	bool SellowianaLayer::OnKeyPressed(KeyPressedEvent& e)
+	{
+		// Shortcuts
+
+		if (e.GetRepeatCount() > 0)
+			return false;
+
+		bool control = Input::IsKeyPressed(Key::LeftControl) || Input::IsKeyPressed(Key::RightControl);
+		bool shift = Input::IsKeyPressed(Key::LeftShift) || Input::IsKeyPressed(Key::RightShift);
+
+		switch (e.GetKeyCode())
+		{
+		case Key::N: if (control) NewScene();
+			break;
+
+		case Key::O: if (control) OpenScene();
+			break;
+
+		case Key::S: if (control && shift) SaveSceneAs();
+
+		default:
+			break;
+		}
+	}
+
+	void SellowianaLayer::NewScene()
+	{
+		m_ActiveScene = CreateRef<Scene>();
+		m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+	}
+
+	void SellowianaLayer::OpenScene()
+	{
+		std::string filepath = FileDialogs::OpenFile("Feijoa Scene (*.feijoa)\0*.feijoa\0");
+		if (filepath.empty()) return;
+
+		m_ActiveScene = CreateRef<Scene>();
+		m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+
+		SceneSerializer serializer(m_ActiveScene);
+		serializer.Deserialize(filepath);
+	}
+
+	void SellowianaLayer::SaveSceneAs()
+	{
+		std::string filepath = FileDialogs::SaveFile("Feijoa Scene (*.feijoa)\0*.feijoa\0");
+		if (filepath.empty()) return;
+
+		SceneSerializer serializer(m_ActiveScene);
+		serializer.Deserialize(filepath);
+	}
+
 }

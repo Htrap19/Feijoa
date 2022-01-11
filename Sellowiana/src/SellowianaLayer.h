@@ -19,6 +19,13 @@ namespace Feijoa
 		virtual void OnEvent(Feijoa::Event& e) override;
 
 	private:
+		bool OnKeyPressed(KeyPressedEvent& e);
+
+		void NewScene();
+		void OpenScene();
+		void SaveSceneAs();
+
+	private:
 		OrthographicCameraController m_CameraController;
 
 		Ref<FrameBuffer> m_FrameBuffer;
