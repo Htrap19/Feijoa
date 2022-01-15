@@ -246,10 +246,13 @@ namespace Feijoa
 			break;
 
 		case Key::S: if (control && shift) SaveSceneAs();
+			break;
 
 		default:
 			break;
 		}
+
+		return false;
 	}
 
 	void SellowianaLayer::NewScene()
@@ -261,24 +264,24 @@ namespace Feijoa
 
 	void SellowianaLayer::OpenScene()
 	{
-		std::string filepath = FileDialogs::OpenFile("Feijoa Scene (*.feijoa)\0*.feijoa\0");
-		if (filepath.empty()) return;
+		auto filepath = FileDialogs::OpenFile("Feijoa Scene (*.feijoa)\0*.feijoa\0");
+		if (!filepath) return;
 
 		m_ActiveScene = CreateRef<Scene>();
 		m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
 		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
 
 		SceneSerializer serializer(m_ActiveScene);
-		serializer.Deserialize(filepath);
+		serializer.Deserialize(*filepath);
 	}
 
 	void SellowianaLayer::SaveSceneAs()
 	{
-		std::string filepath = FileDialogs::SaveFile("Feijoa Scene (*.feijoa)\0*.feijoa\0");
-		if (filepath.empty()) return;
+		auto filepath = FileDialogs::SaveFile("Feijoa Scene (*.feijoa)\0*.feijoa\0");
+		if (!filepath) return;
 
 		SceneSerializer serializer(m_ActiveScene);
-		serializer.Deserialize(filepath);
+		serializer.Deserialize(*filepath);
 	}
 
 }
