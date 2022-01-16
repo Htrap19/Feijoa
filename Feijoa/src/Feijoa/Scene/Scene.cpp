@@ -93,6 +93,19 @@ namespace Feijoa
 		}
 	}
 
+	Entity Scene::GetPrimaryCameraEntity()
+	{
+		auto view = m_Registry.view<CameraComponent>();
+		for (auto entity : view)
+		{
+			const auto& camera = view.get<CameraComponent>(entity);
+			if (camera.Primary)
+				return { entity, this };
+		}
+
+		return { entt::null, this };
+	}
+
 	template <typename T>
 	void Scene::OnComponentAdded(Entity entity, T& component)
 	{

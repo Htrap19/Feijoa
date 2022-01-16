@@ -19,7 +19,8 @@ project "Sellowiana"
 		"%{wks.location}/Feijoa/src",
 		"%{wks.location}/Feijoa/vendor/",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.entt}"
+		"%{IncludeDir.entt}",
+		"%{IncludeDir.ImGuizmo}"
 	}
 
 	links

@@ -36,7 +36,7 @@ namespace Feijoa
 		inline void SetOrthographicFarClip(float farClip) { m_OrthographicFar = farClip; RecalculateProjection(); }
 
 		inline ProjectionType GetProjectionType() const { return m_ProjectionType; }
-		inline void SetProjectionType(ProjectionType type) { m_ProjectionType = type; }
+		inline void SetProjectionType(ProjectionType type) { m_ProjectionType = type; RecalculateProjection(); }
 		
 	private:
 		void RecalculateProjection();

@@ -43,5 +43,6 @@ namespace Feijoa
 
 		// Panels
 		SceneHierarchyPanel m_SceneHierarchyPanel;
+		int32_t m_GizmoType = -1;
 	};
 }
