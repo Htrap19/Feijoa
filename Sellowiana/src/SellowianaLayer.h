@@ -2,6 +2,7 @@
 
 #include <Feijoa.h>
 #include "Panels/SceneHierarchyPanel.h"
+#include "Feijoa/Renderer/EditorCamera.h"
 
 namespace Feijoa
 {
@@ -35,6 +36,8 @@ namespace Feijoa
 		Entity m_SquareEntity;
 		Entity m_CameraEntity;
 		Entity m_SecondCamera;
+
+		EditorCamera m_EditorCamera;
 
 		bool m_PrimaryCamera = true;
 		bool m_ViewportFocused = false, m_ViewportHovered = false;
