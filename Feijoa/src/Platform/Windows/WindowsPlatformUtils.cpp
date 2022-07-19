@@ -14,11 +14,14 @@ namespace Feijoa
 	{
 		OPENFILENAMEA ofn;
 		CHAR szFile[260] = { 0 };
+		CHAR currentDir[256] = { 0 };
 		ZeroMemory(&ofn, sizeof(OPENFILENAME));
 		ofn.lStructSize = sizeof(OPENFILENAME);
 		ofn.hwndOwner = glfwGetWin32Window((GLFWwindow*)Application::Get().GetWindow().GetNativeWindow());
 		ofn.lpstrFile = szFile;
 		ofn.nMaxFile = sizeof(szFile);
+		if (GetCurrentDirectoryA(256, currentDir))
+			ofn.lpstrInitialDir = currentDir;
 		ofn.lpstrFilter = filter;
 		ofn.nFilterIndex = 1;
 		ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;
@@ -33,14 +36,17 @@ namespace Feijoa
 	{
 		OPENFILENAMEA ofn;
 		CHAR szFile[260] = { 0 };
+		CHAR currentDir[256] = { 0 };
 		ZeroMemory(&ofn, sizeof(OPENFILENAME));
 		ofn.lStructSize = sizeof(OPENFILENAME);
 		ofn.hwndOwner = glfwGetWin32Window((GLFWwindow*)Application::Get().GetWindow().GetNativeWindow());
 		ofn.lpstrFile = szFile;
 		ofn.nMaxFile = sizeof(szFile);
+		if (GetCurrentDirectoryA(256, currentDir))
+			ofn.lpstrInitialDir = currentDir;
 		ofn.lpstrFilter = filter;
 		ofn.nFilterIndex = 1;
-		ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR | OFN_OVERWRITEPROMPT;
+		ofn.Flags = OFN_PATHMUSTEXIST | OFN_NOCHANGEDIR | OFN_OVERWRITEPROMPT;
 
 		// Sets the default extension by extracting it from the filter
 		ofn.lpstrDefExt = strchr(filter, '\0') + 1;

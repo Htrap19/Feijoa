@@ -32,7 +32,7 @@ namespace Feijoa
 		bool OnWindowResize(WindowResizeEvent& e);
 
 	private:
-		std::unique_ptr<Window> m_Window;
+		Scope<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		bool m_Minimized = false;
