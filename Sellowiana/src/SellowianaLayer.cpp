@@ -266,7 +266,7 @@ namespace Feijoa
 				(ImGuizmo::OPERATION)m_GizmoType,
 				ImGuizmo::LOCAL,
 				glm::value_ptr(transform),
-				nullptr, 
+				nullptr,
 				snap ? snapValues : nullptr);
 
 			if (ImGuizmo::IsUsing())

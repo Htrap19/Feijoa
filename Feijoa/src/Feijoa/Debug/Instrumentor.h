@@ -197,9 +197,9 @@ namespace Feijoa
 	#elif (defined(__BORLANDC__) && __BORLANDC__ >= 0x550)
 		#define FJ_FUNC_SIG __FUNC__
 	#elif defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901)
-		#define __func__
+		#define FJ_FUNC_SIG __func__
 	#elif defined(__cplusplus) && (__cplusplus >= 201103)
-		#define __func__
+		#define FJ_FUNC_SIG __func__
 	#else
 		#define FJ_FUNC_SIG "FJ_FUNC_SIG unknown!"
 	#endif

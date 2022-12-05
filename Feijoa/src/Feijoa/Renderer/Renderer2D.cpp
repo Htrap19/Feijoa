@@ -50,14 +50,14 @@ namespace Feijoa
 
 		s_Data.QuadVertexArray = VertexArray::Create();
 
-		s_Data.QuadVertexBuffer = Feijoa::VertexBuffer::Create(s_Data.MaxVertices * sizeof(QuadVertex));
+		s_Data.QuadVertexBuffer = VertexBuffer::Create(s_Data.MaxVertices * sizeof(QuadVertex));
 		s_Data.QuadVertexBuffer->SetLayout({
 			{ Feijoa::ShaderDataType::Float3, "a_Position" },
 			{ Feijoa::ShaderDataType::Float4, "a_Color" },
 			{ Feijoa::ShaderDataType::Float2, "a_TexCoord" },
 			{ Feijoa::ShaderDataType::Float, "a_TexIndex" },
 			{ Feijoa::ShaderDataType::Float, "a_TilingFactor" }
-			});
+		});
 		s_Data.QuadVertexArray->AddVertexBuffer(s_Data.QuadVertexBuffer);
 
 		s_Data.QuadVertexBufferBase = new QuadVertex[s_Data.MaxVertices];
@@ -78,7 +78,7 @@ namespace Feijoa
 			offset += 4;
 		}
 
-		Feijoa::Ref<Feijoa::IndexBuffer> squereIB = Feijoa::IndexBuffer::Create(quadIndices, s_Data.MaxIndices);
+		Ref<Feijoa::IndexBuffer> squereIB = IndexBuffer::Create(quadIndices, s_Data.MaxIndices);
 		s_Data.QuadVertexArray->SetIndexBuffer(squereIB);
 		delete[] quadIndices;
 
