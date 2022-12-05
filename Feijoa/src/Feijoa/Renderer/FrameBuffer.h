@@ -4,11 +4,11 @@
 
 namespace Feijoa
 {
-	enum class FrameBufferTextureFormat
+	enum class FramebufferTextureFormat
 	{
 		None = 0,
 		// Color
-		RGBA,
+		RGBA8,
 
 		// Depth/stencil
 		DEPTH24STENCIL8,
@@ -17,33 +17,33 @@ namespace Feijoa
 		Depth = DEPTH24STENCIL8
 	};
 
-	struct FrameBufferTextureSpecification
+	struct FramebufferTextureSpecification
 	{
-		FrameBufferTextureSpecification() = default;
-		FrameBufferTextureSpecification(FrameBufferTextureFormat format)
+		FramebufferTextureSpecification() = default;
+		FramebufferTextureSpecification(FramebufferTextureFormat format)
 			: TextureFormat(format) {}
 
-		FrameBufferTextureFormat TextureFormat = FrameBufferTextureFormat::None;
+		FramebufferTextureFormat TextureFormat = FramebufferTextureFormat::None;
 	};
 
-	struct FrameBufferAttachmentSpecification
+	struct FramebufferAttachmentSpecification
 	{
-		FrameBufferAttachmentSpecification() = default;
-		FrameBufferAttachmentSpecification(std::initializer_list<FrameBufferTextureSpecification> attachments)
+		FramebufferAttachmentSpecification() = default;
+		FramebufferAttachmentSpecification(std::initializer_list<FramebufferTextureSpecification> attachments)
 			: Attachments(attachments) {}
 
-		std::vector<FrameBufferTextureSpecification> Attachments;
+		std::vector<FramebufferTextureSpecification> Attachments;
 	};
 
-	struct FrameBufferSpecification
+	struct FramebufferSpecification
 	{
 		uint32_t Width = 0, Height = 0;
-		FrameBufferAttachmentSpecification Attachments;
+		FramebufferAttachmentSpecification Attachments;
 		uint32_t Samples = 1;
 		bool SwapChainTarget = false;
 	};
 
-	class FrameBuffer
+	class Framebuffer
 	{
 	public:
 		virtual void Bind() const = 0;
@@ -52,8 +52,8 @@ namespace Feijoa
 		virtual void Resize(uint32_t width, uint32_t height) = 0;
 
 		virtual uint32_t GetColorAttachmentRendererID(uint32_t index = 0) const = 0;
-		virtual const FrameBufferSpecification& GetSpecification() const = 0;
+		virtual const FramebufferSpecification& GetSpecification() const = 0;
 
-		static Ref<FrameBuffer> Create(const FrameBufferSpecification& spec);
+		static Ref<Framebuffer> Create(const FramebufferSpecification& spec);
 	};
 }

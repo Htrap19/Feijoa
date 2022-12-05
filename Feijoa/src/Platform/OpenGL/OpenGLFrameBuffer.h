@@ -1,14 +1,14 @@
 #pragma once
 
-#include "Feijoa/Renderer/FrameBuffer.h"
+#include "Feijoa/Renderer/Framebuffer.h"
 
 namespace Feijoa
 {
-	class OpenGLFrameBuffer : public FrameBuffer
+	class OpenGLFramebuffer : public Framebuffer
 	{
 	public:
-		OpenGLFrameBuffer(const FrameBufferSpecification& spec);
-		virtual ~OpenGLFrameBuffer();
+		OpenGLFramebuffer(const FramebufferSpecification& spec);
+		virtual ~OpenGLFramebuffer();
 
 		void Invalidate();
 
@@ -18,13 +18,13 @@ namespace Feijoa
 		virtual void Resize(uint32_t width, uint32_t height) override;
 
 		virtual inline uint32_t GetColorAttachmentRendererID(uint32_t index = 0) const override { FJ_ASSERT(index < m_ColorAttachments.size()); return m_ColorAttachments[index]; }
-		virtual inline const FrameBufferSpecification& GetSpecification() const override { return m_Specification; }
+		virtual inline const FramebufferSpecification& GetSpecification() const override { return m_Specification; }
 
 	private:
 		uint32_t m_RendererID = 0;
-		FrameBufferSpecification m_Specification;
-		std::vector<FrameBufferTextureSpecification> m_ColorAttachmentSpecifications;
-		FrameBufferTextureSpecification m_DepthAttachmentSpecification = FrameBufferTextureFormat::None;
+		FramebufferSpecification m_Specification;
+		std::vector<FramebufferTextureSpecification> m_ColorAttachmentSpecifications;
+		FramebufferTextureSpecification m_DepthAttachmentSpecification = FramebufferTextureFormat::None;
 		std::vector<uint32_t> m_ColorAttachments;
 		uint32_t m_DepthAttachment = 0;
 	};

@@ -22,10 +22,11 @@ namespace Feijoa
 
 		m_CheckerBoardTexture = Texture2D::Create("assets/textures/Checkerboard.png");
 
-		FrameBufferSpecification spec;
+		FramebufferSpecification spec;
+		spec.Attachments = { FramebufferTextureFormat::RGBA8, FramebufferTextureFormat::Depth };
 		spec.Width = 1270;
 		spec.Height = 720;
-		m_FrameBuffer = FrameBuffer::Create(spec);
+		m_FrameBuffer = Framebuffer::Create(spec);
 
 		m_ActiveScene = CreateRef<Scene>();
 		m_EditorCamera = EditorCamera(30.0f, 1.778f, 0.1f, 1000.0f);
@@ -91,7 +92,7 @@ namespace Feijoa
 		FJ_PROFILE_FUNCTION();
 
 		// Resize
-		if (FrameBufferSpecification spec = m_FrameBuffer->GetSpecification();
+		if (FramebufferSpecification spec = m_FrameBuffer->GetSpecification();
 			m_ViewportSize.x > 0.0f && m_ViewportSize.y > 0.0f &&
 			(spec.Width != m_ViewportSize.x || spec.Height != m_ViewportSize.y))
 		{

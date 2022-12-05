@@ -29,7 +29,7 @@ namespace Feijoa
 	private:
 		OrthographicCameraController m_CameraController;
 
-		Ref<FrameBuffer> m_FrameBuffer;
+		Ref<Framebuffer> m_FrameBuffer;
 		Ref<Texture2D> m_CheckerBoardTexture;
 
 		Ref<Scene> m_ActiveScene;

@@ -29,7 +29,7 @@
 
 #include "Feijoa/Renderer/Buffer.h"
 #include "Feijoa/Renderer/Shader.h"
-#include "Feijoa/Renderer/FrameBuffer.h"
+#include "Feijoa/Renderer/Framebuffer.h"
 #include "Feijoa/Renderer/Texture.h"
 #include "Feijoa/Renderer/VertexArray.h"
 
