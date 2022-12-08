@@ -116,6 +116,9 @@ namespace Feijoa
 		RenderCommand::Clear();
 		Renderer2D::ResetStats();
 
+		// Clear our entity ID attachment id to -1
+		m_FrameBuffer->ClearAttachment(1, -1);
+
 		// Update scene
 		m_ActiveScene->OnUpdateEditor(ts, m_EditorCamera);
 
