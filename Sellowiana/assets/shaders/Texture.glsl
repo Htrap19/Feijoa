@@ -29,6 +29,7 @@ void main()
 #version 450
 
 layout (location = 0) out vec4 color;
+layout (location = 1) out vec4 color2;
 
 in vec4 v_Color;
 in vec2 v_TexCoord;
@@ -40,8 +41,9 @@ uniform sampler2D u_Textures[32];
 void main()
 {
 	int texIndex = int(v_TexIndex);
-	if (texIndex < 32 && texIndex > 0)
-		color = texture(u_Textures[texIndex], v_TexCoord * v_TilingFactor) * v_Color;
-	else
-		color = v_Color;
+	color = v_Color;
+	if (texIndex < 32 && texIndex >= 0)
+		color *= texture(u_Textures[texIndex], v_TexCoord * v_TilingFactor);
+
+	color2 = vec4(0.9, 0.2, 0.3, 1.0);
 }

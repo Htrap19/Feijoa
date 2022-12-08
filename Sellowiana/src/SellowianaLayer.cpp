@@ -23,7 +23,7 @@ namespace Feijoa
 		m_CheckerBoardTexture = Texture2D::Create("assets/textures/Checkerboard.png");
 
 		FramebufferSpecification spec;
-		spec.Attachments = { FramebufferTextureFormat::RGBA8, FramebufferTextureFormat::Depth };
+		spec.Attachments = { FramebufferTextureFormat::RGBA8, FramebufferTextureFormat::RGBA8, FramebufferTextureFormat::Depth };
 		spec.Width = 1270;
 		spec.Height = 720;
 		m_FrameBuffer = Framebuffer::Create(spec);
@@ -221,7 +221,7 @@ namespace Feijoa
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
 		m_ViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
 
-		uint64_t textureID = m_FrameBuffer->GetColorAttachmentRendererID();
+		uint64_t textureID = m_FrameBuffer->GetColorAttachmentRendererID(1);
 		ImGui::Image(reinterpret_cast<void*>(textureID), ImVec2{ m_ViewportSize.x, m_ViewportSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 
 		// Gizmos
