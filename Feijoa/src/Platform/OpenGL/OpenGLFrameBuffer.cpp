@@ -127,6 +127,9 @@ namespace Feijoa
 				case FramebufferTextureFormat::RGBA8:
 					Utils::AttachColorTexture(m_ColorAttachments[i], m_Specification.Samples, GL_RGBA8, GL_RGBA, m_Specification.Width, m_Specification.Height, i);
 					break;
+				case FramebufferTextureFormat::RED_INTEGER:
+					Utils::AttachColorTexture(m_ColorAttachments[i], m_Specification.Samples, GL_R32I, GL_RED_INTEGER, m_Specification.Width, m_Specification.Height, i);
+					break;
 				}
 			}
 		}
@@ -179,4 +182,12 @@ namespace Feijoa
 		Invalidate();
 	}
 
+	int OpenGLFramebuffer::ReadPixel(uint32_t attachmentIndex, int x, int y)
+	{
+		FJ_CORE_ASSERT(attachmentIndex < m_ColorAttachments.size());
+		glReadBuffer(GL_COLOR_ATTACHMENT0 + attachmentIndex);
+		int pixel;
+		glReadPixels(x, y, 1, 1, GL_RED_INTEGER, GL_INT, &pixel);
+		return pixel;
+	}
 }
