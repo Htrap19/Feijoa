@@ -18,6 +18,7 @@ namespace Feijoa
 		void OnImGuiRender();
 
 		inline Entity GetSelectedEntity() const { return m_SelectionContext; }
+		inline void SetSelectedEntity(Entity entity) noexcept { m_SelectionContext = entity; }
 
 	private:
 		void DrawEntityNode(Entity entity);

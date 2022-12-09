@@ -132,8 +132,9 @@ namespace Feijoa
 
 		if (mouseX >= 0 && mouseY >= 0 && mouseX < (int)viewportSize.x && mouseY < (int)viewportSize.y)
 		{
-			int pixel = m_FrameBuffer->ReadPixel(1, mouseX, mouseY);
-			FJ_CORE_WARN("Pixel data: {0}", pixel);
+			int entityId = m_FrameBuffer->ReadPixel(1, mouseX, mouseY);
+			if (Input::IsMouseButtonPressed(Mouse::Button1))
+				m_SceneHierarchyPanel.SetSelectedEntity({ (entt::entity)entityId, &(*m_ActiveScene) });
 		}
 
 		m_FrameBuffer->Unbind();

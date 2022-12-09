@@ -16,6 +16,7 @@ namespace Feijoa
 		glm::vec2 TexCoord;
 		float TexIndex;
 		float TilingFactor;
+		int EntityId;
 	};
 
 	struct Renderer2DData
@@ -56,7 +57,8 @@ namespace Feijoa
 			{ Feijoa::ShaderDataType::Float4, "a_Color" },
 			{ Feijoa::ShaderDataType::Float2, "a_TexCoord" },
 			{ Feijoa::ShaderDataType::Float, "a_TexIndex" },
-			{ Feijoa::ShaderDataType::Float, "a_TilingFactor" }
+			{ Feijoa::ShaderDataType::Float, "a_TilingFactor" },
+			{ Feijoa::ShaderDataType::Int, "a_EntityId" }
 		});
 		s_Data.QuadVertexArray->AddVertexBuffer(s_Data.QuadVertexBuffer);
 
@@ -165,17 +167,17 @@ namespace Feijoa
 		s_Data.Stats.DrawCalls++;
 	}
 
-	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
+	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color, int entityId /*= -1*/)
 	{
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
 			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 0.0f });
 
-		DrawQuad(transform, color);
+		DrawQuad(transform, color, entityId);
 	}
 
-	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color)
+	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color, int entityId /*= -1*/)
 	{
-		DrawQuad({ position.x, position.y, 0.0f }, size, color);
+		DrawQuad({ position.x, position.y, 0.0f }, size, color, entityId);
 	}
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture, float tilingFactor /* = 1.0f */, const glm::vec4& tintColor /* = glm::vec4(1.0f) */)
@@ -183,7 +185,7 @@ namespace Feijoa
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
 			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 
-		DrawQuad(transform, texture, tilingFactor, tintColor);
+		DrawQuad(transform, texture, -1, tilingFactor, tintColor);
 	}
 
 	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture2D>& texture, float tilingFactor /* = 1.0f */, const glm::vec4& tintColor /* = glm::vec4(1.0f) */)
@@ -211,7 +213,7 @@ namespace Feijoa
 			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation), { 0.0f, 0.0f, 1.0f })
 			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 
-		DrawQuad(transform, texture, tilingFactor, tintColor);
+		DrawQuad(transform, texture, -1, tilingFactor, tintColor);
 	}
 
 	void Renderer2D::DrawRotatedQuad(const glm::vec2& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, float tilingFactor /*= 1.0f*/, const glm::vec4& tintColor /*= glm::vec4(1.0f)*/)
@@ -219,7 +221,7 @@ namespace Feijoa
 		DrawRotatedQuad({ position.x, position.y, 0.0f }, size, rotation, texture, tilingFactor, tintColor);
 	}
 
-	void Renderer2D::DrawQuad(const glm::mat4& transform, const glm::vec4& color)
+	void Renderer2D::DrawQuad(const glm::mat4& transform, const glm::vec4& color, int entityId /*= -1*/)
 	{
 		FJ_PROFILE_FUNCTION();
 
@@ -238,6 +240,7 @@ namespace Feijoa
 			s_Data.QuadVertexBufferPtr->TexCoord = texturesCoords[i];
 			s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
 			s_Data.QuadVertexBufferPtr->TilingFactor = tilingFactor;
+			s_Data.QuadVertexBufferPtr->EntityId = entityId;
 			s_Data.QuadVertexBufferPtr++;
 		}
 
@@ -246,7 +249,7 @@ namespace Feijoa
 		s_Data.Stats.QuadCount++;
 	}
 
-	void Renderer2D::DrawQuad(const glm::mat4& transform, const Ref<Texture2D>& texture, float tilingFactor /*= 1.0f*/, const glm::vec4& tintColor /*= glm::vec4(1.0f)*/)
+	void Renderer2D::DrawQuad(const glm::mat4& transform, const Ref<Texture2D>& texture, int entityId /*= -1*/, float tilingFactor /*= 1.0f*/, const glm::vec4& tintColor /*= glm::vec4(1.0f)*/)
 	{
 		FJ_PROFILE_FUNCTION();
 
@@ -280,6 +283,7 @@ namespace Feijoa
 			s_Data.QuadVertexBufferPtr->TexCoord = texturesCoords[i];
 			s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
 			s_Data.QuadVertexBufferPtr->TilingFactor = tilingFactor;
+			s_Data.QuadVertexBufferPtr->EntityId = entityId;
 			s_Data.QuadVertexBufferPtr++;
 		}
 
