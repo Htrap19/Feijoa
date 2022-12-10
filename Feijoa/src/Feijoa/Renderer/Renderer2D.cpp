@@ -16,6 +16,8 @@ namespace Feijoa
 		glm::vec2 TexCoord;
 		float TexIndex;
 		float TilingFactor;
+
+		// Editor-Only
 		int EntityId;
 	};
 
@@ -53,12 +55,12 @@ namespace Feijoa
 
 		s_Data.QuadVertexBuffer = VertexBuffer::Create(s_Data.MaxVertices * sizeof(QuadVertex));
 		s_Data.QuadVertexBuffer->SetLayout({
-			{ Feijoa::ShaderDataType::Float3, "a_Position" },
-			{ Feijoa::ShaderDataType::Float4, "a_Color" },
-			{ Feijoa::ShaderDataType::Float2, "a_TexCoord" },
-			{ Feijoa::ShaderDataType::Float, "a_TexIndex" },
-			{ Feijoa::ShaderDataType::Float, "a_TilingFactor" },
-			{ Feijoa::ShaderDataType::Int, "a_EntityId" }
+			{ Feijoa::ShaderDataType::Float3, "a_Position"		},
+			{ Feijoa::ShaderDataType::Float4, "a_Color"			},
+			{ Feijoa::ShaderDataType::Float2, "a_TexCoord"		},
+			{ Feijoa::ShaderDataType::Float,  "a_TexIndex"		},
+			{ Feijoa::ShaderDataType::Float,  "a_TilingFactor"	},
+			{ Feijoa::ShaderDataType::Int,	  "a_EntityId"		}
 		});
 		s_Data.QuadVertexArray->AddVertexBuffer(s_Data.QuadVertexBuffer);
 

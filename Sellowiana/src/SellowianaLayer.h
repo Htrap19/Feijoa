@@ -37,6 +37,8 @@ namespace Feijoa
 		Entity m_CameraEntity;
 		Entity m_SecondCamera;
 
+		Entity m_HoveredEntity;
+
 		EditorCamera m_EditorCamera;
 
 		bool m_PrimaryCamera = true;

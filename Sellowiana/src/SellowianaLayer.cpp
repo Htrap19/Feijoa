@@ -134,7 +134,7 @@ namespace Feijoa
 		{
 			int entityId = m_FrameBuffer->ReadPixel(1, mouseX, mouseY);
 			if (Input::IsMouseButtonPressed(Mouse::Button1))
-				m_SceneHierarchyPanel.SetSelectedEntity({ (entt::entity)entityId, &(*m_ActiveScene) });
+				m_SceneHierarchyPanel.SetSelectedEntity(Entity(entityId == -1 ? entt::null : (entt::entity)entityId, m_ActiveScene.get()));
 		}
 
 		m_FrameBuffer->Unbind();
@@ -219,6 +219,11 @@ namespace Feijoa
 		m_SceneHierarchyPanel.OnImGuiRender();
 
 		ImGui::Begin("Stats");
+
+		std::string name = "None";
+		if (m_HoveredEntity)
+			name = m_HoveredEntity.GetComponent<TagComponent>().Tag;
+		ImGui::Text("Hovered Entity: %s", name.c_str());
 
 		auto stats = Renderer2D::GetStats();
 		ImGui::Text("Renderer2D Stats:");
@@ -378,6 +383,7 @@ namespace Feijoa
 		auto filepath = FileDialogs::OpenFile("Feijoa Scene (*.feijoa)\0*.feijoa\0");
 		if (!filepath) return;
 
+		m_ActiveScene.reset();
 		m_ActiveScene = CreateRef<Scene>();
 		m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
 		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
