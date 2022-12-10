@@ -132,8 +132,8 @@ namespace Feijoa
 
 		if (mouseX >= 0 && mouseY >= 0 && mouseX < (int)viewportSize.x && mouseY < (int)viewportSize.y)
 		{
-			int pixel = m_FrameBuffer->ReadPixel(1, mouseX, mouseY);
-			FJ_CORE_WARN("Pixel data: {0}", pixel);
+			int pixelData = m_FrameBuffer->ReadPixel(1, mouseX, mouseY);
+			m_HoveredEntity = Entity(pixelData == -1 ? entt::null : (entt::entity)pixelData, m_ActiveScene.get());
 		}
 
 		m_FrameBuffer->Unbind();
@@ -218,6 +218,11 @@ namespace Feijoa
 		m_SceneHierarchyPanel.OnImGuiRender();
 
 		ImGui::Begin("Stats");
+
+		std::string name = "None";
+		if (m_HoveredEntity)
+			name = m_HoveredEntity.GetComponent<TagComponent>().Tag;
+		ImGui::Text("Hovered Entity: %s", name.c_str());
 
 		auto stats = Renderer2D::GetStats();
 		ImGui::Text("Renderer2D Stats:");
