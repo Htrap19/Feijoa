@@ -328,6 +328,7 @@ namespace Feijoa
 
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<KeyPressedEvent>(FJ_BIND_EVENT_FN(SellowianaLayer::OnKeyPressed));
+		dispatcher.Dispatch<MouseButtonPressedEvent>(FJ_BIND_EVENT_FN(SellowianaLayer::OnMouseButtonPressed));
 	}
 
 	bool SellowianaLayer::OnKeyPressed(KeyPressedEvent& e)
@@ -365,6 +366,17 @@ namespace Feijoa
 
 		default:
 			break;
+		}
+
+		return false;
+	}
+
+	bool SellowianaLayer::OnMouseButtonPressed(MouseButtonEvent& e)
+	{
+		if (e.GetMouseButton() == Mouse::ButtonLeft)
+		{
+			if (m_ViewportHovered && !ImGuizmo::IsOver() && !Input::IsKeyPressed(Key::LeftAlt))
+				m_SceneHierarchyPanel.SetSelectedEntity(m_HoveredEntity);
 		}
 
 		return false;

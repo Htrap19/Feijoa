@@ -60,7 +60,7 @@ namespace Feijoa
 			{ Feijoa::ShaderDataType::Float2, "a_TexCoord"		},
 			{ Feijoa::ShaderDataType::Float,  "a_TexIndex"		},
 			{ Feijoa::ShaderDataType::Float,  "a_TilingFactor"	},
-			{ Feijoa::ShaderDataType::Int,  "a_EntityId"	}
+			{ Feijoa::ShaderDataType::Int,	  "a_EntityId"		}
 		});
 		s_Data.QuadVertexArray->AddVertexBuffer(s_Data.QuadVertexBuffer);
 
