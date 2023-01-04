@@ -14,13 +14,9 @@ namespace Feijoa
 	{
 		std::vector<ModelVertex> Vertices;
 		std::vector<uint32_t> Indices;
-		std::vector<Ref<Texture2D>> Textures;
+		Ref<Texture2D> Texture;
 
-		RenderMesh(const RenderMesh&) = default;
-		RenderMesh(const std::vector<ModelVertex>& vertices, const std::vector<uint32_t>& indices, const std::vector<Ref<Texture2D>>& textures = {})
-			: Vertices(vertices), Indices(indices), Textures(textures) {}
-
-		inline bool HasTexture() const { return !Textures.empty(); }
+		inline bool HasTexture() const { return Texture != nullptr ; }
 	};
 
 	class AssimpEntity
@@ -34,13 +30,10 @@ namespace Feijoa
 	protected:
 		void ProcessNode(aiNode* node, const aiScene* scene);
 		RenderMesh ProcessMesh(aiMesh* mesh, const aiScene* scene);
-		std::vector<Ref<Texture2D>> LoadTextures(const aiMaterial* material, aiTextureType type);
-
-		glm::vec4 GetMaterialColor(const aiMaterial* material, const char* pKey, uint32_t type, uint32_t idx);
+		Ref<Texture2D> AssimpEntity::LoadTexture(const aiMaterial* material, aiTextureType type, uint32_t idx);
 
 	private:
 		std::string m_Directory;
-		std::vector<Ref<Texture2D>> m_Textures;
 		std::vector<RenderMesh> m_Meshes;
 	};
 }

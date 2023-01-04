@@ -20,6 +20,7 @@ namespace Feijoa
 		void OnUpdateRuntime(Timestep ts);
 		void OnUpdateEditor(Timestep ts, EditorCamera& camera);
 		void OnViewportResize(uint32_t width, uint32_t height);
+		void OnEvent(Event& e);
 
 		Entity GetPrimaryCameraEntity();
 

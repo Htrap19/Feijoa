@@ -7,6 +7,7 @@
 
 namespace Feijoa
 {
+	static std::vector<Ref<Texture2D>> s_LoadedTextures;
 	AssimpEntity::AssimpEntity(const std::string& path)
 	{
 		Assimp::Importer importer;
@@ -29,6 +30,32 @@ namespace Feijoa
 			ProcessNode(node->mChildren[i], scene);
 	}
 
+	static glm::vec4 GetMaterialColor(const aiMaterial* material, const char* pKey, uint32_t type, uint32_t idx)
+	{
+		aiColor4D color;
+		if (material->Get(pKey, type, idx, color) != aiReturn_FAILURE)
+			return glm::vec4((float)color.r, (float)color.g, (float)color.b, (float)color.a);
+
+		return glm::vec4(0.0f);
+	}
+
+	Ref<Texture2D> AssimpEntity::LoadTexture(const aiMaterial* material, aiTextureType type, uint32_t idx)
+	{
+		aiString str;
+		if (material->GetTexture(type, idx, &str) != aiReturn_SUCCESS)
+			return nullptr;
+
+		for (auto& loadedTexture : s_LoadedTextures)
+		{
+			if (loadedTexture->GetPath() == std::string(str.C_Str()))
+				return loadedTexture;
+		}
+		
+		auto newTexture = Texture2D::Create(m_Directory + "/" + str.C_Str());
+		s_LoadedTextures.push_back(newTexture);
+		return newTexture;
+	}
+
 	RenderMesh AssimpEntity::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 	{
 		aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
@@ -45,6 +72,7 @@ namespace Feijoa
 		std::vector<ModelVertex> vertices(mesh->mNumVertices);
 		for (uint32_t i = 0; i < mesh->mNumVertices; i++)
 		{
+			vertices[i].Color = color;
 			vertices[i] = { { mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z }, glm::mat4(1.0f), color };
 			if (hasTexture)
 				vertices[i].TexCoord = glm::vec2(mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y);
@@ -58,51 +86,10 @@ namespace Feijoa
 				indices.push_back(face.mIndices[j]);
 		}
 
-		if (hasTexture)
-			return RenderMesh(vertices, indices, LoadTextures(material, aiTextureType_DIFFUSE));
+		if (hasTexture && material->GetTextureCount(aiTextureType_DIFFUSE) > 0)
+			return { vertices, indices, LoadTexture(material, aiTextureType_DIFFUSE, 0) };
 
-		return RenderMesh(vertices, indices);
-	}
-
-	std::vector<Ref<Texture2D>> AssimpEntity::LoadTextures(const aiMaterial* material, aiTextureType type)
-	{
-		std::vector<Ref<Texture2D>> textures;
-
-		for (uint32_t i = 0; i < material->GetTextureCount(type); i++)
-		{
-			aiString str;
-			material->GetTexture(type, i, &str);
-
-			// Prevent duplicate loading
-			bool skip = false;
-			for (uint32_t j = 0; j < m_Textures.size(); j++)
-			{
-				if (strcmp(m_Textures[i]->GetPath().data(), str.C_Str()) == 0)
-				{
-					textures.push_back(m_Textures[i]);
-					skip = true;
-					break;
-				}
-			}
-
-			if (!skip)
-			{
-				Ref<Texture2D> texture = Texture2D::Create(m_Directory + "/" + str.C_Str(), false);
-				textures.push_back(texture);
-				m_Textures.push_back(texture);
-			}
-		}
-
-		return textures;
-	}
-
-	glm::vec4 AssimpEntity::GetMaterialColor(const aiMaterial* material, const char* pKey, uint32_t type, uint32_t idx)
-	{
-		aiColor4D color;
-		if (material->Get(pKey, type, idx, color) != aiReturn_FAILURE)
-			return glm::vec4((float)color.r, (float)color.g, (float)color.b, (float)color.a);
-
-		return glm::vec4(0.0f);
+		return { vertices, indices, nullptr };
 	}
 
 }

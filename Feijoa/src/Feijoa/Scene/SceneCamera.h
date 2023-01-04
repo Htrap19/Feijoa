@@ -98,16 +98,17 @@ namespace Feijoa
 
 		inline const glm::mat4& GetView() const { return m_View; }
 		inline const float GetFOV() const { return m_FOV; }
-		inline void SetFOV(float fov) { m_FOV = fov; }
+		inline void SetFOV(float fov) { m_FOV = fov; RecalculateProjection(); }
 		inline const float GetSpeed() const { return m_Speed; }
 		inline void SetSpeed(float speed) { m_Speed = speed; }
-		inline void SetFarClip(float farClip) { m_FarClip = farClip; }
+		inline void SetFarClip(float farClip) { m_FarClip = farClip; RecalculateProjection(); }
 		inline const float GetFarClip() const { return m_FarClip; }
-		inline void SetNearClip(float nearClip) { m_NearClip = nearClip; }
+		inline void SetNearClip(float nearClip) { m_NearClip = nearClip; RecalculateProjection(); }
 		inline const float GetNearClip() const { return m_NearClip; }
 
 	private:
 		void RecalculateView();
+		void RecalculateProjection();
 
 	private:
 		glm::vec3 m_Position = { 0.0f, 0.0f, 0.0f };

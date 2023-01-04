@@ -7,6 +7,7 @@
 namespace Feijoa
 {
 	struct RenderMesh;
+	struct MeshComponent;
 	struct ModelVertex
 	{
 		glm::vec3 Position;
@@ -34,6 +35,7 @@ namespace Feijoa
 		static void ResetStats();
 		static Statistics GetStats();
 
+		static void BeginScene(const glm::mat4& projection, const glm::mat4& view);
 		static void BeginScene(const Camera& camera, const glm::mat4& view);
 		static void BeginScene(PerspectiveCamera& camera);
 		static void EndScene();
@@ -41,8 +43,6 @@ namespace Feijoa
 
 		static void DrawMesh(const glm::mat4& model, const RenderMesh& mesh, const glm::vec4& color = glm::vec4(1.0f));
 		static void DrawMesh(const glm::vec3& position, const glm::vec3& size, const RenderMesh& mesh);
-
-	private:
-		static void FlushAndReset();
+		static void DrawMesh(const glm::mat4& transform, const MeshComponent& component);
 	};
 }

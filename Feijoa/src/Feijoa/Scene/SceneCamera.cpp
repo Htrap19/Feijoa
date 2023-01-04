@@ -72,7 +72,7 @@ namespace Feijoa
 	void PerspectiveSceneCamera::SetViewportSize(uint32_t width, uint32_t height)
 	{
 		m_AspectRatio = (float)width / (float)height;
-		m_Projection = glm::perspective(glm::radians(m_FOV), m_AspectRatio, m_NearClip, m_FarClip);
+		RecalculateProjection();
 	}
 
 	void PerspectiveSceneCamera::UpdatePosition(float dx, float dy)
@@ -135,6 +135,11 @@ namespace Feijoa
 		m_CameraUp = glm::normalize(glm::cross(m_CameraRight, m_CameraFront));
 
 		m_View = glm::lookAt(m_Position, m_Position + m_CameraFront, m_CameraUp);
+	}
+
+	void PerspectiveSceneCamera::RecalculateProjection()
+	{
+		m_Projection = glm::perspective(glm::radians(m_FOV), m_AspectRatio, m_NearClip, m_FarClip);
 	}
 
 }

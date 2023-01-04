@@ -32,38 +32,68 @@ void Sandbox3D::OnAttach()
 		virtual void OnUpdate(Feijoa::Timestep ts) override
 		{
 			auto& camera = GetComponent<Feijoa::PerspectiveCameraComponent>().Camera;
+			float sensitivity = 0.1f;
 
-			if (Feijoa::Input::IsKeyPressed(Feijoa::Key::W))
-				camera.UpdateDirection(Feijoa::PerspectiveSceneCamera::Direction::Forward, ts);
-			if (Feijoa::Input::IsKeyPressed(Feijoa::Key::S))
-				camera.UpdateDirection(Feijoa::PerspectiveSceneCamera::Direction::Backward, ts);
-			if (Feijoa::Input::IsKeyPressed(Feijoa::Key::A))
-				camera.UpdateDirection(Feijoa::PerspectiveSceneCamera::Direction::Left, ts);
-			if (Feijoa::Input::IsKeyPressed(Feijoa::Key::D))
-				camera.UpdateDirection(Feijoa::PerspectiveSceneCamera::Direction::Right, ts);
-			if (Feijoa::Input::IsKeyPressed(Feijoa::Key::Space))
-				camera.UpdateDirection(Feijoa::PerspectiveSceneCamera::Direction::Top, ts);
-			if (Feijoa::Input::IsKeyPressed(Feijoa::Key::LeftShift))
-				camera.UpdateDirection(Feijoa::PerspectiveSceneCamera::Direction::Bottom, ts);
+			if (m_HideCursor)
+			{
+				if (Feijoa::Input::IsKeyPressed(Feijoa::Key::W))
+					camera.UpdateDirection(Feijoa::PerspectiveSceneCamera::Direction::Forward, ts);
+				if (Feijoa::Input::IsKeyPressed(Feijoa::Key::S))
+					camera.UpdateDirection(Feijoa::PerspectiveSceneCamera::Direction::Backward, ts);
+				if (Feijoa::Input::IsKeyPressed(Feijoa::Key::A))
+					camera.UpdateDirection(Feijoa::PerspectiveSceneCamera::Direction::Left, ts);
+				if (Feijoa::Input::IsKeyPressed(Feijoa::Key::D))
+					camera.UpdateDirection(Feijoa::PerspectiveSceneCamera::Direction::Right, ts);
+				if (Feijoa::Input::IsKeyPressed(Feijoa::Key::Space))
+					camera.UpdateDirection(Feijoa::PerspectiveSceneCamera::Direction::Top, ts);
+				if (Feijoa::Input::IsKeyPressed(Feijoa::Key::LeftShift))
+					camera.UpdateDirection(Feijoa::PerspectiveSceneCamera::Direction::Bottom, ts);
+			}
 
 			auto cursor = Feijoa::Input::GetMousePosition();
-			float dx = cursor.x - m_LastX;
-			float dy = m_LastY - cursor.y; // Because y is inverted
+			if (m_HideCursor)
+			{
+				float dx = cursor.x - m_LastX;
+				float dy = m_LastY - cursor.y; // Because y is inverted
+				camera.UpdatePosition(dx * sensitivity, dy * sensitivity);
+			}
 			m_LastX = cursor.x;
 			m_LastY = cursor.y;
-			camera.UpdatePosition(dx, dy);
+		}
+
+		virtual void OnEvent(Feijoa::Event& e)
+		{
+			Feijoa::EventDispatcher dispatcher(e);
+			dispatcher.Dispatch<Feijoa::KeyPressedEvent>([&](Feijoa::KeyPressedEvent& e)
+			{
+				if (e.GetKeyCode() == Feijoa::Key::RightShift)
+					m_HideCursor = !m_HideCursor;
+				FJ_WARN(m_HideCursor);
+
+				return false;
+			});
 		}
 
 	private:
 		float m_LastX = 0, m_LastY = 0;
+		bool m_HideCursor = false;
 	};
 	m_Camera.AddComponent<Feijoa::NativeScriptComponent>().Bind<CameraController>();
 
-	m_SphereModel = m_ActiveScene->CreateEntity("Sphere Model");
-	m_SphereModel.AddComponent<Feijoa::MeshComponent>("assets/models/sphere/scene.gltf");
-	auto& transform = m_SphereModel.GetComponent<Feijoa::TransformComponent>();
-	transform.Translation = { 0.0f, 0.0f, 0.0f };
-	transform.Scale = glm::vec3(0.025f);
+	//m_SphereModel = m_ActiveScene->CreateEntity("Sphere Model");
+	//m_SphereModel.AddComponent<Feijoa::MeshComponent>("assets/models/sphere/scene.gltf");
+	//auto& transform = m_SphereModel.GetComponent<Feijoa::TransformComponent>();
+	//transform.Translation = { 0.0f, 0.0f, 0.0f };
+	//transform.Scale = glm::vec3(0.025f);
+
+	for (uint32_t i = 0; i < 10; i++)
+	{
+		auto model = m_ActiveScene->CreateEntity("Sphere Model" + std::to_string(i));
+		model.AddComponent<Feijoa::MeshComponent>("assets/models/sphere/scene.gltf");
+		auto& transform = model.GetComponent<Feijoa::TransformComponent>();
+		transform.Translation = { 10.0f * i, 0.0f, 0.0f };
+		transform.Scale = glm::vec3(0.50f);
+	}
 }
 
 void Sandbox3D::OnDetach()
@@ -86,6 +116,8 @@ void Sandbox3D::OnEvent(Feijoa::Event& e)
 {
 	Feijoa::EventDispatcher dispatcher(e);
 	dispatcher.Dispatch<Feijoa::WindowResizeEvent>(FJ_BIND_EVENT_FN(Sandbox3D::OnWindowResize));
+
+	m_ActiveScene->OnEvent(e);
 }
 
 void Sandbox3D::OnImGuiRender()

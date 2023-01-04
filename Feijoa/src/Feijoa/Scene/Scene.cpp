@@ -67,7 +67,7 @@ namespace Feijoa
 
 		if (mainCamera)
 		{
-			Renderer2D::BeginScene(mainCamera->GetProjection(), cameraTransform);
+			Renderer2D::BeginScene(*mainCamera, cameraTransform);
 			auto group = m_Registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
 
 			for (auto entity : group)
@@ -104,16 +104,7 @@ namespace Feijoa
 			for (auto entity : group)
 			{
 				auto& [transform, meshComponent] = group.get<TransformComponent, MeshComponent>(entity);
-				for (auto& mesh : meshComponent.Model.GetMeshes())
-				{
-					if (m_Registry.any_of<SpriteRendererComponent>(entity))
-					{
-						auto& src = m_Registry.get<SpriteRendererComponent>(entity);
-						Renderer3D::DrawMesh(transform.GetTransform(), mesh, src.Color);
-					}
-					else
-						Renderer3D::DrawMesh(transform.GetTransform(), mesh);
-				}
+				Renderer3D::DrawMesh(transform.GetTransform(), meshComponent);
 			}
 			Renderer3D::EndScene();
 		}
@@ -160,6 +151,17 @@ namespace Feijoa
 			}
 		}
 		
+	}
+
+	void Scene::OnEvent(Event& e)
+	{
+		m_Registry.view<NativeScriptComponent>().each([&](auto entity, auto& ncs)
+		{
+			if (!ncs.Instance)
+				return;
+
+			ncs.Instance->OnEvent(e);
+		});
 	}
 
 	Entity Scene::GetPrimaryCameraEntity()

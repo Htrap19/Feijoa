@@ -19,6 +19,7 @@ namespace Feijoa
 		virtual void OnCreate() {}
 		virtual void OnDestroy() {}
 		virtual void OnUpdate(Timestep ts) {}
+		virtual void OnEvent(Event& e) {}
 
 	private:
 		Entity m_Entity;
