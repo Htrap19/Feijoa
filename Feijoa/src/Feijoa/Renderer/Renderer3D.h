@@ -3,10 +3,10 @@
 #include "Feijoa/Renderer/PerspectiveCamera.h"
 #include "Feijoa/Renderer/Texture.h"
 #include "Feijoa/Scene/SceneCamera.h"
-#include "Feijoa/Scene/Components.h"
 
 namespace Feijoa
 {
+	struct RenderMesh;
 	struct ModelVertex
 	{
 		glm::vec3 Position;

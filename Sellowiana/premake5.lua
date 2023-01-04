@@ -20,7 +20,7 @@ project "Sellowiana"
 		"%{wks.location}/Feijoa/vendor/",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.entt}",
-		"%{IncludeDir.ImGuizmo}"
+		"%{IncludeDir.ImGuizmo}",
 		"%{IncludeDir.Assimp}"
 	}
 

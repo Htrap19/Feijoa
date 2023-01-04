@@ -4,7 +4,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 Sandbox3D::Sandbox3D()
-	: Layer("Sandbox3D"), m_CameraController({ 0.0f, 0.0f, 0.0f }, 1280.0f / 720.0f)
+	: Layer("Sandbox3D")
 {
 }
 
@@ -60,10 +60,10 @@ void Sandbox3D::OnAttach()
 	m_Camera.AddComponent<Feijoa::NativeScriptComponent>().Bind<CameraController>();
 
 	m_SphereModel = m_ActiveScene->CreateEntity("Sphere Model");
-	m_SphereModel.AddComponent<Feijoa::MeshComponent>("assets/models/stylized_treasure_chest/scene.gltf");
-	auto& transform = m_SphereModel.GetComponent<Feijoa::TransformComponent>().Transform;
-	transform = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f))
-		* glm::scale(glm::mat4(1.0f), glm::vec3(0.025f));
+	m_SphereModel.AddComponent<Feijoa::MeshComponent>("assets/models/sphere/scene.gltf");
+	auto& transform = m_SphereModel.GetComponent<Feijoa::TransformComponent>();
+	transform.Translation = { 0.0f, 0.0f, 0.0f };
+	transform.Scale = glm::vec3(0.025f);
 }
 
 void Sandbox3D::OnDetach()
@@ -75,19 +75,15 @@ void Sandbox3D::OnUpdate(Feijoa::Timestep ts)
 {
 	FJ_PROFILE_FUNCTION();
 
-	m_CameraController.OnUpdate(ts);
-
 	Feijoa::RenderCommand::SetClearColor({ 0.2f, 0.2f, 0.3f, 1.0f });
 	Feijoa::RenderCommand::Clear();
 	Feijoa::Renderer3D::ResetStats();
 
-	m_ActiveScene->OnUpdate(ts);
+	m_ActiveScene->OnUpdateRuntime(ts);
 }
 
 void Sandbox3D::OnEvent(Feijoa::Event& e)
 {
-	m_CameraController.OnEvent(e);
-
 	Feijoa::EventDispatcher dispatcher(e);
 	dispatcher.Dispatch<Feijoa::WindowResizeEvent>(FJ_BIND_EVENT_FN(Sandbox3D::OnWindowResize));
 }

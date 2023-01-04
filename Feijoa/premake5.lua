@@ -50,7 +50,8 @@ project "Feijoa"
 		"Glad",
 		"ImGui",
 		"yaml-cpp",
-		"opengl32.lib"
+		"Assimp",
+		"opengl32.lib",
 	}
 
 	filter "files:vendor/ImGuizmo/**.cpp"

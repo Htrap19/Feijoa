@@ -1,15 +1,14 @@
 #pragma once
 
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-
-#define GLM_ENABLE_EXPERIMENTAL
-#include <glm/gtx/quaternion.hpp>
-
 #include "Feijoa/Scene/SceneCamera.h"
 #include "Feijoa/Scene/ScriptableEntity.h"
 #include "Feijoa/Scene/AssimpEntity.h"
 #include "Feijoa/Renderer/VertexArray.h"
+
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#define GLM_ENABLE_EXPERIMENTAL
+#include <glm/gtx/quaternion.hpp>
 
 namespace Feijoa
 {

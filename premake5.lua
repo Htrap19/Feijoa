@@ -27,7 +27,7 @@ group "Dependencies"
 	include "Feijoa/vendor/Glad"
 	include "Feijoa/vendor/imgui"
 	include "Feijoa/vendor/yaml-cpp"
-
+	include "Feijoa/vendor/Assimp"
 group ""
 
 include "Feijoa"

@@ -1,10 +1,9 @@
 #include "fjpch.h"
 #include "Renderer3D.h"
-
 #include "Feijoa/Renderer/VertexArray.h"
 #include "Feijoa/Renderer/Shader.h"
 #include "Feijoa/Renderer/RenderCommand.h"
-#include <glad/glad.h>
+#include "Feijoa/Scene/Components.h"
 
 namespace Feijoa
 {

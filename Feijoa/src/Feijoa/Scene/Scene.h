@@ -8,7 +8,6 @@
 namespace Feijoa
 {
 	class Entity;
-
 	class Scene
 	{
 	public:

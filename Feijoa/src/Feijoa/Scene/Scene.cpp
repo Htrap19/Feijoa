@@ -109,10 +109,10 @@ namespace Feijoa
 					if (m_Registry.any_of<SpriteRendererComponent>(entity))
 					{
 						auto& src = m_Registry.get<SpriteRendererComponent>(entity);
-						Renderer3D::DrawMesh(transform.Transform, mesh, src.Color);
+						Renderer3D::DrawMesh(transform.GetTransform(), mesh, src.Color);
 					}
 					else
-						Renderer3D::DrawMesh(transform.Transform, mesh);
+						Renderer3D::DrawMesh(transform.GetTransform(), mesh);
 				}
 			}
 			Renderer3D::EndScene();
@@ -178,7 +178,7 @@ namespace Feijoa
 	template <typename T>
 	void Scene::OnComponentAdded(Entity entity, T& component)
 	{
-		static_assert(false);
+		FJ_CORE_ASSERT(false, "Unknown component!");
 	}
 
 	template <>
@@ -204,6 +204,16 @@ namespace Feijoa
 
 	template <>
 	void Scene::OnComponentAdded(Entity entity, NativeScriptComponent& component)
+	{
+	}
+
+	template <>
+	void Scene::OnComponentAdded(Entity entity, MeshComponent& component)
+	{
+	}
+
+	template <>
+	void Scene::OnComponentAdded(Entity entity, PerspectiveCameraComponent& component)
 	{
 	}
 }

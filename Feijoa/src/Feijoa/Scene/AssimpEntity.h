@@ -1,14 +1,15 @@
 #pragma once
 
 #include "Feijoa/Scene/Entity.h"
-#include <assimp/scene.h>
-#include <glm/glm.hpp>
 #include "Feijoa/Renderer/VertexArray.h"
 #include "Feijoa/Renderer/Texture.h"
+#include "Feijoa/Renderer/Renderer3D.h"
+
+#include <assimp/scene.h>
+#include <glm/glm.hpp>
 
 namespace Feijoa
 {
-	struct ModelVertex;
 	struct RenderMesh
 	{
 		std::vector<ModelVertex> Vertices;

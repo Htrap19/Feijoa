@@ -3,8 +3,6 @@
 
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
-#include "Feijoa/Scene/Components.h"
-#include "Feijoa/Renderer/Renderer3D.h"
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace Feijoa

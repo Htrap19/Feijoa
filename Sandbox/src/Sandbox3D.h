@@ -21,7 +21,7 @@ private:
 	bool OnWindowResize(Feijoa::WindowResizeEvent& e);
 
 private:
-	Feijoa::PerspectiveCameraController m_CameraController;
+	//Feijoa::PerspectiveCameraController m_CameraController;
 
 	Feijoa::Ref<Feijoa::Texture2D> m_CheckerboardTexture;
 	Feijoa::Ref<Feijoa::Scene> m_ActiveScene;
